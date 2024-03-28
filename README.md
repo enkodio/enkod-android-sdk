@@ -2,8 +2,8 @@
 
 Перед добавлением и использованием библиотеки **enkodio:androidsdk** рекомендуем ознакомиться:
 
-- с README Firebase Cloud Messaging
-- с Additional SDK
+- с [README Firebase Cloud Messaging](<README Firebase Cloud Messaging.md>)
+- с [Additional SDK](<Additional SDK.md>)
 
 ## Инициализация библиотеки и добавления контакта
 
