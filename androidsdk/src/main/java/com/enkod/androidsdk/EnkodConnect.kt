@@ -1,18 +1,18 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.isAppInforegrounded
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.logInfo
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.startTokenManualUpdateObserver
-import com.enkod.enkodpushlibrary.Preferences.START_AUTO_UPDATE_TAG
-import com.enkod.enkodpushlibrary.Preferences.TAG
-import com.enkod.enkodpushlibrary.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
-import com.enkod.enkodpushlibrary.Preferences.USING_FCM
-import com.enkod.enkodpushlibrary.Variables.defaultTimeAutoUpdateToken
-import com.enkod.enkodpushlibrary.Variables.defaultTimeManualUpdateToken
-import com.enkod.enkodpushlibrary.Variables.millisInHours
+import com.enkod.androidsdk.EnKodSDK.isAppInforegrounded
+import com.enkod.androidsdk.EnKodSDK.logInfo
+import com.enkod.androidsdk.EnKodSDK.startTokenManualUpdateObserver
+import com.enkod.androidsdk.Preferences.START_AUTO_UPDATE_TAG
+import com.enkod.androidsdk.Preferences.TAG
+import com.enkod.androidsdk.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
+import com.enkod.androidsdk.Preferences.USING_FCM
+import com.enkod.androidsdk.Variables.defaultTimeAutoUpdateToken
+import com.enkod.androidsdk.Variables.defaultTimeManualUpdateToken
+import com.enkod.androidsdk.Variables.millisInHours
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -72,9 +72,9 @@ class EnkodConnect(
                     .putBoolean(USING_FCM, true)
                     .apply()
 
-                if (EnkodPushLibrary.isOnline(context)) {
+                if (EnKodSDK.isOnline(context)) {
 
-                    EnkodPushLibrary.isOnlineStatus(true)
+                    EnKodSDK.isOnlineStatus(true)
 
                     try {
 
@@ -113,7 +113,7 @@ class EnkodConnect(
 
                             }
 
-                            EnkodPushLibrary.init(context, account, token)
+                            EnKodSDK.init(context, account, token)
 
                             logInfo("start library with fcm")
 
@@ -121,7 +121,7 @@ class EnkodConnect(
 
                     } catch (e: Exception) {
 
-                        EnkodPushLibrary.init(context, account)
+                        EnKodSDK.init(context, account)
 
                         logInfo("the library started using fcm with an error")
 
@@ -129,7 +129,7 @@ class EnkodConnect(
 
                 } else {
 
-                    EnkodPushLibrary.isOnlineStatus(false)
+                    EnKodSDK.isOnlineStatus(false)
 
                     logInfo("error internet")
                 }
@@ -142,14 +142,14 @@ class EnkodConnect(
                     .putBoolean(USING_FCM, false)
                     .apply()
 
-                if (EnkodPushLibrary.isOnline(context)) {
-                    EnkodPushLibrary.isOnlineStatus(true)
-                    EnkodPushLibrary.init(context, account)
+                if (EnKodSDK.isOnline(context)) {
+                    EnKodSDK.isOnlineStatus(true)
+                    EnKodSDK.init(context, account)
                     logInfo("start library without fcm")
                 }
                 else {
 
-                    EnkodPushLibrary.isOnlineStatus(false)
+                    EnKodSDK.isOnlineStatus(false)
                     logInfo("error internet")
                 }
             }
@@ -165,7 +165,7 @@ class EnkodConnect(
 
         if (isAppInforegrounded()) {
 
-            if (EnkodPushLibrary.isOnline(context)) {
+            if (EnKodSDK.isOnline(context)) {
 
                 if (timeLastTokenUpdate > 0) {
 

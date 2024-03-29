@@ -1,4 +1,4 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -39,26 +39,26 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.logInfo
-import com.enkod.enkodpushlibrary.Preferences.ACCOUNT_TAG
-import com.enkod.enkodpushlibrary.Preferences.DEV_TAG
-import com.enkod.enkodpushlibrary.Preferences.MESSAGEID_TAG
-import com.enkod.enkodpushlibrary.Preferences.SESSION_ID_TAG
-import com.enkod.enkodpushlibrary.Preferences.START_AUTO_UPDATE_TAG
-import com.enkod.enkodpushlibrary.Preferences.TAG
-import com.enkod.enkodpushlibrary.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
-import com.enkod.enkodpushlibrary.Preferences.TIME_TOKEN_AUTO_UPDATE_TAG
-import com.enkod.enkodpushlibrary.Preferences.TOKEN_TAG
-import com.enkod.enkodpushlibrary.Preferences.USING_FCM
-import com.enkod.enkodpushlibrary.Variables.body
-import com.enkod.enkodpushlibrary.Variables.ledColor
-import com.enkod.enkodpushlibrary.Variables.ledOffMs
-import com.enkod.enkodpushlibrary.Variables.ledOnMs
-import com.enkod.enkodpushlibrary.Variables.messageId
-import com.enkod.enkodpushlibrary.Variables.personId
-import com.enkod.enkodpushlibrary.Variables.soundOn
-import com.enkod.enkodpushlibrary.Variables.title
-import com.enkod.enkodpushlibrary.Variables.vibrationOn
+import com.enkod.androidsdk.EnKodSDK.logInfo
+import com.enkod.androidsdk.Preferences.ACCOUNT_TAG
+import com.enkod.androidsdk.Preferences.DEV_TAG
+import com.enkod.androidsdk.Preferences.MESSAGEID_TAG
+import com.enkod.androidsdk.Preferences.SESSION_ID_TAG
+import com.enkod.androidsdk.Preferences.START_AUTO_UPDATE_TAG
+import com.enkod.androidsdk.Preferences.TAG
+import com.enkod.androidsdk.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
+import com.enkod.androidsdk.Preferences.TIME_TOKEN_AUTO_UPDATE_TAG
+import com.enkod.androidsdk.Preferences.TOKEN_TAG
+import com.enkod.androidsdk.Preferences.USING_FCM
+import com.enkod.androidsdk.Variables.body
+import com.enkod.androidsdk.Variables.ledColor
+import com.enkod.androidsdk.Variables.ledOffMs
+import com.enkod.androidsdk.Variables.ledOnMs
+import com.enkod.androidsdk.Variables.messageId
+import com.enkod.androidsdk.Variables.personId
+import com.enkod.androidsdk.Variables.soundOn
+import com.enkod.androidsdk.Variables.title
+import com.enkod.androidsdk.Variables.vibrationOn
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
@@ -79,7 +79,7 @@ import java.util.Random
 import java.util.concurrent.TimeUnit
 
 
-object EnkodPushLibrary {
+object EnKodSDK {
 
     private const val baseUrl = "https://ext.enkod.ru/"
     internal const val chanelEnkod = "enkod_lib_1"
@@ -429,11 +429,11 @@ object EnkodPushLibrary {
 
                 val req = JsonObject()
 
-                if (!email.isNullOrEmpty() && !phone.isNullOrEmpty()) {
+                if (email.isNotEmpty() && phone.isNotEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("email"))
-                } else if (!email.isNullOrEmpty() && phone.isNullOrEmpty()) {
+                } else if (email.isNotEmpty() && phone.isEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("email"))
-                } else if (email.isNullOrEmpty() && !phone.isNullOrEmpty()) {
+                } else if (email.isEmpty() && phone.isNotEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("phone"))
                 }
 
@@ -452,11 +452,11 @@ object EnkodPushLibrary {
                     }
                 }
 
-                if (!email.isNullOrEmpty()) {
+                if (email.isNotEmpty()) {
                     fileds.addProperty("email", email)
                 }
 
-                if (!phone.isNullOrEmpty()) {
+                if (phone.isNotEmpty()) {
                     fileds.addProperty("phone", phone)
                 }
 
@@ -608,7 +608,7 @@ object EnkodPushLibrary {
         val preferencesUsingFcm: Boolean? =
             preferences.getBoolean(USING_FCM, false)
 
-        if (preferencesUsingFcm != null && preferencesUsingFcm == true) {
+        if (preferencesUsingFcm == true) {
 
             FirebaseMessaging.getInstance().deleteToken()
 
@@ -1231,7 +1231,7 @@ class LoadImageWorker(context: Context, workerParameters: WorkerParameters) :
 
             val message = inputData.keyValueMap as Map<String, String>
 
-            EnkodPushLibrary.managingTheNotificationCreationProcess(applicationContext, message)
+            EnKodSDK.managingTheNotificationCreationProcess(applicationContext, message)
 
             Result.success()
         } catch (e: Exception) {

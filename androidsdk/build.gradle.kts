@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.enkod.enkodpushlibrary"
+    namespace = "com.enkod.androidsdk"
     compileSdk = 34
 
     defaultConfig {
@@ -67,4 +67,17 @@ dependencies {
 
 }
 
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.github.AndreyWeather"
+            artifactId = "EnkodPushLibrary"
+            version = "1.0.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
 

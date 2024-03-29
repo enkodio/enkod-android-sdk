@@ -1,12 +1,12 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 data class Product(
     var id: String?,
-    var categoryId: String?,
-    var count: Int?,
-    var price: String?,
-    var picture: String?,
-    var params: Map <String, Any>? = null
+    var categoryId: String? = null,
+    var count: Int? = null,
+    var price: String? = null,
+    var picture: String? = null,
+    var params: Map<String, Any>? = null
 )
 
 data class Order(
@@ -14,7 +14,7 @@ data class Order(
     var id: String?,
     var count: Int?,
     var price: String?,
-    var params: Map <String, Any>? = null
+    var params: Map<String, Any>? = null
 
 )
 

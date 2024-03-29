@@ -1,4 +1,4 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 import android.util.Log
 import com.google.gson.JsonArray
@@ -55,7 +55,7 @@ object Tracking {
 
                     }
                 } catch (e: Exception) {
-                    EnkodPushLibrary.logInfo("error createMapHistory $e")
+                    EnKodSDK.logInfo("error createMapHistory $e")
                 }
             }
         }
@@ -72,7 +72,7 @@ object Tracking {
 
         var initLib = false
 
-        EnkodPushLibrary.initLibObserver.observable.subscribe { init ->
+        EnKodSDK.initLibObserver.observable.subscribe { init ->
 
             initLib = init
 
@@ -103,9 +103,9 @@ object Tracking {
 
                 Log.d("req", req.toString())
 
-                EnkodPushLibrary.retrofit.addToCart(
-                    EnkodPushLibrary.getClientName(),
-                    EnkodPushLibrary.getSession(),
+                EnKodSDK.retrofit.addToCart(
+                    EnKodSDK.getClientName(),
+                    EnKodSDK.getSession(),
                     req
                 ).enqueue(object : Callback<Unit> {
                     override fun onResponse(
@@ -113,14 +113,14 @@ object Tracking {
                         response: Response<Unit>
                     ) {
                         val msg = "add to cart success"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
 
                     }
 
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
                         val msg = "error when adding product to cart: ${t.localizedMessage}"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
                         onErrorCallback(msg)
                     }
@@ -133,7 +133,7 @@ object Tracking {
 
         var initLib = false
 
-        EnkodPushLibrary.initLibObserver.observable.subscribe { init ->
+        EnKodSDK.initLibObserver.observable.subscribe { init ->
 
             initLib = init
 
@@ -164,9 +164,9 @@ object Tracking {
 
                 Log.d("req", req.toString())
 
-                EnkodPushLibrary.retrofit.addToCart(
-                    EnkodPushLibrary.getClientName(),
-                    EnkodPushLibrary.getSession(),
+                EnKodSDK.retrofit.addToCart(
+                    EnKodSDK.getClientName(),
+                    EnKodSDK.getSession(),
                     req
                 ).enqueue(object : Callback<Unit> {
                     override fun onResponse(
@@ -174,14 +174,14 @@ object Tracking {
                         response: Response<Unit>
                     ) {
                         val msg = "remove from cart success"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
 
                     }
 
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
                         val msg = "error when adding product to cart: ${t.localizedMessage}"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
                         onErrorCallback(msg)
                     }
@@ -195,7 +195,7 @@ object Tracking {
 
         var initLib = false
 
-        EnkodPushLibrary.initLibObserver.observable.subscribe { init ->
+        EnKodSDK.initLibObserver.observable.subscribe { init ->
 
             initLib = init
 
@@ -228,9 +228,9 @@ object Tracking {
                 Log.d("req", req.toString())
 
 
-                EnkodPushLibrary.retrofit.addToFavourite(
-                    EnkodPushLibrary.getClientName(),
-                    EnkodPushLibrary.getSession(),
+                EnKodSDK.retrofit.addToFavourite(
+                    EnKodSDK.getClientName(),
+                    EnKodSDK.getSession(),
                     req
                 ).enqueue(object : Callback<Unit> {
                     override fun onResponse(
@@ -239,7 +239,7 @@ object Tracking {
                     ) {
 
                         val msg = "add to favourite success"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
 
                     }
@@ -247,7 +247,7 @@ object Tracking {
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
                         Log.d("Favourite", "${t.localizedMessage}")
                         val msg = "error when adding product to cart: ${t.localizedMessage}"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
                         onErrorCallback(msg)
                     }
@@ -262,7 +262,7 @@ object Tracking {
 
         var initLib = false
 
-        EnkodPushLibrary.initLibObserver.observable.subscribe { init ->
+        EnKodSDK.initLibObserver.observable.subscribe { init ->
 
             initLib = init
 
@@ -295,9 +295,9 @@ object Tracking {
                 Log.d("req", req.toString())
 
 
-                EnkodPushLibrary.retrofit.addToFavourite(
-                    EnkodPushLibrary.getClientName(),
-                    EnkodPushLibrary.getSession(),
+                EnKodSDK.retrofit.addToFavourite(
+                    EnKodSDK.getClientName(),
+                    EnKodSDK.getSession(),
                     req
                 ).enqueue(object : Callback<Unit> {
                     override fun onResponse(
@@ -305,14 +305,14 @@ object Tracking {
                         response: Response<Unit>
                     ) {
                         val msg = "remove from favourite success"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
 
                     }
 
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
                         val msg = "error when adding product to cart: ${t.localizedMessage}"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
                         onErrorCallback(msg)
                     }
@@ -332,7 +332,7 @@ object Tracking {
 
         var initLib = false
 
-        EnkodPushLibrary.initLibObserver.observable.subscribe { init ->
+        EnKodSDK.initLibObserver.observable.subscribe { init ->
 
             initLib = init
 
@@ -385,7 +385,7 @@ object Tracking {
 
                                     }
                                 } catch (e: Exception) {
-                                    EnkodPushLibrary.logInfo("error createMapHistory $e")
+                                    EnKodSDK.logInfo("error createMapHistory $e")
                                 }
                             }
                         }
@@ -445,7 +445,7 @@ object Tracking {
 
                             }
                         } catch (e: Exception) {
-                            EnkodPushLibrary.logInfo("error createMapHistory $e")
+                            EnKodSDK.logInfo("error createMapHistory $e")
                         }
                     }
                 }
@@ -462,20 +462,20 @@ object Tracking {
                 add("orderInfo", orderInfo)
             }
             Log.d("buy", req.toString())
-            EnkodPushLibrary.retrofit.order(
-                EnkodPushLibrary.getClientName(),
-                EnkodPushLibrary.getSession(),
+            EnKodSDK.retrofit.order(
+                EnKodSDK.getClientName(),
+                EnKodSDK.getSession(),
                 req
             ).enqueue(object : Callback<Unit> {
                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                     val msg = "buying ok"
-                    EnkodPushLibrary.logInfo(msg)
+                    EnKodSDK.logInfo(msg)
                     onProductActionCallback(msg)
                 }
 
                 override fun onFailure(call: Call<Unit>, t: Throwable) {
                     val msg = "error when buying: ${t.localizedMessage}"
-                    EnkodPushLibrary.logInfo(msg)
+                    EnKodSDK.logInfo(msg)
                     onProductActionCallback(msg)
                     onErrorCallback(msg)
                 }
@@ -488,7 +488,7 @@ object Tracking {
     fun productOpen(product: Product) {
         var initLib = false
 
-        EnkodPushLibrary.initLibObserver.observable.subscribe { init ->
+        EnKodSDK.initLibObserver.observable.subscribe { init ->
 
             initLib = init
 
@@ -516,21 +516,21 @@ object Tracking {
 
                 Log.d("open", req.toString())
 
-                EnkodPushLibrary.retrofit.productOpen(
-                    EnkodPushLibrary.getClientName(),
-                    EnkodPushLibrary.getSession(),
+                EnKodSDK.retrofit.productOpen(
+                    EnKodSDK.getClientName(),
+                    EnKodSDK.getSession(),
                     req
 
                 ).enqueue(object : Callback<Unit> {
                     override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                         val msg = "product opened"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
                     }
 
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
                         val msg = "error when saving product open: ${t.localizedMessage}"
-                        EnkodPushLibrary.logInfo(msg)
+                        EnKodSDK.logInfo(msg)
                         onProductActionCallback(msg)
                         onErrorCallback(msg)
                     }

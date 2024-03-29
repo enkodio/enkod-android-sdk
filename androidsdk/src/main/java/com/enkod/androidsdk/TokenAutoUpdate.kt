@@ -1,4 +1,4 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 
 import android.content.Context
@@ -9,15 +9,15 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.initPreferences
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.initRetrofit
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.isAppInforegrounded
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.logInfo
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.startTokenAutoUpdateObserver
-import com.enkod.enkodpushlibrary.Preferences.TAG
-import com.enkod.enkodpushlibrary.Variables.defaultTimeAutoUpdateToken
-import com.enkod.enkodpushlibrary.Variables.millisInHours
-import com.enkod.enkodpushlibrary.VerificationOfTokenCompliance.startVerificationTokenUsingWorkManager
+import com.enkod.androidsdk.EnKodSDK.initPreferences
+import com.enkod.androidsdk.EnKodSDK.initRetrofit
+import com.enkod.androidsdk.EnKodSDK.isAppInforegrounded
+import com.enkod.androidsdk.EnKodSDK.logInfo
+import com.enkod.androidsdk.EnKodSDK.startTokenAutoUpdateObserver
+import com.enkod.androidsdk.Preferences.TAG
+import com.enkod.androidsdk.Variables.defaultTimeAutoUpdateToken
+import com.enkod.androidsdk.Variables.millisInHours
+import com.enkod.androidsdk.VerificationOfTokenCompliance.startVerificationTokenUsingWorkManager
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.concurrent.TimeUnit
 
@@ -72,7 +72,7 @@ internal object TokenAutoUpdate {
 
                 if (isAppInforegrounded()) {
 
-                    EnkodPushLibrary.startTokenManualUpdateObserver.observable.subscribe {start ->
+                    EnKodSDK.startTokenManualUpdateObserver.observable.subscribe { start ->
                        when (start) {
                            true -> {
                                logInfo("auto update canceled manual update activated")
@@ -132,7 +132,7 @@ internal object TokenAutoUpdate {
 
                                             val token = task.result
 
-                                            EnkodPushLibrary.init(
+                                            EnKodSDK.init(
                                                 context,
                                                 preferencesAcc,
                                                 token

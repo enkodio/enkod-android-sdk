@@ -1,4 +1,4 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -22,8 +22,8 @@ class OnOpenActivity : AppCompatActivity() {
         intent?.apply {
             val bundle = getIntent().extras
             if (bundle != null) {
-                Log.i("handleExtras", "${intent.getStringExtra(EnkodPushLibrary.intentName)} $${intent.getStringExtra(EnkodPushLibrary.url)}")
-                EnkodPushLibrary.handleExtras(this@OnOpenActivity, bundle)
+                Log.i("handleExtras", "${intent.getStringExtra(EnKodSDK.intentName)} $${intent.getStringExtra(EnKodSDK.url)}")
+                EnKodSDK.handleExtras(this@OnOpenActivity, bundle)
 
             }
         }

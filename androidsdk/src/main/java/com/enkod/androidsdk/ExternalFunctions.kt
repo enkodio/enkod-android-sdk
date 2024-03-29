@@ -1,4 +1,4 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 import android.app.NotificationChannel
 import android.content.Context
@@ -9,10 +9,10 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.defaultIconId
-import com.enkod.enkodpushlibrary.Variables.actionButtonIntent
-import com.enkod.enkodpushlibrary.Variables.actionButtonText
-import com.enkod.enkodpushlibrary.Variables.actionButtonsUrl
+import com.enkod.androidsdk.EnKodSDK.defaultIconId
+import com.enkod.androidsdk.Variables.actionButtonIntent
+import com.enkod.androidsdk.Variables.actionButtonText
+import com.enkod.androidsdk.Variables.actionButtonsUrl
 import java.util.*
 
 
@@ -21,7 +21,7 @@ internal fun NotificationCompat.Builder.setIcon(context: Context, data: String?)
 
     if (data != null){
 
-        val resID = EnkodPushLibrary.getResourceId(context, data, "drawable", context.packageName)
+        val resID = EnKodSDK.getResourceId(context, data, "drawable", context.packageName)
         if(resID > 0){
             setSmallIcon(resID)
         }else {
@@ -48,7 +48,7 @@ private fun Context.getResourceFromMeta(path: String, default: Int): Int {
 internal fun NotificationCompat.Builder.setVibrate(boolean: Boolean): NotificationCompat.Builder {
     if(boolean){
 
-        setVibrate(EnkodPushLibrary.vibrationPattern)
+        setVibrate(EnKodSDK.vibrationPattern)
     }else {
 
         setVibrate(longArrayOf())
@@ -113,7 +113,7 @@ internal fun NotificationCompat.Builder.addActions(context: Context, map: Map<St
         if(map.containsKey("${actionButtonText}$i")) {
 
 
-            val intent = EnkodPushLibrary.getIntent(
+            val intent = EnKodSDK.getIntent(
                 context = context,
                 data = map,
                 field = map["${actionButtonIntent}$i"] ?: "",

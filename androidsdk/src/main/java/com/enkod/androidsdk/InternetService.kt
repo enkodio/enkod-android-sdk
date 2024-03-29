@@ -1,4 +1,4 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 import android.app.Service
 import android.content.Intent
@@ -6,9 +6,9 @@ import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.createdNotificationForService
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.logInfo
-import com.enkod.enkodpushlibrary.Variables.defaultImageLoadTimeout
+import com.enkod.androidsdk.EnKodSDK.createdNotificationForService
+import com.enkod.androidsdk.EnKodSDK.logInfo
+import com.enkod.androidsdk.Variables.defaultImageLoadTimeout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -33,7 +33,7 @@ class InternetService : Service() {
 
         var startAutoUpdateToken = false
 
-        EnkodPushLibrary.startTokenAutoUpdateObserver.observable.subscribe { start ->
+        EnKodSDK.startTokenAutoUpdateObserver.observable.subscribe { start ->
 
             if (start) {
 
@@ -42,7 +42,7 @@ class InternetService : Service() {
         }
 
 
-        EnkodPushLibrary.pushLoadObserver.observable.subscribe {completed ->
+        EnKodSDK.pushLoadObserver.observable.subscribe { completed ->
 
             if (completed) {
 
@@ -58,7 +58,7 @@ class InternetService : Service() {
 
                     else -> {
 
-                        EnkodPushLibrary.initLibObserver.observable.subscribe { update ->
+                        EnKodSDK.initLibObserver.observable.subscribe { update ->
 
                             if (update) {
 

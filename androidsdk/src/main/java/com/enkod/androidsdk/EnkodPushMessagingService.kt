@@ -1,4 +1,4 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,13 +9,13 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.creatureInputDataFromMessage
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.isAppInforegrounded
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.logInfo
-import com.enkod.enkodpushlibrary.EnkodPushLibrary.managingTheNotificationCreationProcess
-import com.enkod.enkodpushlibrary.Preferences.MESSAGEID_TAG
-import com.enkod.enkodpushlibrary.Preferences.TAG
-import com.enkod.enkodpushlibrary.Variables.messageId
+import com.enkod.androidsdk.EnKodSDK.creatureInputDataFromMessage
+import com.enkod.androidsdk.EnKodSDK.isAppInforegrounded
+import com.enkod.androidsdk.EnKodSDK.logInfo
+import com.enkod.androidsdk.EnKodSDK.managingTheNotificationCreationProcess
+import com.enkod.androidsdk.Preferences.MESSAGEID_TAG
+import com.enkod.androidsdk.Preferences.TAG
+import com.enkod.androidsdk.Variables.messageId
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -32,7 +32,7 @@ class EnkodPushMessagingService : FirebaseMessagingService() {
 
     override fun onDeletedMessages() {
 
-        EnkodPushLibrary.onDeletedMessage()
+        EnKodSDK.onDeletedMessage()
     }
 
 
@@ -45,7 +45,7 @@ class EnkodPushMessagingService : FirebaseMessagingService() {
         val preferencesUsingFcm: Boolean? =
             preferences.getBoolean(Preferences.USING_FCM, false)
 
-        if (preferencesUsingFcm != null && preferencesUsingFcm == true) {
+        if (preferencesUsingFcm == true) {
 
             logInfo("message.priority ${message.priority}")
 

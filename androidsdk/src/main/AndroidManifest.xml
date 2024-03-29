@@ -17,7 +17,7 @@
 
 
         <service
-            android:name="com.enkod.enkodpushlibrary.TokenManualUpdateService"
+            android:name="com.enkod.androidsdk.TokenManualUpdateService"
             android:enabled="true"
             android:exported="false"
             android:usesCleartextTraffic="true"
@@ -27,13 +27,13 @@
 
 
         <service
-            android:name="com.enkod.enkodpushlibrary.InternetService"
+            android:name="com.enkod.androidsdk.InternetService"
             android:enabled="true"
             android:exported="true" />
 
 
         <activity
-            android:name="com.enkod.enkodpushlibrary.OnOpenActivity"
+            android:name="com.enkod.androidsdk.OnOpenActivity"
             android:exported="true"
             android:usesCleartextTraffic="true">
             <intent-filter>
@@ -44,7 +44,7 @@
         </activity>
 
         <service
-            android:name="com.enkod.enkodpushlibrary.EnkodPushMessagingService"
+            android:name="com.enkod.androidsdk.EnkodPushMessagingService"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true"

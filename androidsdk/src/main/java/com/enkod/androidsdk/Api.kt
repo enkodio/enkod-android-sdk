@@ -1,4 +1,4 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 import com.google.gson.JsonObject
 import retrofit2.Call

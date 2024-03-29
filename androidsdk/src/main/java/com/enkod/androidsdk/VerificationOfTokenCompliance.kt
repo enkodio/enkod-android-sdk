@@ -1,4 +1,4 @@
-package com.enkod.enkodpushlibrary
+package com.enkod.androidsdk
 
 import android.content.Context
 import android.os.Build
@@ -10,7 +10,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.enkod.enkodpushlibrary.Variables.defaultTimeVerificationToken
+import com.enkod.androidsdk.Variables.defaultTimeVerificationToken
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
@@ -23,7 +23,7 @@ internal object VerificationOfTokenCompliance {
     
     internal fun startVerificationTokenUsingWorkManager (context: Context) {
 
-        EnkodPushLibrary.logInfo("start verification function using workManager")
+        EnKodSDK.logInfo("start verification function using workManager")
 
         val constraint =
             Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
@@ -62,7 +62,7 @@ internal object VerificationOfTokenCompliance {
         override fun doWork(): Result {
 
 
-            EnkodPushLibrary.logInfo("verification in process using workManager")
+            EnKodSDK.logInfo("verification in process using workManager")
 
             preparationVerification(applicationContext)
 
@@ -76,8 +76,8 @@ internal object VerificationOfTokenCompliance {
 
     fun preparationVerification (context: Context) {
 
-        EnkodPushLibrary.initPreferences(context)
-        EnkodPushLibrary.initRetrofit(context)
+        EnKodSDK.initPreferences(context)
+        EnKodSDK.initRetrofit(context)
 
         val preferences =
             context.getSharedPreferences(Preferences.TAG, Context.MODE_PRIVATE)
@@ -110,7 +110,7 @@ internal object VerificationOfTokenCompliance {
 
             } catch (e: Exception) {
 
-                EnkodPushLibrary.logInfo("error in verification preparation: $e")
+                EnKodSDK.logInfo("error in verification preparation: $e")
 
             }
         }
@@ -128,7 +128,7 @@ internal object VerificationOfTokenCompliance {
         val account = account ?: ""
         val session = session ?: ""
 
-        EnkodPushLibrary.retrofit.getToken(
+        EnKodSDK.retrofit.getToken(
             account,
             session
         ).enqueue(object : Callback<GetTokenResponse> {
@@ -156,13 +156,13 @@ internal object VerificationOfTokenCompliance {
                                 .cancelUniqueWork("verificationOfTokenWorker")
 
 
-                            EnkodPushLibrary.logInfo("token verification true")
+                            EnKodSDK.logInfo("token verification true")
 
                         } else {
 
-                            EnkodPushLibrary.init(context, account, currentToken)
+                            EnKodSDK.init(context, account, currentToken)
 
-                            EnkodPushLibrary.logInfo("token verification false reload Enkod library")
+                            EnKodSDK.logInfo("token verification false reload Enkod library")
 
                         }
                     }
@@ -171,7 +171,7 @@ internal object VerificationOfTokenCompliance {
 
             override fun onFailure(call: Call<GetTokenResponse>, t: Throwable) {
 
-                EnkodPushLibrary.logInfo("token verification error retrofit $t")
+                EnKodSDK.logInfo("token verification error retrofit $t")
 
                 return
 
