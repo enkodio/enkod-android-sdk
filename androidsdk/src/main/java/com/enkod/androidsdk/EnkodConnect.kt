@@ -58,7 +58,7 @@ class EnkodConnect(
 
     fun start(context: Context) {
 
-        logInfo( "user settings: $account, $tokenManualUpdate, $tokenAutoUpdate, $timeTokenManualUpdate, $timeTokenAutoUpdate")
+        logInfo("user settings: account: $account, fcm: $usingFcm, tokenMU: $tokenManualUpdate, tokenAU: $tokenAutoUpdate, timeMU: $timeTokenManualUpdate, timeAU: $timeTokenAutoUpdate")
 
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
         val preferencesStartTokenAutoUpdate = preferences.getString(START_AUTO_UPDATE_TAG, null)
@@ -78,46 +78,50 @@ class EnkodConnect(
 
                     try {
 
-                        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                            if (!task.isSuccessful) {
+                        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+                            OnCompleteListener { task ->
+                                if (!task.isSuccessful) {
 
-                                return@OnCompleteListener
-                            }
+                                    return@OnCompleteListener
+                                }
 
-                            val token = task.result
+                                val token = task.result
 
-                            if (preferencesStartTokenAutoUpdate == null && tokenAutoUpdate) {
+                                if (preferencesStartTokenAutoUpdate == null && tokenAutoUpdate) {
 
-                                preferences.edit()
+                                    preferences.edit()
 
-                                    .putInt(Preferences.TIME_TOKEN_AUTO_UPDATE_TAG, timeTokenAutoUpdate)
-                                    .apply()
+                                        .putInt(
+                                            Preferences.TIME_TOKEN_AUTO_UPDATE_TAG,
+                                            timeTokenAutoUpdate
+                                        )
+                                        .apply()
 
 
-                                TokenAutoUpdate.startTokenAutoUpdateUsingWorkManager(
-                                    context,
-                                    timeTokenAutoUpdate
-                                )
+                                    TokenAutoUpdate.startTokenAutoUpdateUsingWorkManager(
+                                        context,
+                                        timeTokenAutoUpdate
+                                    )
 
-                                preferences.edit()
+                                    preferences.edit()
 
-                                    .putString(START_AUTO_UPDATE_TAG, Variables.start)
-                                    .apply()
-                            }
+                                        .putString(START_AUTO_UPDATE_TAG, Variables.start)
+                                        .apply()
+                                }
 
-                            if (tokenManualUpdate) {
+                                if (tokenManualUpdate) {
 
-                                startTokenManualUpdateObserver.value = false
+                                    startTokenManualUpdateObserver.value = false
 
-                                tokenUpdate(context, timeTokenManualUpdate)
+                                    tokenUpdate(context, timeTokenManualUpdate)
 
-                            }
+                                }
 
-                            EnKodSDK.init(context, account, token)
+                                EnKodSDK.init(context, account, token)
 
-                            logInfo("start library with fcm")
+                                logInfo("start library with fcm")
 
-                        })
+                            })
 
                     } catch (e: Exception) {
 
@@ -146,8 +150,7 @@ class EnkodConnect(
                     EnKodSDK.isOnlineStatus(true)
                     EnKodSDK.init(context, account)
                     logInfo("start library without fcm")
-                }
-                else {
+                } else {
 
                     EnKodSDK.isOnlineStatus(false)
                     logInfo("error internet")

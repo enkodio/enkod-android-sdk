@@ -82,20 +82,25 @@ import java.util.concurrent.TimeUnit
 object EnKodSDK {
 
     private const val baseUrl = "https://ext.enkod.ru/"
-    internal const val chanelEnkod = "enkod_lib_1"
 
-    internal var isOnline = true
-
+    private const val chanelEnkod = "enkod_lib_1"
+    private var isOnline = true
 
     private var account: String? = null
     private var token: String? = null
     private var sessionId: String? = null
 
+    private var email = ""
+    private var phone = ""
+    private var contactParams: Map<String, String>? = null
+
+    private var addContactRequest = false
+
     internal var intentName = "intent"
     internal var url: String = "url"
 
     internal val vibrationPattern = longArrayOf(1500, 500)
-    internal val defaultIconId: Int = R.drawable.ic_launcher_foreground
+    internal val defaultIconId: Int = R.drawable.default_label
 
     internal val initLibObserver = InitLibObserver(false)
     internal val pushLoadObserver = PushLoadObserver(false)
@@ -393,6 +398,13 @@ object EnKodSDK {
 
                 initLibObserver.value = true
 
+                if (addContactRequest == true) {
+
+                    addContact(email, phone, contactParams)
+
+                    addContactRequest = false
+
+                }
             }
 
             override fun onFailure(call: Call<UpdateTokenResponse>, t: Throwable) {
@@ -419,11 +431,11 @@ object EnKodSDK {
 
         }
 
+        this.email = email
+        this.phone = phone
+        contactParams = params
+
         if (initLib) {
-
-            Log.d("observable", "ok")
-
-            Log.d("observable", "in contact")
 
             if (isOnline) {
 
@@ -490,6 +502,8 @@ object EnKodSDK {
             } else {
                 logInfo("error add contact no Internet")
             }
+        } else {
+            addContactRequest = true
         }
     }
 
@@ -620,6 +634,11 @@ object EnKodSDK {
         account = ""
         preferences.edit().remove(TOKEN_TAG).apply()
         token = ""
+
+        email = ""
+        phone = ""
+        addContactRequest = false
+        contactParams = null
 
         preferences.edit().remove(USING_FCM).apply()
         preferences.edit().remove(TIME_LAST_TOKEN_UPDATE_TAG).apply()
@@ -754,8 +773,7 @@ object EnKodSDK {
         val builder = Notification.Builder(context, CHANNEL_ID)
 
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-        } else {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             builder
                 .setForegroundServiceBehavior(FOREGROUND_SERVICE_IMMEDIATE)
         }
@@ -763,7 +781,6 @@ object EnKodSDK {
         builder
             .setContentTitle("")
             .setContentText("").build()
-
 
         return builder.build()
     }
@@ -1165,6 +1182,7 @@ object EnKodSDK {
         })
     }
 
+    @SuppressLint("BatteryLife")
     fun checkBatteryOptimization(mContext: Context) {
 
         val powerManager =

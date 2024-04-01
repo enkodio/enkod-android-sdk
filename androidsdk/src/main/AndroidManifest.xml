@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,8 +12,8 @@
     <application
         android:directBootAware="true"
         android:enabled="true"
-        android:usesCleartextTraffic="true">
-
+        android:usesCleartextTraffic="true"
+        >
 
         <service
             android:name="com.enkod.androidsdk.TokenManualUpdateService"
@@ -25,11 +24,10 @@
             android:directBootAware = "true"
             />
 
-
         <service
             android:name="com.enkod.androidsdk.InternetService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
 
 
         <activity
@@ -38,7 +36,6 @@
             android:usesCleartextTraffic="true">
             <intent-filter>
                 <action android:name=".OnOpenActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -47,7 +44,7 @@
             android:name="com.enkod.androidsdk.EnkodPushMessagingService"
             android:directBootAware="true"
             android:enabled="true"
-            android:exported="true"
+            android:exported="false"
             android:usesCleartextTraffic="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
