@@ -144,9 +144,9 @@ internal object TokenAutoUpdate {
 
                 CoroutineScope(Dispatchers.IO).launch {
 
-                    delay(5000)
-
                     logInfo("old token delete, waiting for the update to complete")
+
+                    delay(5000)
 
                     if (update == false) {
 
