@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("maven-publish")
 }
 
 android {
@@ -54,6 +55,22 @@ dependencies {
     implementation ("io.reactivex.rxjava3:rxjava:3.1.7")
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.1")
     implementation ("androidx.appcompat:appcompat:1.6.1")
+
+
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.github.enkodio"
+            artifactId = "androidsdk"
+            version = "1.0.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
 }
 
 
