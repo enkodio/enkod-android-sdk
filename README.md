@@ -28,7 +28,7 @@
      - Параметр `"_usingFcm"` указывается следующим после параметра `"_account"`
    - для работы с Firebase Cloud Messaging выполните `EnkodConnect(_account: "account", _usingFcm: true).start(this)`
   
-5. Для регистрации контакта в сервисе enKod воспользуйтесь методом `EnkodPushLibrary.addContact(email: "email", phone: "phone", params: mapOf<String, String>)`
+5. Для регистрации контакта в сервисе enKod воспользуйтесь методом `EnKodSDK.addContact(email: "email", phone: "phone", params: mapOf<String, String>)`
    - регистрацию контакта можно произвести указав **email** и/или **phone**.
    - опционально: для указания дополнительной информации контакта можно передать в качестве параметра `"params"` коллекцию `Map <String, String>?` содержащую необходимые ключи и значения
 
