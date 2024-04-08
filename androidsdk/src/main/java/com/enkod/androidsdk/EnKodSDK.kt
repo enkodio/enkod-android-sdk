@@ -62,6 +62,7 @@ import com.enkod.androidsdk.Variables.vibrationOn
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
@@ -92,7 +93,10 @@ object EnKodSDK {
 
     private var email = ""
     private var phone = ""
+    private var firstName = ""
+    private var lastName = ""
     private var contactParams: Map<String, String>? = null
+    private var contactGroup: List<String>?  = null
 
     private var addContactRequest = false
 
@@ -400,7 +404,7 @@ object EnKodSDK {
 
                 if (addContactRequest == true) {
 
-                    addContact(email, phone, contactParams)
+                    addContact(email, phone, firstName, lastName, contactParams, contactGroup)
 
                     addContactRequest = false
 
@@ -419,10 +423,13 @@ object EnKodSDK {
 
         email: String = "",
         phone: String = "",
-
-        params: Map<String, String>? = null
+        firstName: String = "",
+        lastName: String = "",
+        params: Map<String, String>? = null,
+        groups: List<String>? = null
 
     ) {
+
         var initLib = false
 
         initLibObserver.observable.subscribe {init ->
@@ -433,7 +440,10 @@ object EnKodSDK {
 
         this.email = email
         this.phone = phone
+        this.firstName = firstName
+        this.lastName = lastName
         contactParams = params
+        contactGroup = groups
 
         if (initLib) {
 
@@ -460,6 +470,7 @@ object EnKodSDK {
                         fileds.addProperty(
                             keys.elementAt(i),
                             params.getValue(keys.elementAt(i))
+
                         )
                     }
                 }
@@ -470,6 +481,26 @@ object EnKodSDK {
 
                 if (phone.isNotEmpty()) {
                     fileds.addProperty("phone", phone)
+                }
+
+                if (firstName.isNotEmpty()) {
+                    fileds.addProperty("firstName", firstName)
+                }
+
+                if (lastName.isNotEmpty()) {
+                    fileds.addProperty("lastName", firstName)
+                }
+
+                if (!groups.isNullOrEmpty()) {
+
+                    val groupsArray = JsonArray()
+
+                    for (group in groups) {
+
+                        groupsArray.add(group)
+
+                    }
+                    req.add("groups", groupsArray)
                 }
 
                 val source = "mobile"
@@ -637,8 +668,11 @@ object EnKodSDK {
 
         email = ""
         phone = ""
+        firstName = ""
+        lastName = ""
         addContactRequest = false
         contactParams = null
+        contactGroup = null
 
         preferences.edit().remove(USING_FCM).apply()
         preferences.edit().remove(TIME_LAST_TOKEN_UPDATE_TAG).apply()

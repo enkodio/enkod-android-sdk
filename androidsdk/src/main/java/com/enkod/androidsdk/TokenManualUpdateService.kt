@@ -56,44 +56,56 @@ class TokenManualUpdateService : Service() {
 
                             if (task.isSuccessful) {
 
-                                FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                                logInfo("token manual update: delete old token")
 
-                                    if (task.isSuccessful) {
+                                CoroutineScope(Dispatchers.IO).launch {
 
-                                        val token = task.result
+                                    delay(1500)
 
-                                        EnKodSDK.init(
-                                            applicationContext,
-                                            preferencesAcc,
-                                            token
-                                        )
-                                        logInfo ("token manual update" )
+                                    FirebaseMessaging.getInstance().token.addOnCompleteListener { newToken ->
+
+                                        if (newToken.isSuccessful) {
+
+                                            val token = newToken.result
+
+                                            EnKodSDK.init(
+
+                                                applicationContext,
+                                                preferencesAcc,
+                                                token
+                                            )
+
+                                            logInfo("token manual update")
+
+                                            startVerificationTokenUsingWorkManager(
+                                                applicationContext
+                                            )
 
 
-                                            startVerificationTokenUsingWorkManager(applicationContext)
+                                        } else {
 
+                                            startVerificationTokenUsingWorkManager(
+                                                applicationContext
+                                            )
 
-                                        CoroutineScope(Dispatchers.IO).launch {
-
-                                            delay(5000)
+                                            logInfo("error get new token in UpdateTokenService")
 
                                             stopSelf()
                                         }
-
-                                    } else {
-
-                                            startVerificationTokenUsingWorkManager(applicationContext)
-
-                                        logInfo("error get new token in UpdateTokenService")
-
-                                        stopSelf()
                                     }
+
+                                }
+
+                                CoroutineScope(Dispatchers.IO).launch {
+
+                                    delay(5000)
+
+                                    stopSelf()
                                 }
 
                             } else {
 
                                     startVerificationTokenUsingWorkManager(applicationContext)
-
 
                                 logInfo("error deletion token in UpdateTokenService")
 
