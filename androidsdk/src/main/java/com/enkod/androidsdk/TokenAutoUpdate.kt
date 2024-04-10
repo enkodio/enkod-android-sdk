@@ -147,7 +147,7 @@ internal object TokenAutoUpdate {
 
                             CoroutineScope(Dispatchers.IO).launch {
 
-                                delay(1500)
+                                delay(2500)
 
                                 FirebaseMessaging.getInstance().token.addOnCompleteListener { newToken ->
 

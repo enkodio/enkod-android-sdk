@@ -95,7 +95,7 @@ object EnKodSDK {
     private var phone = ""
     private var firstName = ""
     private var lastName = ""
-    private var contactParams: Map<String, String>? = null
+    private var contactParams: Map<String, Any>? = null
     private var contactGroup: List<String>?  = null
 
     private var addContactRequest = false
@@ -425,7 +425,7 @@ object EnKodSDK {
         phone: String = "",
         firstName: String = "",
         lastName: String = "",
-        params: Map<String, String>? = null,
+        extraFields: Map<String, Any>? = null,
         groups: List<String>? = null
 
     ) {
@@ -442,7 +442,7 @@ object EnKodSDK {
         this.phone = phone
         this.firstName = firstName
         this.lastName = lastName
-        contactParams = params
+        contactParams = extraFields
         contactGroup = groups
 
         if (initLib) {
@@ -459,36 +459,51 @@ object EnKodSDK {
                     req.add("mainChannel", Gson().toJsonTree("phone"))
                 }
 
-                val fileds = JsonObject()
+                val fields = JsonObject()
 
-                if (!params.isNullOrEmpty()) {
+                if (!extraFields.isNullOrEmpty()) {
 
-                    val keys = params.keys
+                    val extrafields = JsonObject()
 
-                    for (i in keys.indices) {
+                    for (key in extraFields.keys) {
 
-                        fileds.addProperty(
-                            keys.elementAt(i),
-                            params.getValue(keys.elementAt(i))
+                        val value = extraFields[key]
 
-                        )
+                        try {
+
+                            when (value) {
+
+                                is String -> extrafields.addProperty(key, value)
+                                is Int -> extrafields.addProperty(key, value)
+                                is Boolean -> extrafields.addProperty(key, value)
+                                is Float -> extrafields.addProperty(key, value)
+                                is Double -> extrafields.addProperty(key, value)
+                                else -> extrafields.addProperty(key, value.toString())
+
+                            }
+
+                        } catch (e: Exception) {
+                            logInfo("error create map extrafields $e")
+                        }
                     }
+
+                    req.add("extraFields", extrafields)
                 }
 
                 if (email.isNotEmpty()) {
-                    fileds.addProperty("email", email)
+                    fields.addProperty("email", email)
                 }
 
                 if (phone.isNotEmpty()) {
-                    fileds.addProperty("phone", phone)
+                    fields.addProperty("phone", phone)
                 }
 
                 if (firstName.isNotEmpty()) {
-                    fileds.addProperty("firstName", firstName)
+                    fields.addProperty("firstName", firstName)
                 }
 
                 if (lastName.isNotEmpty()) {
-                    fileds.addProperty("lastName", firstName)
+                    fields.addProperty("lastName", firstName)
                 }
 
                 if (!groups.isNullOrEmpty()) {
@@ -507,7 +522,7 @@ object EnKodSDK {
 
                 req.addProperty("source", source)
 
-                req.add("fields", fileds)
+                req.add("fields", fields)
 
                 Log.d("req_json", req.toString())
 
