@@ -87,6 +87,8 @@ class EnkodConnect(
 
                                 val token = task.result
 
+                                logInfo("current fcm token: $token")
+
                                 if (preferencesStartTokenAutoUpdate == null && tokenAutoUpdate) {
 
                                     preferences.edit()

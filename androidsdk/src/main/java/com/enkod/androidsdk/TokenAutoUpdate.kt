@@ -19,12 +19,17 @@ import com.enkod.androidsdk.Variables.defaultTimeAutoUpdateToken
 import com.enkod.androidsdk.Variables.millisInHours
 import com.enkod.androidsdk.VerificationOfTokenCompliance.startVerificationTokenUsingWorkManager
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 
 internal object TokenAutoUpdate {
 
-    fun startTokenAutoUpdateUsingWorkManager (context: Context, time: Int) {
+
+    fun startTokenAutoUpdateUsingWorkManager(context: Context, time: Int) {
 
         logInfo("token auto update work start")
 
@@ -37,8 +42,7 @@ internal object TokenAutoUpdate {
                 time.toLong(),
                 TimeUnit.HOURS
             )
-
-                .setInitialDelay(time.toLong(),TimeUnit.HOURS)
+                .setInitialDelay(time.toLong(), TimeUnit.HOURS)
                 .setConstraints(constraint)
                 .build()
 
@@ -68,21 +72,21 @@ internal object TokenAutoUpdate {
             val preferencesUsingFcm: Boolean? =
                 preferences.getBoolean(Preferences.USING_FCM, false)
 
-            if (preferencesUsingFcm != null && preferencesUsingFcm == true) {
+            if (preferencesUsingFcm == true) {
 
                 if (isAppInforegrounded()) {
 
                     EnKodSDK.startTokenManualUpdateObserver.observable.subscribe { start ->
-                       when (start) {
-                           true -> {
-                               logInfo("auto update canceled manual update activated")
-                               return@subscribe
-                           }
-                           false -> tokenUpdate(applicationContext)
-                       }
+                        when (start) {
+                            true -> {
+                                logInfo("auto update canceled manual update activated")
+                                return@subscribe
+                            }
+
+                            false -> tokenUpdate(applicationContext)
+                        }
                     }
-                }
-                else tokenUpdate(applicationContext)
+                } else tokenUpdate(applicationContext)
             }
 
             return Result.success()
@@ -97,9 +101,10 @@ internal object TokenAutoUpdate {
         initPreferences(context)
         initRetrofit(context)
 
-        logInfo( "token auto update function")
+        logInfo("token auto update function")
 
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+
         var preferencesAcc = preferences.getString(Preferences.ACCOUNT_TAG, null)
 
         val timeLastTokenUpdate: Long? =
@@ -116,68 +121,86 @@ internal object TokenAutoUpdate {
 
             if (timeLastTokenUpdate != null && timeLastTokenUpdate > 0) {
 
-                if ((System.currentTimeMillis() - timeLastTokenUpdate) >= timeAutoUpdate-60000) {
+                if ((System.currentTimeMillis() - timeLastTokenUpdate) >= timeAutoUpdate - 60000) {
 
-                    try {
+                    updateProcess(context, preferencesAcc)
 
-                        FirebaseMessaging.getInstance().deleteToken()
-
-                            .addOnCompleteListener { task ->
-
-                                if (task.isSuccessful) {
-
-                                    FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-
-                                        if (task.isSuccessful) {
-
-                                            val token = task.result
-
-                                            EnKodSDK.init(
-                                                context,
-                                                preferencesAcc,
-                                                token
-                                            )
-
-                                                startVerificationTokenUsingWorkManager(context)
-
-
-                                            logInfo( "token update in auto update function")
-
-                                        } else {
-
-
-                                                startVerificationTokenUsingWorkManager(context)
-
-
-                                            logInfo("error get new token in token auto update function")
-
-                                        }
-                                    }
-
-                                } else {
-
-
-                                        startVerificationTokenUsingWorkManager(context)
-
-
-                                    logInfo("error deletion token in token auto update function")
-
-                                }
-                            }
-
-                    } catch (e: Exception) {
-
-
-                            startVerificationTokenUsingWorkManager(context)
-
-
-                        logInfo("error in  token auto update function: $e")
-
-                    }
                 } else {
+
                     return
                 }
             }
         }
     }
+
+    fun updateProcess(context: Context, preferencesAcc: String) {
+
+        try {
+
+                FirebaseMessaging.getInstance().deleteToken()
+
+                    .addOnCompleteListener { task ->
+
+                        if (task.isSuccessful) {
+
+                            logInfo("token auto update: delete old token")
+
+                            CoroutineScope(Dispatchers.IO).launch {
+
+                                delay(2500)
+
+                                FirebaseMessaging.getInstance().token.addOnCompleteListener { newToken ->
+
+
+                                    if (newToken.isSuccessful) {
+
+                                        val token = newToken.result
+
+                                        EnKodSDK.init(
+
+                                            context,
+                                            preferencesAcc,
+                                            token
+
+                                        )
+
+                                        logInfo("token update in auto update function")
+
+                                        startVerificationTokenUsingWorkManager(context)
+
+
+                                    } else {
+
+                                        startVerificationTokenUsingWorkManager(context)
+
+
+                                        logInfo("error get new token in token auto update function")
+
+                                    }
+                                }
+                            }
+
+                        } else {
+
+
+                            startVerificationTokenUsingWorkManager(context)
+
+
+                            logInfo("error deletion token in token auto update function")
+
+                        }
+                    }
+
+
+        } catch (e: Exception) {
+
+
+            startVerificationTokenUsingWorkManager(context)
+
+
+            logInfo("error in  token auto update function: $e")
+
+        }
+    }
 }
+

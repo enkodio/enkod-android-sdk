@@ -34,7 +34,7 @@ internal object VerificationOfTokenCompliance {
                 defaultTimeVerificationToken.toLong(),
                 TimeUnit.HOURS
             )
-                .setInitialDelay(1, TimeUnit.MINUTES)
+                .setInitialDelay(10, TimeUnit.SECONDS)
                 .setConstraints(constraint)
                 .build()
 

@@ -62,6 +62,7 @@ import com.enkod.androidsdk.Variables.vibrationOn
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
@@ -92,7 +93,10 @@ object EnKodSDK {
 
     private var email = ""
     private var phone = ""
-    private var contactParams: Map<String, String>? = null
+    private var firstName = ""
+    private var lastName = ""
+    private var contactParams: Map<String, Any>? = null
+    private var contactGroup: List<String>?  = null
 
     private var addContactRequest = false
 
@@ -400,7 +404,7 @@ object EnKodSDK {
 
                 if (addContactRequest == true) {
 
-                    addContact(email, phone, contactParams)
+                    addContact(email, phone, firstName, lastName, contactParams, contactGroup)
 
                     addContactRequest = false
 
@@ -419,10 +423,13 @@ object EnKodSDK {
 
         email: String = "",
         phone: String = "",
-
-        params: Map<String, String>? = null
+        firstName: String = "",
+        lastName: String = "",
+        extraFields: Map<String, Any>? = null,
+        groups: List<String>? = null
 
     ) {
+
         var initLib = false
 
         initLibObserver.observable.subscribe {init ->
@@ -433,7 +440,10 @@ object EnKodSDK {
 
         this.email = email
         this.phone = phone
-        contactParams = params
+        this.firstName = firstName
+        this.lastName = lastName
+        contactParams = extraFields
+        contactGroup = groups
 
         if (initLib) {
 
@@ -449,34 +459,70 @@ object EnKodSDK {
                     req.add("mainChannel", Gson().toJsonTree("phone"))
                 }
 
-                val fileds = JsonObject()
+                val fields = JsonObject()
 
-                if (!params.isNullOrEmpty()) {
+                if (!extraFields.isNullOrEmpty()) {
 
-                    val keys = params.keys
+                    val extrafields = JsonObject()
 
-                    for (i in keys.indices) {
+                    for (key in extraFields.keys) {
 
-                        fileds.addProperty(
-                            keys.elementAt(i),
-                            params.getValue(keys.elementAt(i))
-                        )
+                        val value = extraFields[key]
+
+                        try {
+
+                            when (value) {
+
+                                is String -> extrafields.addProperty(key, value)
+                                is Int -> extrafields.addProperty(key, value)
+                                is Boolean -> extrafields.addProperty(key, value)
+                                is Float -> extrafields.addProperty(key, value)
+                                is Double -> extrafields.addProperty(key, value)
+                                else -> extrafields.addProperty(key, value.toString())
+
+                            }
+
+                        } catch (e: Exception) {
+                            logInfo("error create map extrafields $e")
+                        }
                     }
+
+                    req.add("extraFields", extrafields)
                 }
 
                 if (email.isNotEmpty()) {
-                    fileds.addProperty("email", email)
+                    fields.addProperty("email", email)
                 }
 
                 if (phone.isNotEmpty()) {
-                    fileds.addProperty("phone", phone)
+                    fields.addProperty("phone", phone)
+                }
+
+                if (firstName.isNotEmpty()) {
+                    fields.addProperty("firstName", firstName)
+                }
+
+                if (lastName.isNotEmpty()) {
+                    fields.addProperty("lastName", firstName)
+                }
+
+                if (!groups.isNullOrEmpty()) {
+
+                    val groupsArray = JsonArray()
+
+                    for (group in groups) {
+
+                        groupsArray.add(group)
+
+                    }
+                    req.add("groups", groupsArray)
                 }
 
                 val source = "mobile"
 
                 req.addProperty("source", source)
 
-                req.add("fields", fileds)
+                req.add("fields", fields)
 
                 Log.d("req_json", req.toString())
 
@@ -637,8 +683,11 @@ object EnKodSDK {
 
         email = ""
         phone = ""
+        firstName = ""
+        lastName = ""
         addContactRequest = false
         contactParams = null
+        contactGroup = null
 
         preferences.edit().remove(USING_FCM).apply()
         preferences.edit().remove(TIME_LAST_TOKEN_UPDATE_TAG).apply()
