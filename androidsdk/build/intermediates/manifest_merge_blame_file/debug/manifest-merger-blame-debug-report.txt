@@ -1,0 +1,99 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.enkod.androidsdk" >
+4
+5    <uses-sdk android:minSdkVersion="24" />
+6
+7    <uses-permission android:name="android.permission.VIBRATE" />
+7-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:4:5-66
+7-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:4:22-63
+8    <uses-permission android:name="android.permission.INTERNET" />
+8-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:5:5-67
+8-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:5:22-64
+9    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+9-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:6:5-77
+9-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:6:22-74
+10    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+10-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:7:5-79
+10-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:7:22-76
+11    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+11-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:8:5-76
+11-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:8:22-73
+12    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+12-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:9:5-77
+12-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:9:22-74
+13    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_SERVICE" />
+13-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:10:5-84
+13-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:10:22-81
+14
+15    <application
+15-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:12:5-54:19
+16        android:directBootAware="true"
+16-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:13:9-39
+17        android:enabled="true"
+17-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:14:9-31
+18        android:usesCleartextTraffic="true" >
+18-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:15:9-44
+19        <service
+19-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:18:9-25:15
+20            android:name="com.enkod.androidsdk.TokenManualUpdateService"
+20-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:19:13-73
+21            android:directBootAware="true"
+21-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:24:13-45
+22            android:enabled="true"
+22-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:20:13-35
+23            android:exported="false"
+23-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:21:13-37
+24            android:foregroundServiceType="dataSync"
+24-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:23:13-55
+25            android:usesCleartextTraffic="true" />
+25-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:22:13-48
+26        <service
+26-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:27:9-30:40
+27            android:name="com.enkod.androidsdk.InternetService"
+27-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:28:13-64
+28            android:enabled="true"
+28-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:29:13-35
+29            android:exported="false" />
+29-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:30:13-37
+30
+31        <activity
+31-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:33:9-41:20
+32            android:name="com.enkod.androidsdk.OnOpenActivity"
+32-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:34:13-63
+33            android:exported="true"
+33-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:35:13-36
+34            android:usesCleartextTraffic="true" >
+34-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:36:13-48
+35            <intent-filter>
+35-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:37:13-40:29
+36                <action android:name=".OnOpenActivity" />
+37
+38                <category android:name="android.intent.category.DEFAULT" />
+38-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:39:17-76
+38-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:39:27-73
+39            </intent-filter>
+40        </activity>
+41
+42        <service
+42-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:43:9-52:19
+43            android:name="com.enkod.androidsdk.EnkodPushMessagingService"
+43-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:44:13-74
+44            android:directBootAware="true"
+44-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:45:13-43
+45            android:enabled="true"
+45-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:46:13-35
+46            android:exported="false"
+46-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:47:13-37
+47            android:usesCleartextTraffic="true" >
+47-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:48:13-48
+48            <intent-filter>
+48-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:49:13-51:29
+49                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+49-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:50:17-78
+49-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\src\main\AndroidManifest.xml:50:25-75
+50            </intent-filter>
+51        </service>
+52    </application>
+53
+54</manifest>

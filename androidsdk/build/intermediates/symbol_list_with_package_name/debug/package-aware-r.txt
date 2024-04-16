@@ -1,0 +1,2 @@
+com.enkod.androidsdk
+drawable default_label

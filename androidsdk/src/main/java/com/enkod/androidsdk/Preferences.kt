@@ -1,5 +1,8 @@
 package com.enkod.androidsdk
 
+
+// объект Preferences - содержит названия тегов для shared preference.
+
 object Preferences {
 
     internal const val TAG = "EnkodPushLibrary"

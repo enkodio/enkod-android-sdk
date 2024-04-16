@@ -9,6 +9,7 @@ import com.enkod.androidsdk.EnKodSDK.startTokenManualUpdateObserver
 import com.enkod.androidsdk.Preferences.START_AUTO_UPDATE_TAG
 import com.enkod.androidsdk.Preferences.TAG
 import com.enkod.androidsdk.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
+import com.enkod.androidsdk.Preferences.TIME_TOKEN_AUTO_UPDATE_TAG
 import com.enkod.androidsdk.Preferences.USING_FCM
 import com.enkod.androidsdk.Variables.defaultTimeAutoUpdateToken
 import com.enkod.androidsdk.Variables.defaultTimeManualUpdateToken
@@ -16,6 +17,8 @@ import com.enkod.androidsdk.Variables.millisInHours
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
+ // класс EnkodConnect предназначен для активации библиотеки содержит конструктор,
+ // в который входят поля для настройки библиотеки.
 
 class EnkodConnect(
 
@@ -61,7 +64,6 @@ class EnkodConnect(
         logInfo("user settings: account: $account, fcm: $usingFcm, tokenMU: $tokenManualUpdate, tokenAU: $tokenAutoUpdate, timeMU: $timeTokenManualUpdate, timeAU: $timeTokenAutoUpdate")
 
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
-        val preferencesStartTokenAutoUpdate = preferences.getString(START_AUTO_UPDATE_TAG, null)
 
         when (usingFcm) {
 
@@ -79,7 +81,9 @@ class EnkodConnect(
                     try {
 
                         FirebaseMessaging.getInstance().token.addOnCompleteListener(
+
                             OnCompleteListener { task ->
+
                                 if (!task.isSuccessful) {
 
                                     return@OnCompleteListener
@@ -89,26 +93,21 @@ class EnkodConnect(
 
                                 logInfo("current fcm token: $token")
 
-                                if (preferencesStartTokenAutoUpdate == null && tokenAutoUpdate) {
+                                if (tokenAutoUpdate) {
+
+                                    preferences.edit()
+
+                                        .putBoolean(START_AUTO_UPDATE_TAG, true)
+                                        .apply()
 
                                     preferences.edit()
 
                                         .putInt(
-                                            Preferences.TIME_TOKEN_AUTO_UPDATE_TAG,
+                                            TIME_TOKEN_AUTO_UPDATE_TAG,
                                             timeTokenAutoUpdate
                                         )
                                         .apply()
 
-
-                                    TokenAutoUpdate.startTokenAutoUpdateUsingWorkManager(
-                                        context,
-                                        timeTokenAutoUpdate
-                                    )
-
-                                    preferences.edit()
-
-                                        .putString(START_AUTO_UPDATE_TAG, Variables.start)
-                                        .apply()
                                 }
 
                                 if (tokenManualUpdate) {

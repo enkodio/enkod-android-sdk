@@ -10,15 +10,15 @@ import com.enkod.androidsdk.EnKodSDK.logInfo
 import com.enkod.androidsdk.Preferences.ACCOUNT_TAG
 import com.enkod.androidsdk.Preferences.TAG
 import com.enkod.androidsdk.VerificationOfTokenCompliance.startVerificationTokenUsingWorkManager
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+// класс TokenManualUpdateService расширяет класс Service(). Предназначен для обновления токена в foreground режиме.
 class TokenManualUpdateService : Service() {
-
-
 
     override fun onCreate() {
         super.onCreate()
@@ -58,47 +58,36 @@ class TokenManualUpdateService : Service() {
 
                                 logInfo("token manual update: delete old token")
 
-                                CoroutineScope(Dispatchers.IO).launch {
+                                FirebaseMessaging.getInstance().token.addOnCompleteListener(
 
-                                    delay(1500)
+                                    OnCompleteListener { newToken ->
 
-                                    FirebaseMessaging.getInstance().token.addOnCompleteListener { newToken ->
+                                        if (!newToken.isSuccessful) {
 
-                                        if (newToken.isSuccessful) {
+                                            startVerificationTokenUsingWorkManager(applicationContext)
 
-                                            val token = newToken.result
+                                            logInfo("error get new token in token auto update function")
 
-                                            EnKodSDK.init(
-
-                                                applicationContext,
-                                                preferencesAcc,
-                                                token
-                                            )
-
-                                            logInfo("token manual update")
-
-                                            startVerificationTokenUsingWorkManager(
-                                                applicationContext
-                                            )
-
-
-                                        } else {
-
-                                            startVerificationTokenUsingWorkManager(
-                                                applicationContext
-                                            )
-
-                                            logInfo("error get new token in UpdateTokenService")
-
-                                            stopSelf()
+                                            return@OnCompleteListener
                                         }
-                                    }
 
-                                }
+                                        val token = newToken.result
+
+                                        EnKodSDK.init(
+                                            applicationContext,
+                                            preferencesAcc,
+                                            token
+                                        )
+
+                                        logInfo("token update in auto update function")
+
+                                        startVerificationTokenUsingWorkManager(applicationContext)
+
+                                    })
 
                                 CoroutineScope(Dispatchers.IO).launch {
 
-                                    delay(5000)
+                                    delay(7000)
 
                                     stopSelf()
                                 }

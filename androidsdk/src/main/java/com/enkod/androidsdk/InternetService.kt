@@ -15,13 +15,15 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.system.exitProcess
 
+// данный класс наследует класс Service().
+// предназначен для предоставления интернет соединения приложению во время получения push уведомлений нормального приоритета.
+// для Build.VERSION.SDK_INT < 31.
 class InternetService : Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
 
         logInfo("serviceCreated")
-
 
         super.onCreate()
 
@@ -40,7 +42,6 @@ class InternetService : Service() {
                 startAutoUpdateToken = start
             }
         }
-
 
         EnKodSDK.pushLoadObserver.observable.subscribe { completed ->
 
