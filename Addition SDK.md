@@ -1,13 +1,13 @@
 ﻿# Дополнительные рекомендации Android SDK
 
-## Добавление запроса на показ уведомлений для устройтв с API LEVEL >= 33 
+## Добавление запроса на показ уведомлений для устройств с API LEVEL >= 33 
 
 Для показа push уведомлений на устройствах с API LEVEL >= 33 необходимо выполнить запрос на подтверждение разрешения POST_NOTIFICATIONS у пользователей.
 
 Для вызова разрешения можно использовать следующий метод:
 
 ```
-     fun requestPermission () {
+       fun requestPermission () {
 
             val requestPermissionLauncher = registerForActivityResult(
                 ActivityResultContracts.RequestPermission()
@@ -31,13 +31,12 @@
             }
         }
 ```
-данный метод должен быть вызван в главном activity приложения. 
+Данный метод должен быть вызван в главном activity приложения. 
 
 Перед этим необходимо добавить разрешение в файл android manifest приложения: 
 
 ```
 <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-
 ```
 
 ## Снятие режима энергосбережения
