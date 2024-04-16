@@ -1,6 +1,6 @@
 ﻿# Дополнительные рекомендации Android SDK
 
-## добавление запроса на показ уведомлений для устройтв с API LEVEL >= 33 
+## Добавление запроса на показ уведомлений для устройтв с API LEVEL >= 33 
 
 Для показа push уведомлений на устройствах с API LEVEL >= 33 необходимо выполнить запрос на подтверждение разрешения POST_NOTIFICATIONS у пользователей.
 
@@ -35,7 +35,9 @@
 
 Перед этим необходимо добавить разрешение в файл android manifest приложения: 
 
-```<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+```
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
 ```
 
 ## Снятие режима энергосбережения
