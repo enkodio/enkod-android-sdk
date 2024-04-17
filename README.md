@@ -28,9 +28,21 @@
      - Параметр `"_usingFcm"` указывается следующим после параметра `"_account"`
    - для работы с Firebase Cloud Messaging выполните `EnkodConnect(_account: "account", _usingFcm: true).start(this)`
   
-5. Для регистрации контакта в сервисе enKod воспользуйтесь методом `EnKodSDK.addContact(email: "email", phone: "phone", params: mapOf<String, String>)`
+5. Для регистрации контакта в сервисе enKod воспользуйтесь методом: 
+   ```kotlin
+   EnKodSDK.addContact(
+              email:String = "",
+              phone: String = "", 
+              firstName: String = "", 
+              lastName: String = "", 
+              extraFields: Map<String, Any>? = null,
+              groups: List<String>? = null
+   )
+   ```
    - регистрацию контакта можно произвести указав **email** и/или **phone**.
-   - опционально: для указания дополнительной информации контакта можно передать в качестве параметра `"params"` коллекцию `Map <String, String>?` содержащую необходимые ключи и значения
+   - опционально: параметры firstName и lastName - предназначены для указания имени и фамилии
+   - опционально: для указания дополнительной информации контакта можно передать в качестве параметра `"extraFields"` коллекцию `Map <String, Any>?` содержащую необходимые ключи и значения
+   - опционально: параметр groups позволяет прикрепить контакт к необходимым группам рассылок. Для этого необходимо передать List<String> состоящий из системных имен групп рассылок.
 
 Информацию о всех параметрах конструктора класса EnkodConnect (), используемых для инициализации библиотеки, можно найти в дополнительных рекомендациях по подключению библиотеки enkodio:androidsdk
 
@@ -48,10 +60,10 @@
     ```kotlin
     data class Product(
         var id: String?,
-        var categoryId: String?,
-        var count: Int?,
-        var price: String?,
-        var picture: String?,
+        var categoryId: String? = null,
+        var count: Int? = null,
+        var price: String? = null,
+        var picture: String? = null,
         var params: Map <String, Any>? = null
     )
     ```
@@ -66,7 +78,7 @@
   - `Map <String, Any>?` - данный параметр предназначен для передачи дополнительной информации (по умолчанию null), которая относится ко всему заказу.  
   - `orderId: String?` - в данный параметр можно передать номер заказа в формате String (по умолчанию null)
     - при значении параметра равного null, метод сгенерирует случайный уникальный номер заказа в формате String и передаст его на сервер.
-  - `orderDatetime: String?` - в данный параметр можно передать время заказа в формате String (по умолчанию null).
+  - `orderDatetime: Long?` - в данный параметр можно передать время заказа в формате Long (Unix) (по умолчанию null).
 
     Data class Order:
 
