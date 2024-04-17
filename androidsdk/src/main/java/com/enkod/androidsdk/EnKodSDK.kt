@@ -457,6 +457,7 @@ object EnKodSDK {
 
         var initLib = false
 
+
         initLibObserver.observable.subscribe {init ->
 
             initLib = init
@@ -528,7 +529,7 @@ object EnKodSDK {
                 }
 
                 if (lastName.isNotEmpty()) {
-                    fields.addProperty("lastName", firstName)
+                    fields.addProperty("lastName", lastName)
                 }
 
                 if (!groups.isNullOrEmpty()) {

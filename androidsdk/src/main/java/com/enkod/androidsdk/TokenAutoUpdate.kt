@@ -14,8 +14,8 @@ import com.enkod.androidsdk.VerificationOfTokenCompliance.startVerificationToken
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
-// объект TokenAutoUpdate - предназначен для обновления токена в background режиме:
-// не открывает foreground сервис для обновления. процесс обновления просходит в момент получения push уведомления,
+// объект TokenAutoUpdate - предназначен для обновления токена
+// процесс обновления просходит в момент получения высокоприоритетных push уведомления,
 // за исключением уведомлений среднего приоритета на устройствах Build.VERSION.SDK_INT >= 31.
 
 internal object TokenAutoUpdate {
