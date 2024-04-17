@@ -79,6 +79,7 @@ import java.lang.reflect.Type
 import java.util.Random
 import java.util.concurrent.TimeUnit
 
+// объект EnKodSDK включает основные методы для инициализации и функционирования библиотеки.
 
 object EnKodSDK {
 
@@ -122,6 +123,7 @@ object EnKodSDK {
     internal lateinit var retrofit: Api
     private lateinit var client: OkHttpClient
 
+    // функция init - предназначена для инициализации библиотеки
 
     internal fun init(context: Context, account: String, token: String? = null) {
 
@@ -173,6 +175,9 @@ object EnKodSDK {
         }
     }
 
+    // функция setClientName - предназначена для сохранения значения имени пользователя в preferences
+    // устанавливает текущее имя пользователя для функций библиотеки
+
     private fun setClientName(context: Context, acc: String) {
 
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
@@ -183,6 +188,9 @@ object EnKodSDK {
 
         this.account = acc
     }
+
+    // функция initPreferences предназначена для извлечения значений имя пользователя, сессии, токена из
+    // preferences с передачей значений в переменные библиотеки.
 
     internal fun initPreferences(context: Context) {
 
@@ -198,6 +206,8 @@ object EnKodSDK {
         this.account = preferencesAcc
 
     }
+
+    // класс NullOnEmptyConverterFactory - предназначен для правильной работы Retrofit
 
     class NullOnEmptyConverterFactory : Converter.Factory() {
         override fun responseBodyConverter(
@@ -215,6 +225,8 @@ object EnKodSDK {
             }
         }
     }
+
+    // функция initRetrofit - предназначена для инициализации Retrofit
 
     internal fun initRetrofit(context: Context) {
 
@@ -249,6 +261,8 @@ object EnKodSDK {
 
     }
 
+    // функция getSessionIdFromApi предназначена для создания новой сессии с сервером.
+    // активируется при условии, что текущее значение сессии = null || ""
 
     private fun getSessionIdFromApi(context: Context) {
 
@@ -300,6 +314,9 @@ object EnKodSDK {
     }
 
 
+    //функция newSessions сохраняет значение новой сессии в preferences, а также проверяет содержат ли
+    //preferences значение токена - если содержит обновляем токен, если нет - выполняем старт сессии.
+
     private fun newSessions(context: Context, session: String?) {
 
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
@@ -318,6 +335,7 @@ object EnKodSDK {
         } else updateToken(context, session, newPreferencesToken)
     }
 
+    // функция updateToken предназначена для обновления токена на сервере
 
     private fun updateToken(context: Context, session: String?, token: String?) {
 
@@ -360,6 +378,7 @@ object EnKodSDK {
         })
     }
 
+    // функция startSession - активирует сессию
 
     private fun startSession() {
 
@@ -382,6 +401,8 @@ object EnKodSDK {
 
     }
 
+    // функция subscribePush создает пустые персоны при наличии канала связи,
+    // реализует возможность добавления мобильного токена к персоне/.
 
     private fun subscribeToPush(client: String, session: String, token: String) {
 
@@ -418,6 +439,10 @@ object EnKodSDK {
 
         })
     }
+
+
+    // функция addContact позволяет создать новую персону в список контактов
+    // или добавить любые данные к пустой персоне.
 
     fun addContact(
 
@@ -553,6 +578,8 @@ object EnKodSDK {
         }
     }
 
+    // функция updateContacts позволяет обновить уже созданный контакт (изменить email или phone).
+
     fun updateContacts(email: String, phone: String) {
         val params = hashMapOf<String, String>()
         if (email.isNotEmpty()) {
@@ -579,9 +606,13 @@ object EnKodSDK {
         return
     }
 
+    //функция isOnlineStatus предназначена для установления статуса интернет соединения для библиотеки
+
     fun isOnlineStatus(status: Boolean) {
         isOnline = status
     }
+
+    // функция isOnline определяет наличие интернет соединения
 
     fun isOnline(context: Context): Boolean {
         val connectivityManager =
@@ -604,12 +635,16 @@ object EnKodSDK {
         return false
     }
 
+    // функция isAppInforegrounded возвращает true если приложение находится на переднем плане.
+
     fun isAppInforegrounded(): Boolean {
         val appProcessInfo = ActivityManager.RunningAppProcessInfo();
         ActivityManager.getMyMemoryState(appProcessInfo);
         return (appProcessInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND ||
                 appProcessInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE)
     }
+
+    // функции devMode и dev предназначены для переключения между серверами.
 
     fun devMode(context: Context, url: String) {
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
@@ -623,6 +658,9 @@ object EnKodSDK {
         val devUrl = preferences.getString(DEV_TAG, null)
         return devUrl
     }
+
+    // функции getClientName, getSession(), getToken() - возвращают значения
+    // имени клиента, сессии и токена соответственно. Если значения = null || "" возвращают "".
 
     internal fun getClientName(): String {
 
@@ -644,6 +682,9 @@ object EnKodSDK {
         } else ""
     }
 
+    // функции getSessionFromLibrary и getTokenFromLibrary возвращают значения сессии и токена
+    // используя значения полученные из preferences.
+
     fun getSessionFromLibrary(context: Context): String {
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
         val preferencesSessionId = preferences.getString(SESSION_ID_TAG, null)
@@ -660,6 +701,9 @@ object EnKodSDK {
         } else ""
     }
 
+
+    // функция logOut - производит очистку всех данных и настроек текущего пользователя.
+    // в случаи повторной активации библиотеки после использовании функции logOut, создается новая сессия.
 
     fun logOut(context: Context) {
 
@@ -706,10 +750,15 @@ object EnKodSDK {
 
     }
 
+    // функция logInfo - позволяет создавать логи для отладки.
+
     internal fun logInfo(msg: String) {
         Log.d("enkodLibrary", msg)
         Log.i(TAG, msg)
     }
+
+    // функция creatureInputDataFromMessage - конвертирует RemoteMessage в Data.
+    // данная конвертация предназначена для передачи данных push в класс WorkManager.
 
     internal fun creatureInputDataFromMessage(message: RemoteMessage): Data {
 
@@ -727,6 +776,7 @@ object EnKodSDK {
         return inputData
     }
 
+    // функция loadImageFromUrl позволяет выполнить загрузку изображения из интернета используя url с помощью Glide и Rxjava.
 
     private fun loadImageFromUrl(context: Context, url: String): Single<Bitmap> {
 
@@ -768,6 +818,9 @@ object EnKodSDK {
         }
     }
 
+    // функция managingTheNotificationCreationProcess предназначена для управления процессом показа уведомления
+    // в зависимости от результата функции loadImageFromUrl.
+
     @SuppressLint("CheckResult")
     fun managingTheNotificationCreationProcess(context: Context, message: Map<String, String>) {
 
@@ -797,6 +850,8 @@ object EnKodSDK {
 
     }
 
+    // функция processMessage одновременно активирует функцию создания канала уведомлений
+    // и функцию создания самого уведомления.
 
     fun processMessage(context: Context, message: Map<String, String>, image: Bitmap?) {
 
@@ -804,6 +859,9 @@ object EnKodSDK {
         createNotification(context, message, image)
 
     }
+
+    // функция createdNotificationForService необходима для создания уведомления, необходимого для
+    // запуска Foreground Service.
 
     @RequiresApi(Build.VERSION_CODES.O)
     internal fun createdNotificationForService(context: Context): Notification {
@@ -834,6 +892,7 @@ object EnKodSDK {
         return builder.build()
     }
 
+    // функция createNotificationChannelForPush - создает канал для push уведомлений.
     private fun createNotificationChannelForPush(context: Context) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -851,6 +910,8 @@ object EnKodSDK {
             notificationManager?.createNotificationChannel(channel)
         }
     }
+
+    // функция createNotification - создает и показывает push уведомление.
 
     private fun createNotification(context: Context, message: Map<String, String>, image: Bitmap?) {
 
@@ -926,6 +987,9 @@ object EnKodSDK {
     }
 
 
+    // функция getIntent возвращает PendingIntent
+    // который необходим для создания необходимого действия после нажатия на push уведомления.
+
     internal fun getIntent(
         context: Context,
         data: Map<String, String>,
@@ -986,6 +1050,8 @@ object EnKodSDK {
         }
     }
 
+    // функции getOpenAppIntent, getPackageLauncherIntent, getDynamicLinkIntent, getOpenUrlIntent
+    // требуются для правильной работы действия после нажатия на push уведомления.
 
     internal fun getOpenAppIntent(context: Context): Intent {
 
@@ -1094,6 +1160,8 @@ object EnKodSDK {
         onDeletedMessage.invoke()
     }
 
+    // функция set предназначена для установки значения вибрации во время получения push уведомления.
+
     internal fun set(hasVibration: Boolean): LongArray {
         return if (hasVibration) {
             vibrationPattern
@@ -1101,6 +1169,8 @@ object EnKodSDK {
             longArrayOf(0)
         }
     }
+
+    // функция handleExtras предназначена для открытия url и deep link.
 
     fun handleExtras(context: Context, extras: Bundle) {
 
@@ -1139,6 +1209,10 @@ object EnKodSDK {
             }
         }
     }
+
+    // функция sendPushClickInfo - данный метод предназначен для фиксации события нажатия на push уведомления,
+    // c информацией о том, какие действия были установлены для данного уведомления.
+    // событие передается на сервер.
 
     private fun sendPushClickInfo(extras: Bundle, context: Context) {
 
@@ -1207,6 +1281,9 @@ object EnKodSDK {
 
     }
 
+    // функция PageOpen - предназначена для передачи данных на сервис о том,
+    // что url переданное в параметре было открыто в приложении.
+
     fun PageOpen(url: String) {
         if (url.isEmpty()) {
             return
@@ -1230,6 +1307,8 @@ object EnKodSDK {
             }
         })
     }
+
+    // функция checkBatteryOptimization предназначена для показа запроса на снятие ограничений для приложения.
 
     @SuppressLint("BatteryLife")
     fun checkBatteryOptimization(mContext: Context) {

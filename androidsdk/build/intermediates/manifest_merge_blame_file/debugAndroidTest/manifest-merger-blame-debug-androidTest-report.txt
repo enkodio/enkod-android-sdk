@@ -1,0 +1,646 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.enkod.androidsdk.test" >
+4
+5    <uses-sdk
+5-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:5:5-74
+6        android:minSdkVersion="24"
+6-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:5:15-41
+7        android:targetSdkVersion="24" />
+7-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:5:42-71
+8
+9    <instrumentation
+9-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:11:5-15:75
+10        android:name="android.test.InstrumentationTestRunner"
+10-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:11:22-75
+11        android:functionalTest="false"
+11-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:14:22-52
+12        android:handleProfiling="false"
+12-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:13:22-53
+13        android:label="Tests for com.enkod.androidsdk.test"
+13-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:15:22-73
+14        android:targetPackage="com.enkod.androidsdk.test" />
+14-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:12:22-71
+15
+16    <uses-permission android:name="android.permission.VIBRATE" />
+16-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-66
+16-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:22-63
+17    <uses-permission android:name="android.permission.INTERNET" />
+17-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-67
+17-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:22-64
+18    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+18-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-77
+18-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-74
+19    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+19-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-79
+19-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:22-76
+20    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+20-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-76
+20-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:22-73
+21    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+21-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-77
+21-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:22-74
+22    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_SERVICE" />
+22-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-84
+22-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:22-81
+23    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+23-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:26:5-68
+23-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:26:22-65
+24    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+24-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:26:5-82
+24-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:26:22-79
+25    <uses-permission android:name="android.permission.REORDER_TASKS" />
+25-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:24:5-72
+25-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:24:22-69
+26    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+26-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:5-81
+26-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:22-78
+27
+28    <permission
+28-->[androidx.core:core:1.12.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\fb64bb8d49be8ef5e62369ae7d35e34e\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+29        android:name="com.enkod.androidsdk.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+29-->[androidx.core:core:1.12.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\fb64bb8d49be8ef5e62369ae7d35e34e\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+30        android:protectionLevel="signature" />
+30-->[androidx.core:core:1.12.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\fb64bb8d49be8ef5e62369ae7d35e34e\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+31
+32    <uses-permission android:name="com.enkod.androidsdk.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+32-->[androidx.core:core:1.12.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\fb64bb8d49be8ef5e62369ae7d35e34e\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+32-->[androidx.core:core:1.12.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\fb64bb8d49be8ef5e62369ae7d35e34e\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+33
+34    <queries>
+34-->[androidx.test:runner:1.5.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f92df6fba2f2d027561f6b5688039cd0\transformed\runner-1.5.2\AndroidManifest.xml:24:5-28:15
+35        <package android:name="androidx.test.orchestrator" />
+35-->[androidx.test:runner:1.5.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f92df6fba2f2d027561f6b5688039cd0\transformed\runner-1.5.2\AndroidManifest.xml:25:9-62
+35-->[androidx.test:runner:1.5.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f92df6fba2f2d027561f6b5688039cd0\transformed\runner-1.5.2\AndroidManifest.xml:25:18-59
+36        <package android:name="androidx.test.services" />
+36-->[androidx.test:runner:1.5.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f92df6fba2f2d027561f6b5688039cd0\transformed\runner-1.5.2\AndroidManifest.xml:26:9-58
+36-->[androidx.test:runner:1.5.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f92df6fba2f2d027561f6b5688039cd0\transformed\runner-1.5.2\AndroidManifest.xml:26:18-55
+37        <package android:name="com.google.android.apps.common.testing.services" />
+37-->[androidx.test:runner:1.5.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f92df6fba2f2d027561f6b5688039cd0\transformed\runner-1.5.2\AndroidManifest.xml:27:9-83
+37-->[androidx.test:runner:1.5.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f92df6fba2f2d027561f6b5688039cd0\transformed\runner-1.5.2\AndroidManifest.xml:27:18-80
+38    </queries>
+39
+40    <application
+40-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:7:5-9:19
+41        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+41-->[androidx.core:core:1.12.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\fb64bb8d49be8ef5e62369ae7d35e34e\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+42        android:debuggable="true"
+43        android:directBootAware="true"
+43-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-39
+44        android:enabled="true"
+44-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:17:9-31
+45        android:extractNativeLibs="false"
+46        android:usesCleartextTraffic="true" >
+46-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:18:9-44
+47        <uses-library android:name="android.test.runner" />
+47-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:8:9-60
+47-->C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\tmp\manifest\androidTest\debug\tempFile1ProcessTestManifest7512408488346903345.xml:8:23-57
+48
+49        <service
+49-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:19:9-25:51
+50            android:name="com.enkod.androidsdk.TokenManualUpdateService"
+50-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-73
+51            android:directBootAware="true"
+51-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:13-43
+52            android:enabled="true"
+52-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:22:13-35
+53            android:exported="false"
+53-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:23:13-37
+54            android:foregroundServiceType="dataSync"
+54-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:24:13-53
+55            android:usesCleartextTraffic="true" />
+55-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-48
+56        <service
+56-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:9-29:40
+57            android:name="com.enkod.androidsdk.InternetService"
+57-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-64
+58            android:enabled="true"
+58-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-35
+59            android:exported="false" />
+59-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-37
+60
+61        <activity
+61-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:9-40:20
+62            android:name="com.enkod.androidsdk.OnOpenActivity"
+62-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-63
+63            android:exported="true"
+63-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:13-36
+64            android:usesCleartextTraffic="true" >
+64-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:34:13-48
+65            <intent-filter>
+65-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-39:29
+66                <action android:name=".OnOpenActivity" />
+67
+68                <category android:name="android.intent.category.DEFAULT" />
+68-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:17-76
+68-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:27-73
+69            </intent-filter>
+70        </activity>
+71
+72        <service
+72-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:9-51:19
+73            android:name="com.enkod.androidsdk.EnkodPushMessagingService"
+73-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:43:13-74
+74            android:directBootAware="true"
+74-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:44:13-43
+75            android:enabled="true"
+75-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:45:13-35
+76            android:exported="false"
+76-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:46:13-37
+77            android:usesCleartextTraffic="true" >
+77-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:47:13-48
+78            <intent-filter>
+78-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:13-50:29
+79                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+79-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:49:17-78
+79-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:49:25-75
+80            </intent-filter>
+81        </service>
+82
+83        <meta-data
+83-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\87a30701b3a865b44d4fed8845bdc2a0\transformed\okhttp3-integration-4.11.0\AndroidManifest.xml:11:9-13:43
+84            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+84-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\87a30701b3a865b44d4fed8845bdc2a0\transformed\okhttp3-integration-4.11.0\AndroidManifest.xml:12:13-84
+85            android:value="GlideModule" />
+85-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\87a30701b3a865b44d4fed8845bdc2a0\transformed\okhttp3-integration-4.11.0\AndroidManifest.xml:13:13-40
+86
+87        <receiver
+87-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:29:9-37:20
+88            android:name="com.google.firebase.messaging.directboot.FirebaseMessagingDirectBootReceiver"
+88-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:30:13-104
+89            android:directBootAware="true"
+89-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:31:13-43
+90            android:exported="true"
+90-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:32:13-36
+91            android:permission="com.google.android.c2dm.permission.SEND" >
+91-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:33:13-73
+92            <intent-filter>
+92-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:34:13-36:29
+93                <action android:name="com.google.firebase.messaging.RECEIVE_DIRECT_BOOT" />
+93-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:35:17-92
+93-->[com.google.firebase:firebase-messaging-directboot:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\2cf19605015155483a56eebbb07a46ab\transformed\firebase-messaging-directboot-23.4.1\AndroidManifest.xml:35:25-89
+94            </intent-filter>
+95        </receiver>
+96        <receiver
+96-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:29:9-40:20
+97            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+97-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:30:13-78
+98            android:exported="true"
+98-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:31:13-36
+99            android:permission="com.google.android.c2dm.permission.SEND" >
+99-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:32:13-73
+100            <intent-filter>
+100-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:33:13-35:29
+101                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+101-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:34:17-81
+101-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:34:25-78
+102            </intent-filter>
+103
+104            <meta-data
+104-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:37:13-39:40
+105                android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED"
+105-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:38:17-92
+106                android:value="true" />
+106-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:39:17-37
+107        </receiver>
+108        <!--
+109             FirebaseMessagingService performs security checks at runtime,
+110             but set to not exported to explicitly avoid allowing another app to call it.
+111        -->
+112        <service
+112-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:46:9-53:19
+113            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+113-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:47:13-82
+114            android:directBootAware="true"
+114-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:48:13-43
+115            android:exported="false" >
+115-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:49:13-37
+116            <intent-filter android:priority="-500" >
+116-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:48:13-50:29
+117                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+117-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:49:17-78
+117-->[:androidsdk] C:\Users\andrey.pogodin\AndroidStudioProjects\androidsdk\androidsdk\build\intermediates\merged_manifest\debug\AndroidManifest.xml:49:25-75
+118            </intent-filter>
+119        </service>
+120        <service
+120-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:54:9-63:19
+121            android:name="com.google.firebase.components.ComponentDiscoveryService"
+121-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:55:13-84
+122            android:directBootAware="true"
+122-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:32:13-43
+123            android:exported="false" >
+123-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:56:13-37
+124            <meta-data
+124-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:57:13-59:85
+125                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
+125-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:58:17-122
+126                android:value="com.google.firebase.components.ComponentRegistrar" />
+126-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:59:17-82
+127            <meta-data
+127-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:60:13-62:85
+128                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+128-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:61:17-119
+129                android:value="com.google.firebase.components.ComponentRegistrar" />
+129-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4f22074e31eca5ad4dd2c4cc319388bf\transformed\firebase-messaging-23.4.1\AndroidManifest.xml:62:17-82
+130            <meta-data
+130-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\446913a78dc919b5e2d8a42866d4ea46\transformed\firebase-installations-17.2.0\AndroidManifest.xml:15:13-17:85
+131                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+131-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\446913a78dc919b5e2d8a42866d4ea46\transformed\firebase-installations-17.2.0\AndroidManifest.xml:16:17-130
+132                android:value="com.google.firebase.components.ComponentRegistrar" />
+132-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\446913a78dc919b5e2d8a42866d4ea46\transformed\firebase-installations-17.2.0\AndroidManifest.xml:17:17-82
+133            <meta-data
+133-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\446913a78dc919b5e2d8a42866d4ea46\transformed\firebase-installations-17.2.0\AndroidManifest.xml:18:13-20:85
+134                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+134-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\446913a78dc919b5e2d8a42866d4ea46\transformed\firebase-installations-17.2.0\AndroidManifest.xml:19:17-127
+135                android:value="com.google.firebase.components.ComponentRegistrar" />
+135-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\446913a78dc919b5e2d8a42866d4ea46\transformed\firebase-installations-17.2.0\AndroidManifest.xml:20:17-82
+136            <meta-data
+136-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\97069355219a7327a5c8fcee257d2122\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:12:13-14:85
+137                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+137-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\97069355219a7327a5c8fcee257d2122\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:13:17-116
+138                android:value="com.google.firebase.components.ComponentRegistrar" />
+138-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\97069355219a7327a5c8fcee257d2122\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:14:17-82
+139            <meta-data
+139-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:35:13-37:85
+140                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+140-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:36:17-109
+141                android:value="com.google.firebase.components.ComponentRegistrar" />
+141-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:37:17-82
+142            <meta-data
+142-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\d4523ed5551213e4a729fe22e8b43c34\transformed\firebase-datatransport-18.1.7\AndroidManifest.xml:27:13-29:85
+143                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+143-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\d4523ed5551213e4a729fe22e8b43c34\transformed\firebase-datatransport-18.1.7\AndroidManifest.xml:28:17-115
+144                android:value="com.google.firebase.components.ComponentRegistrar" />
+144-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\d4523ed5551213e4a729fe22e8b43c34\transformed\firebase-datatransport-18.1.7\AndroidManifest.xml:29:17-82
+145        </service>
+146
+147        <activity
+147-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:27:9-34:20
+148            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+148-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:28:13-99
+149            android:exported="true"
+149-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:29:13-36
+150            android:theme="@style/WhiteBackgroundTheme" >
+150-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:30:13-56
+151            <intent-filter android:priority="-100" >
+151-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:31:13-33:29
+151-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:31:28-51
+152                <category android:name="android.intent.category.LAUNCHER" />
+152-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:32:17-77
+152-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:32:27-74
+153            </intent-filter>
+154        </activity>
+155        <activity
+155-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:35:9-42:20
+156            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+156-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:36:13-95
+157            android:exported="true"
+157-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:37:13-36
+158            android:theme="@style/WhiteBackgroundTheme" >
+158-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:38:13-56
+159            <intent-filter android:priority="-100" >
+159-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:31:13-33:29
+159-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:31:28-51
+160                <category android:name="android.intent.category.LAUNCHER" />
+160-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:32:17-77
+160-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:32:27-74
+161            </intent-filter>
+162        </activity>
+163        <activity
+163-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:43:9-50:20
+164            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+164-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:44:13-103
+165            android:exported="true"
+165-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:45:13-36
+166            android:theme="@style/WhiteBackgroundDialogTheme" >
+166-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:46:13-62
+167            <intent-filter android:priority="-100" >
+167-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:31:13-33:29
+167-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:31:28-51
+168                <category android:name="android.intent.category.LAUNCHER" />
+168-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:32:17-77
+168-->[androidx.test:core:1.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b1f0787700ccd7ac6c94a26acbfa747\transformed\core-1.5.0\AndroidManifest.xml:32:27-74
+169            </intent-filter>
+170        </activity>
+171        <activity
+171-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\72cfbc7428b42cf8d4dfbd09a9987027\transformed\play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+172            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+172-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\72cfbc7428b42cf8d4dfbd09a9987027\transformed\play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+173            android:exported="false"
+173-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\72cfbc7428b42cf8d4dfbd09a9987027\transformed\play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+174            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+174-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\72cfbc7428b42cf8d4dfbd09a9987027\transformed\play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+175
+176        <provider
+176-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:23:9-28:39
+177            android:name="com.google.firebase.provider.FirebaseInitProvider"
+177-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:24:13-77
+178            android:authorities="com.enkod.androidsdk.test.firebaseinitprovider"
+178-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:25:13-72
+179            android:directBootAware="true"
+179-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:26:13-43
+180            android:exported="false"
+180-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:27:13-37
+181            android:initOrder="100" />
+181-->[com.google.firebase:firebase-common:20.4.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\a3dee31292da657bed7a97e76c459299\transformed\firebase-common-20.4.2\AndroidManifest.xml:28:13-36
+182
+183        <meta-data
+183-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\343aa464f4c24289fe0bcae3fe14ae17\transformed\play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+184            android:name="com.google.android.gms.version"
+184-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\343aa464f4c24289fe0bcae3fe14ae17\transformed\play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+185            android:value="@integer/google_play_services_version" />
+185-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\343aa464f4c24289fe0bcae3fe14ae17\transformed\play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+186
+187        <provider
+187-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:29:9-37:20
+188            android:name="androidx.startup.InitializationProvider"
+188-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:30:13-67
+189            android:authorities="com.enkod.androidsdk.test.androidx-startup"
+189-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:31:13-68
+190            android:exported="false" >
+190-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:32:13-37
+191            <meta-data
+191-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:34:13-36:52
+192                android:name="androidx.work.WorkManagerInitializer"
+192-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:35:17-68
+193                android:value="androidx.startup" />
+193-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:36:17-49
+194            <meta-data
+194-->[androidx.emoji2:emoji2:1.2.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\3ffd57255e6f9966dfb3d4f8b250b487\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+195                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+195-->[androidx.emoji2:emoji2:1.2.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\3ffd57255e6f9966dfb3d4f8b250b487\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+196                android:value="androidx.startup" />
+196-->[androidx.emoji2:emoji2:1.2.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\3ffd57255e6f9966dfb3d4f8b250b487\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+197            <meta-data
+197-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f79b82b494d29be3194688f69da6b2fa\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+198                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+198-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f79b82b494d29be3194688f69da6b2fa\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+199                android:value="androidx.startup" />
+199-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\f79b82b494d29be3194688f69da6b2fa\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+200            <meta-data
+200-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+201                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+201-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+202                android:value="androidx.startup" />
+202-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+203        </provider>
+204
+205        <service
+205-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:39:9-45:35
+206            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+206-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:40:13-88
+207            android:directBootAware="false"
+207-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:41:13-44
+208            android:enabled="@bool/enable_system_alarm_service_default"
+208-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:42:13-72
+209            android:exported="false" />
+209-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:43:13-37
+210        <service
+210-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:46:9-52:35
+211            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+211-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:47:13-84
+212            android:directBootAware="false"
+212-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:48:13-44
+213            android:enabled="@bool/enable_system_job_service_default"
+213-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:49:13-70
+214            android:exported="true"
+214-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:50:13-36
+215            android:permission="android.permission.BIND_JOB_SERVICE" />
+215-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:51:13-69
+216        <service
+216-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:53:9-59:35
+217            android:name="androidx.work.impl.foreground.SystemForegroundService"
+217-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:54:13-81
+218            android:directBootAware="false"
+218-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:55:13-44
+219            android:enabled="@bool/enable_system_foreground_service_default"
+219-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:56:13-77
+220            android:exported="false" />
+220-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:57:13-37
+221
+222        <receiver
+222-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:61:9-66:35
+223            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+223-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:62:13-88
+224            android:directBootAware="false"
+224-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:63:13-44
+225            android:enabled="true"
+225-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:64:13-35
+226            android:exported="false" />
+226-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:65:13-37
+227        <receiver
+227-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:67:9-77:20
+228            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+228-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:68:13-106
+229            android:directBootAware="false"
+229-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:69:13-44
+230            android:enabled="false"
+230-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:70:13-36
+231            android:exported="false" >
+231-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:71:13-37
+232            <intent-filter>
+232-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:73:13-76:29
+233                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+233-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:74:17-87
+233-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:74:25-84
+234                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+234-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:75:17-90
+234-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:75:25-87
+235            </intent-filter>
+236        </receiver>
+237        <receiver
+237-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:78:9-88:20
+238            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+238-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:79:13-104
+239            android:directBootAware="false"
+239-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:80:13-44
+240            android:enabled="false"
+240-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:81:13-36
+241            android:exported="false" >
+241-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:82:13-37
+242            <intent-filter>
+242-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:84:13-87:29
+243                <action android:name="android.intent.action.BATTERY_OKAY" />
+243-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:85:17-77
+243-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:85:25-74
+244                <action android:name="android.intent.action.BATTERY_LOW" />
+244-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:86:17-76
+244-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:86:25-73
+245            </intent-filter>
+246        </receiver>
+247        <receiver
+247-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:89:9-99:20
+248            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+248-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:90:13-104
+249            android:directBootAware="false"
+249-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:91:13-44
+250            android:enabled="false"
+250-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:92:13-36
+251            android:exported="false" >
+251-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:93:13-37
+252            <intent-filter>
+252-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:95:13-98:29
+253                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+253-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:96:17-83
+253-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:96:25-80
+254                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+254-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:97:17-82
+254-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:97:25-79
+255            </intent-filter>
+256        </receiver>
+257        <receiver
+257-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:100:9-109:20
+258            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+258-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:101:13-103
+259            android:directBootAware="false"
+259-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:102:13-44
+260            android:enabled="false"
+260-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:103:13-36
+261            android:exported="false" >
+261-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:104:13-37
+262            <intent-filter>
+262-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:106:13-108:29
+263                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+263-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:107:17-79
+263-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:107:25-76
+264            </intent-filter>
+265        </receiver>
+266        <receiver
+266-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:110:9-121:20
+267            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+267-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:111:13-88
+268            android:directBootAware="false"
+268-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:112:13-44
+269            android:enabled="false"
+269-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:113:13-36
+270            android:exported="false" >
+270-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:114:13-37
+271            <intent-filter>
+271-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:116:13-120:29
+272                <action android:name="android.intent.action.BOOT_COMPLETED" />
+272-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:117:17-79
+272-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:117:25-76
+273                <action android:name="android.intent.action.TIME_SET" />
+273-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:118:17-73
+273-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:118:25-70
+274                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+274-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:119:17-81
+274-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:119:25-78
+275            </intent-filter>
+276        </receiver>
+277        <receiver
+277-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:122:9-131:20
+278            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+278-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:123:13-99
+279            android:directBootAware="false"
+279-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:124:13-44
+280            android:enabled="@bool/enable_system_alarm_service_default"
+280-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:125:13-72
+281            android:exported="false" >
+281-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:126:13-37
+282            <intent-filter>
+282-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:128:13-130:29
+283                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+283-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:129:17-98
+283-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:129:25-95
+284            </intent-filter>
+285        </receiver>
+286        <receiver
+286-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:132:9-142:20
+287            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+287-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:133:13-78
+288            android:directBootAware="false"
+288-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:134:13-44
+289            android:enabled="true"
+289-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:135:13-35
+290            android:exported="true"
+290-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:136:13-36
+291            android:permission="android.permission.DUMP" >
+291-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:137:13-57
+292            <intent-filter>
+292-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:139:13-141:29
+293                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+293-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:140:17-88
+293-->[androidx.work:work-runtime:2.9.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\1be39dc22d17814d0bb934176359ea76\transformed\work-runtime-2.9.0\AndroidManifest.xml:140:25-85
+294            </intent-filter>
+295        </receiver>
+296
+297        <service
+297-->[androidx.room:room-runtime:2.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b36215741194cc441a2e28891db976b\transformed\room-runtime-2.5.0\AndroidManifest.xml:24:9-28:63
+298            android:name="androidx.room.MultiInstanceInvalidationService"
+298-->[androidx.room:room-runtime:2.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b36215741194cc441a2e28891db976b\transformed\room-runtime-2.5.0\AndroidManifest.xml:25:13-74
+299            android:directBootAware="true"
+299-->[androidx.room:room-runtime:2.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b36215741194cc441a2e28891db976b\transformed\room-runtime-2.5.0\AndroidManifest.xml:26:13-43
+300            android:exported="false" />
+300-->[androidx.room:room-runtime:2.5.0] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\4b36215741194cc441a2e28891db976b\transformed\room-runtime-2.5.0\AndroidManifest.xml:27:13-37
+301
+302        <receiver
+302-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+303            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+303-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+304            android:directBootAware="false"
+304-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+305            android:enabled="true"
+305-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+306            android:exported="true"
+306-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+307            android:permission="android.permission.DUMP" >
+307-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+308            <intent-filter>
+308-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+309                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+309-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+309-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+310            </intent-filter>
+311            <intent-filter>
+311-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+312                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+312-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+312-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+313            </intent-filter>
+314            <intent-filter>
+314-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+315                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+315-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+315-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+316            </intent-filter>
+317            <intent-filter>
+317-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+318                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+318-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+318-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\b9392c86cead7f13dd8254c2eec445d0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+319            </intent-filter>
+320        </receiver>
+321
+322        <service
+322-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\d16d617700c10308404e016e88431c64\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:28:9-34:19
+323            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+323-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\d16d617700c10308404e016e88431c64\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:29:13-103
+324            android:exported="false" >
+324-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\d16d617700c10308404e016e88431c64\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:30:13-37
+325            <meta-data
+325-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\d16d617700c10308404e016e88431c64\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:31:13-33:39
+326                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+326-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\d16d617700c10308404e016e88431c64\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:32:17-94
+327                android:value="cct" />
+327-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\d16d617700c10308404e016e88431c64\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:33:17-36
+328        </service>
+329        <service
+329-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\e882da0c08babae7bd67036daaf53c2d\transformed\transport-runtime-3.1.8\AndroidManifest.xml:26:9-30:19
+330            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+330-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\e882da0c08babae7bd67036daaf53c2d\transformed\transport-runtime-3.1.8\AndroidManifest.xml:27:13-117
+331            android:exported="false"
+331-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\e882da0c08babae7bd67036daaf53c2d\transformed\transport-runtime-3.1.8\AndroidManifest.xml:28:13-37
+332            android:permission="android.permission.BIND_JOB_SERVICE" >
+332-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\e882da0c08babae7bd67036daaf53c2d\transformed\transport-runtime-3.1.8\AndroidManifest.xml:29:13-69
+333        </service>
+334
+335        <receiver
+335-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\e882da0c08babae7bd67036daaf53c2d\transformed\transport-runtime-3.1.8\AndroidManifest.xml:32:9-34:40
+336            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+336-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\e882da0c08babae7bd67036daaf53c2d\transformed\transport-runtime-3.1.8\AndroidManifest.xml:33:13-132
+337            android:exported="false" />
+337-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\andrey.pogodin\.gradle\caches\transforms-3\e882da0c08babae7bd67036daaf53c2d\transformed\transport-runtime-3.1.8\AndroidManifest.xml:34:13-37
+338    </application>
+339
+340</manifest>

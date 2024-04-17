@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.enkod.androidsdk" >
+
+    <uses-sdk android:minSdkVersion="24" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_SERVICE" />
+
+    <application
+        android:directBootAware="true"
+        android:enabled="true"
+        android:usesCleartextTraffic="true" >
+        <service
+            android:name="com.enkod.androidsdk.TokenManualUpdateService"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            android:usesCleartextTraffic="true" />
+        <service
+            android:name="com.enkod.androidsdk.InternetService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name="com.enkod.androidsdk.OnOpenActivity"
+            android:exported="true"
+            android:usesCleartextTraffic="true" >
+            <intent-filter>
+                <action android:name=".OnOpenActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.enkod.androidsdk.EnkodPushMessagingService"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false"
+            android:usesCleartextTraffic="true" >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

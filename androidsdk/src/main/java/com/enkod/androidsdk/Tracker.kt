@@ -1,5 +1,7 @@
 package com.enkod.androidsdk
 
+//класс Tracker содержит data классы необходимые для работы библиотеки.
+
 data class Product(
     var id: String?,
     var categoryId: String? = null,
