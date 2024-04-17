@@ -1,6 +1,6 @@
 ﻿# Инструкция подключения библиотеки enKod Android SDK
 
-##последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.3
+ > Последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.3
 
 Перед добавлением и использованием библиотеки **enkodio:androidsdk** рекомендуем ознакомиться:
 
