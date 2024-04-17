@@ -328,7 +328,7 @@ object Tracking {
         products: List<Order>,
         params: Map<String, Any>? = null,
         orderId: String? = null,
-        orderDatetime: String? = null
+        orderDatetime: Long? = null
     ) {
 
         var initLib = false
@@ -449,16 +449,14 @@ object Tracking {
                         }
                     }
                 }
-
-                if (!orderDatetime.isNullOrEmpty()) {
-                    addProperty("orderDatetime", orderDatetime)
-                }
-
-
             })
 
             val req = JsonObject().apply {
                 addProperty("orderId", buyId)
+
+                if (orderDatetime != null) {
+                    addProperty("orderDatetime", orderDatetime)
+                }
                 add("orderInfo", orderInfo)
             }
             Log.d("buy", req.toString())
