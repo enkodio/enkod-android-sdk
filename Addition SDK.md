@@ -1,5 +1,5 @@
 ﻿# Дополнительные рекомендации Android SDK
-
+> Для работы библиотеки требуется compileSdk >= 34 
 ## Добавление запроса на показ уведомлений для устройств с API LEVEL >= 33 
 
 Для показа push уведомлений на устройствах с API LEVEL >= 33 необходимо выполнить запрос на подтверждение разрешения POST_NOTIFICATIONS у пользователей.
@@ -30,6 +30,16 @@
                 }
             }
         }
+```
+а также зависимоти для данного метода (можно добавить с помощью alt + enter) 
+
+```
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 ```
 Данный метод должен быть вызван в главном activity приложения. 
 
