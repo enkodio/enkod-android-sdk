@@ -1283,7 +1283,7 @@ object EnKodSDK {
     }
 
     // функция PageOpen - предназначена для передачи данных на сервис о том,
-    // что url переданное в параметре было открыто в приложении.
+    // что ссылка url переданная в параметре была открыта в приложении.
 
     fun PageOpen(url: String) {
         if (url.isEmpty()) {
@@ -1309,7 +1309,7 @@ object EnKodSDK {
         })
     }
 
-    // функция checkBatteryOptimization предназначена для показа запроса на снятие ограничений для приложения.
+    // функция checkBatteryOptimization предназначена для показа запроса на снятие ограничений энергосбережения для приложения.
 
     @SuppressLint("BatteryLife")
     fun checkBatteryOptimization(mContext: Context) {
