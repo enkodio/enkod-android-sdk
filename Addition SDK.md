@@ -31,6 +31,16 @@
             }
         }
 ```
+а также зависимоти для данного метода (можно добавить с помощью alt + enter) 
+
+```
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+```
 Данный метод должен быть вызван в главном activity приложения. 
 
 Перед этим необходимо добавить разрешение в файл android manifest приложения: 
