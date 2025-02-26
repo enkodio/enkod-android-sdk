@@ -1,4 +1,4 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.utils
 
 
 //объект Variables хранит значения используемых в библиотеке переменных.

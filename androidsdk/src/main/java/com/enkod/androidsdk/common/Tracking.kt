@@ -1,6 +1,8 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.common
 
 import android.util.Log
+import com.enkod.androidsdk.data.model.Order
+import com.enkod.androidsdk.data.model.Product
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import retrofit2.Call

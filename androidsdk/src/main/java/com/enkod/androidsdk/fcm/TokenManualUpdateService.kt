@@ -1,4 +1,4 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.fcm
 
 import android.app.Service
 import android.content.Context
@@ -6,10 +6,11 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
-import com.enkod.androidsdk.EnKodSDK.logInfo
-import com.enkod.androidsdk.Preferences.ACCOUNT_TAG
-import com.enkod.androidsdk.Preferences.TAG
-import com.enkod.androidsdk.VerificationOfTokenCompliance.startVerificationTokenUsingWorkManager
+import com.enkod.androidsdk.common.EnKodSDK.logInfo
+import com.enkod.androidsdk.utils.Preferences.ACCOUNT_TAG
+import com.enkod.androidsdk.utils.Preferences.TAG
+import com.enkod.androidsdk.fcm.VerificationOfTokenCompliance.startVerificationTokenUsingWorkManager
+import com.enkod.androidsdk.common.EnKodSDK
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope

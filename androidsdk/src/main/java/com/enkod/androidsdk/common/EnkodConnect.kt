@@ -1,29 +1,42 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.common
 
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.enkod.androidsdk.EnKodSDK.isAppInforegrounded
-import com.enkod.androidsdk.EnKodSDK.logInfo
-import com.enkod.androidsdk.EnKodSDK.startTokenManualUpdateObserver
-import com.enkod.androidsdk.Preferences.START_AUTO_UPDATE_TAG
-import com.enkod.androidsdk.Preferences.TAG
-import com.enkod.androidsdk.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
-import com.enkod.androidsdk.Preferences.TIME_TOKEN_AUTO_UPDATE_TAG
-import com.enkod.androidsdk.Preferences.USING_FCM
-import com.enkod.androidsdk.Variables.defaultTimeAutoUpdateToken
-import com.enkod.androidsdk.Variables.defaultTimeManualUpdateToken
-import com.enkod.androidsdk.Variables.millisInHours
+import android.util.Log
+import com.enkod.androidsdk.fcm.TokenManualUpdateService
+import com.enkod.androidsdk.common.EnKodSDK.isAppInforegrounded
+import com.enkod.androidsdk.common.EnKodSDK.logInfo
+import com.enkod.androidsdk.common.EnKodSDK.startTokenManualUpdateObserver
+import com.enkod.androidsdk.huawei.TokenUpdater
+import com.enkod.androidsdk.utils.Preferences.START_AUTO_UPDATE_TAG
+import com.enkod.androidsdk.utils.Preferences.TAG
+import com.enkod.androidsdk.utils.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
+import com.enkod.androidsdk.utils.Preferences.TIME_TOKEN_AUTO_UPDATE_TAG
+import com.enkod.androidsdk.utils.Preferences.USING_FCM
+import com.enkod.androidsdk.utils.Preferences.USING_HUAWEI
+import com.enkod.androidsdk.utils.Variables.defaultTimeAutoUpdateToken
+import com.enkod.androidsdk.utils.Variables.defaultTimeManualUpdateToken
+import com.enkod.androidsdk.utils.Variables.millisInHours
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.huawei.agconnect.config.AGConnectServicesConfig
+import com.huawei.hms.aaid.HmsInstanceId
+import com.huawei.hms.common.ApiException
+import com.huawei.hms.push.HmsMessaging
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
- // класс EnkodConnect предназначен для активации библиотеки содержит конструктор,
+// класс EnkodConnect предназначен для активации библиотеки содержит конструктор,
  // в который входят поля для настройки библиотеки.
 
 class EnkodConnect(
 
     _account: String?,
     _usingFcm: Boolean? = false,
+    _usingHuawei: Boolean? = false,
     _tokenManualUpdate: Boolean? = true,
     _tokenAutoUpdate: Boolean? = true,
     _timeTokenManualUpdate: Int? = null,
@@ -33,6 +46,7 @@ class EnkodConnect(
 
     private val account: String
     private val usingFcm: Boolean
+    private val usingHuawei: Boolean
     private val tokenManualUpdate: Boolean
     private val tokenAutoUpdate: Boolean
     private var timeTokenManualUpdate: Int
@@ -43,6 +57,7 @@ class EnkodConnect(
 
         account = _account ?: ""
         usingFcm = _usingFcm ?: false
+        usingHuawei = _usingHuawei ?: false
         tokenManualUpdate = _tokenManualUpdate ?: true
         tokenAutoUpdate = _tokenAutoUpdate ?: true
 
@@ -64,6 +79,14 @@ class EnkodConnect(
         logInfo("user settings: account: $account, fcm: $usingFcm, tokenMU: $tokenManualUpdate, tokenAU: $tokenAutoUpdate, timeMU: $timeTokenManualUpdate, timeAU: $timeTokenAutoUpdate")
 
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            TokenUpdater.tokenUpdateChannel.collectLatest { newToken ->
+                logInfo("Received new token: $newToken")
+
+                EnKodSDK.init(context, EnKodSDK.getAccount()!!, null, newToken)
+            }
+        }
 
         when (usingFcm) {
 
@@ -146,15 +169,82 @@ class EnkodConnect(
 
                     .putBoolean(USING_FCM, false)
                     .apply()
+                when (usingHuawei) {
 
-                if (EnKodSDK.isOnline(context)) {
-                    EnKodSDK.isOnlineStatus(true)
-                    EnKodSDK.init(context, account)
-                    logInfo("start library without fcm")
-                } else {
+                    true -> {
 
-                    EnKodSDK.isOnlineStatus(false)
-                    logInfo("error internet")
+                        preferences.edit()
+
+                            .putBoolean(USING_HUAWEI, true)
+                            .apply()
+
+                        if (EnKodSDK.isOnline(context)) {
+
+                            EnKodSDK.isOnlineStatus(true)
+
+                            try {
+
+                                HmsInstanceId.getInstance(context).run {
+
+                                    //Получаем id AppGallery приложения из конфига
+                                    val appId = AGConnectServicesConfig.fromContext(context)
+                                        .getString("client/app_id")
+
+                                    object : Thread() {
+                                        override fun run() {
+                                            try {
+                                                //Получаем HMS пуш-токен по id, который достали ранее
+                                                val pushToken =
+                                                    getToken(appId, HmsMessaging.DEFAULT_TOKEN_SCOPE)
+
+                                                if (!pushToken.isNullOrBlank()) {
+                                                    logInfo("current huawei token: $pushToken")
+
+                                                    EnKodSDK.init(context, account, null, pushToken)
+
+                                                    logInfo("start library with huawei")
+                                                }
+                                            } catch (e: ApiException) {
+                                                e.message?.let { Log.e("HuaweiError", it) }
+                                            }
+                                        }
+
+                                    }.start()
+                                }
+
+                            } catch (e: Exception) {
+
+                                EnKodSDK.init(context, account)
+
+                                logInfo("the library started using huawei with an error")
+
+                            }
+
+                        } else {
+
+                            EnKodSDK.isOnlineStatus(false)
+
+                            logInfo("error internet")
+                        }
+                    }
+
+                    false -> {
+
+                        preferences.edit()
+
+                            .putBoolean(USING_HUAWEI, false)
+                            .apply()
+
+                        if (EnKodSDK.isOnline(context)) {
+                            EnKodSDK.isOnlineStatus(true)
+                            EnKodSDK.init(context, account)
+                            logInfo("start library without huawei and fcm")
+                        } else {
+
+                            EnKodSDK.isOnlineStatus(false)
+                            logInfo("error internet")
+                        }
+                    }
                 }
             }
         }

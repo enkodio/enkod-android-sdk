@@ -8,30 +8,29 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_SERVICE" />
+    <uses-permission android:name="com.huawei.permission.C2D_MESSAGE" />
 
     <application
         android:directBootAware="true"
         android:enabled="true"
-        android:usesCleartextTraffic="true"
-        >
+        android:usesCleartextTraffic="true">
 
         <service
-            android:name="com.enkod.androidsdk.TokenManualUpdateService"
+            android:name="com.enkod.androidsdk.fcm.TokenManualUpdateService"
+            android:directBootAware="true"
             android:enabled="true"
             android:exported="false"
-            android:usesCleartextTraffic="true"
-            android:foregroundServiceType = "dataSync"
-            android:directBootAware = "true"
-            />
+            android:foregroundServiceType="dataSync"
+            android:usesCleartextTraffic="true" />
 
         <service
-            android:name="com.enkod.androidsdk.InternetService"
+            android:name="com.enkod.androidsdk.common.InternetService"
             android:enabled="true"
             android:exported="false" />
 
 
         <activity
-            android:name="com.enkod.androidsdk.OnOpenActivity"
+            android:name="com.enkod.androidsdk.common.OnOpenActivity"
             android:exported="true"
             android:usesCleartextTraffic="true">
             <intent-filter>
@@ -41,13 +40,24 @@
         </activity>
 
         <service
-            android:name="com.enkod.androidsdk.EnkodPushMessagingService"
+            android:name="com.enkod.androidsdk.fcm.EnkodPushMessagingService"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="false"
             android:usesCleartextTraffic="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".huawei.HuaweiPushService"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false"
+            android:usesCleartextTraffic="true">
+            <intent-filter>
+                <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 

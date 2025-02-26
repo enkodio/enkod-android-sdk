@@ -1,4 +1,4 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.common
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -23,7 +23,8 @@ class OnOpenActivity : AppCompatActivity() {
         intent?.apply {
             val bundle = getIntent().extras
             if (bundle != null) {
-                Log.i("handleExtras", "${intent.getStringExtra(EnKodSDK.intentName)} $${intent.getStringExtra(EnKodSDK.url)}")
+                Log.i("handleExtras", "${intent.getStringExtra(EnKodSDK.intentName)} $${intent.getStringExtra(
+                    EnKodSDK.url)}")
                 EnKodSDK.handleExtras(this@OnOpenActivity, bundle)
 
             }

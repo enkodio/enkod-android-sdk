@@ -1,4 +1,4 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.fcm
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,15 +9,18 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
-import com.enkod.androidsdk.EnKodSDK.creatureInputDataFromMessage
-import com.enkod.androidsdk.EnKodSDK.isAppInforegrounded
-import com.enkod.androidsdk.EnKodSDK.logInfo
-import com.enkod.androidsdk.EnKodSDK.managingTheNotificationCreationProcess
-import com.enkod.androidsdk.Preferences.MESSAGEID_TAG
-import com.enkod.androidsdk.Preferences.START_AUTO_UPDATE_TAG
-import com.enkod.androidsdk.Preferences.TAG
-import com.enkod.androidsdk.Preferences.USING_FCM
-import com.enkod.androidsdk.Variables.messageId
+import com.enkod.androidsdk.common.EnKodSDK
+import com.enkod.androidsdk.common.EnKodSDK.creatureInputDataFromMessage
+import com.enkod.androidsdk.common.EnKodSDK.isAppInforegrounded
+import com.enkod.androidsdk.common.EnKodSDK.logInfo
+import com.enkod.androidsdk.common.EnKodSDK.managingTheNotificationCreationProcess
+import com.enkod.androidsdk.common.InternetService
+import com.enkod.androidsdk.common.LoadImageWorker
+import com.enkod.androidsdk.utils.Preferences.MESSAGEID_TAG
+import com.enkod.androidsdk.utils.Preferences.START_AUTO_UPDATE_TAG
+import com.enkod.androidsdk.utils.Preferences.TAG
+import com.enkod.androidsdk.utils.Preferences.USING_FCM
+import com.enkod.androidsdk.utils.Variables.messageId
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 

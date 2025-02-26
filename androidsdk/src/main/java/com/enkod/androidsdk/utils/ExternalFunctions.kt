@@ -1,4 +1,4 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.utils
 
 import android.app.NotificationChannel
 import android.content.Context
@@ -9,11 +9,11 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.enkod.androidsdk.EnKodSDK.defaultIconId
-import com.enkod.androidsdk.Variables.actionButtonIntent
-import com.enkod.androidsdk.Variables.actionButtonText
-import com.enkod.androidsdk.Variables.actionButtonsUrl
-import java.util.*
+import com.enkod.androidsdk.common.EnKodSDK
+import com.enkod.androidsdk.common.EnKodSDK.defaultIconId
+import com.enkod.androidsdk.utils.Variables.actionButtonIntent
+import com.enkod.androidsdk.utils.Variables.actionButtonText
+import com.enkod.androidsdk.utils.Variables.actionButtonsUrl
 
 // файл содержащий функции расширения.
 
