@@ -63,7 +63,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.enkodio"
             artifactId = "androidsdk"
-            version = "1.0.0"
+            version = "2.0.0"
 
             afterEvaluate {
                 from(components["release"])

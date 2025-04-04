@@ -94,9 +94,4 @@ interface Api {
                     @Header("X-Session-Id")session:String,
                     @Body body:JsonObject)
             : Call<Unit>
-
-
 }
-
-
-

@@ -201,7 +201,7 @@ object EnKodSDK {
             }
 
             else -> {
-                tokenType = "fcm"
+                tokenType = "android"
 
                 if (token == fcmToken && !sessionId.isNullOrEmpty()) {
 
@@ -408,7 +408,7 @@ object EnKodSDK {
             SubscribeBody(
                 sessionId = session,
                 token = token,
-                tokenType = tokenType
+                os = tokenType
             )
         ).enqueue(object : Callback<UpdateTokenResponse> {
             override fun onResponse(
@@ -441,7 +441,7 @@ object EnKodSDK {
             SubscribeBody(
                 sessionId = session,
                 token = token,
-                tokenType = tokenType
+                os = tokenType
             )
         ).enqueue(object : Callback<UpdateTokenResponse> {
             override fun onResponse(
@@ -506,8 +506,7 @@ object EnKodSDK {
             SubscribeBody(
                 sessionId = session,
                 token = token,
-                os = "android",
-                tokenType = tokenType
+                os = tokenType,
             )
         ).enqueue(object : Callback<UpdateTokenResponse> {
             override fun onResponse(
@@ -531,7 +530,6 @@ object EnKodSDK {
                 logInfo("no subscribed ${t.localizedMessage}")
 
             }
-
         })
     }
 
@@ -883,6 +881,8 @@ object EnKodSDK {
     internal fun createInputDataFromHuaweiMessage(message: com.huawei.hms.push.RemoteMessage): Data {
 
         val dataBuilder = Data.Builder()
+
+        logInfo("message data is: ${message.dataOfMap}")
 
         for (key in message.dataOfMap.keys) {
 

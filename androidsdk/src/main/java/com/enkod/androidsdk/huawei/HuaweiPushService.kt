@@ -30,17 +30,17 @@ class HuaweiPushService : HmsMessageService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Log.d("HuaweiPushService", "new token is $token")
-
+        logInfo("new token is $token")
 
         TokenUpdater.setNewToken(token).let {
-            Log.d("HuaweiPushService", "token updating status is $it")
+            logInfo("\"token updating status is $it\"")
         }
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
+        logInfo("onMessageReceived method started")
         super.onMessageReceived(message)
 
         val preferences = applicationContext.getSharedPreferences(TAG, Context.MODE_PRIVATE)
@@ -50,7 +50,7 @@ class HuaweiPushService : HmsMessageService() {
 
         if (preferencesUsingHuawei) {
 
-            logInfo("message.priority ${message.urgency}")
+            logInfo("message.priority ${message.dataOfMap["priority"]}")
 
             val dataFromPush =
                 createInputDataFromHuaweiMessage(message).keyValueMap as Map<String, String>
@@ -94,7 +94,7 @@ class HuaweiPushService : HmsMessageService() {
             }
 
             fun choosingNotificationProcessTopApi() {
-                when (message.urgency) {
+                when ((message.dataOfMap["priority"] as String).toInt()) {
 
                     1 -> {
 
@@ -127,7 +127,7 @@ class HuaweiPushService : HmsMessageService() {
 
                         } else {
 
-                            when (message.urgency) {
+                            when ((message.dataOfMap["priority"] as String).toInt()) {
 
                                 1 -> {
 
