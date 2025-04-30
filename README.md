@@ -4,14 +4,14 @@
 
 Перед добавлением и использованием библиотеки **enkodio:androidsdk** рекомендуем ознакомиться:
 
-- с [README Firebase Cloud Messaging](<README Firebase Cloud Messaging.md>)
-- с [Additional SDK](<Additional SDK.md>)
+- с [README Firebase Cloud Messaging](<README%20Firebase%20Cloud%20Messaging.md>)
+- с [Additional SDK](<Additional%20SDK.md>)
 
 ## Инициализация библиотеки и добавления контакта
 
 1. В файл **settings.gradle.kts** (Project Setting) в блок dependencyResolutionManagement необходимо добавить строку кода  -  `maven ("https://jitpack.io")`
 
-2. В файл **build.gradle.kts** (Module:app) в блок dependencies необходимо добавить зависимость `com.github.enkodio:enkod-android-sdk:v1.0.4` и выполнить синхронизацию gradle
+2. В файл **build.gradle.kts** (Module:app) в блок dependencies необходимо добавить зависимость `com.github.enkodio:enkod-android-sdk:v1.0.5` и выполнить синхронизацию gradle
 
 3. Для инициализации библиотеки в основном **Activity** проекта выполните метод `EnkodConnect(_account:"account").start(this)`, где:
 
