@@ -1234,19 +1234,10 @@ object EnKodSDK {
         val personID = extras.getString(personId, "0").toInt()
         val intent = extras.getString(intentName, "2").toInt()
         val url = extras.getString(url)
+        val messageID = preferencesMessageId?.toIntOrNull() ?: 0
+        val sessionID = preferencesSessionId ?: ""
 
         logInfo("push click: intent: $intent, url: $url")
-
-        val messageID = when (preferencesMessageId) {
-            null -> -1
-            else -> preferencesMessageId.toInt()
-        }
-
-        val sessionID = when (preferencesSessionId) {
-            null -> ""
-            else -> preferencesSessionId
-        }
-
 
         initRetrofit(context)
 
