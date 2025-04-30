@@ -616,22 +616,24 @@ object EnKodSDK {
     // функция isOnline определяет наличие интернет соединения
 
     fun isOnline(context: Context): Boolean {
+        // Для Android 5.0 и выше используем getNetworkCapabilities
+
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        if (connectivityManager != null) {
+        // для sdk выше 23 версии
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val capabilities =
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             if (capabilities != null) {
-
-                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    return true
-                }
+                return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
             }
+        } else {
+            // Для более ранних версий используем getNetworkInfo
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
         }
         return false
     }
@@ -961,7 +963,7 @@ object EnKodSDK {
                                 .bigLargeIcon(image)
 
                         )
-                } catch (e: Exception) {
+                } catch (_: Exception) {
 
                     logInfo("error push img builder")
                 }
@@ -1198,7 +1200,7 @@ object EnKodSDK {
                         initRetrofit(context)
                         initPreferences(context)
                         startSession()
-                    } catch (e: Exception) {
+                    } catch (_: Exception) {
                         logInfo("error opening deep link")
                         context.startActivity(getPackageLauncherIntent(context))
                     }
@@ -1311,7 +1313,8 @@ object EnKodSDK {
 
     // функция checkBatteryOptimization предназначена для показа запроса на снятие ограничений энергосбережения для приложения.
 
-    @SuppressLint("BatteryLife")
+    @RequiresApi(Build.VERSION_CODES.M)
+    @SuppressLint("BatteryLife", "LongLogTag")
     fun checkBatteryOptimization(mContext: Context) {
 
         val powerManager =
@@ -1328,7 +1331,7 @@ object EnKodSDK {
 }
 
 
-class InitLibObserver<T>(private val defaultValue: T) {
+class InitLibObserver<T>(defaultValue: T) {
     var value: T = defaultValue
         set(value) {
             field = value
@@ -1337,7 +1340,7 @@ class InitLibObserver<T>(private val defaultValue: T) {
     val observable = BehaviorSubject.create<T>(value)
 }
 
-class PushLoadObserver<T>(private val defaultValue: T) {
+class PushLoadObserver<T>( defaultValue: T) {
     var value: T = defaultValue
         set(value) {
             field = value
@@ -1346,7 +1349,7 @@ class PushLoadObserver<T>(private val defaultValue: T) {
     val observable = BehaviorSubject.create<T>(value)
 }
 
-class StartTokenAutoUpdateObserver<T>(private val defaultValue: T) {
+class StartTokenAutoUpdateObserver<T>( defaultValue: T) {
     var value: T = defaultValue
         set(value) {
             field = value
@@ -1355,7 +1358,7 @@ class StartTokenAutoUpdateObserver<T>(private val defaultValue: T) {
     val observable = BehaviorSubject.create<T>(value)
 }
 
-class StartTokenManualUpdateObserver<T>(private val defaultValue: T) {
+class StartTokenManualUpdateObserver<T>( defaultValue: T) {
     var value: T = defaultValue
         set(value) {
             field = value
@@ -1381,7 +1384,7 @@ class LoadImageWorker(context: Context, workerParameters: WorkerParameters) :
             EnKodSDK.managingTheNotificationCreationProcess(applicationContext, message)
 
             Result.success()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
 
             Result.failure();
         }
