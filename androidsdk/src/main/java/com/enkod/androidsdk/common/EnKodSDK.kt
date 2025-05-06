@@ -41,6 +41,12 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.enkod.androidsdk.R
 import com.enkod.androidsdk.common.EnKodSDK.logInfo
+import com.enkod.androidsdk.data.Api
+import com.enkod.androidsdk.data.model.PageUrl
+import com.enkod.androidsdk.data.model.PushClickBody
+import com.enkod.androidsdk.data.model.SessionIdResponse
+import com.enkod.androidsdk.data.model.SubscribeBody
+import com.enkod.androidsdk.data.model.UpdateTokenResponse
 import com.enkod.androidsdk.utils.Preferences.ACCOUNT_TAG
 import com.enkod.androidsdk.utils.Preferences.DEV_TAG
 import com.enkod.androidsdk.utils.Preferences.MESSAGEID_TAG
@@ -51,6 +57,7 @@ import com.enkod.androidsdk.utils.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
 import com.enkod.androidsdk.utils.Preferences.TIME_TOKEN_AUTO_UPDATE_TAG
 import com.enkod.androidsdk.utils.Preferences.TOKEN_TAG
 import com.enkod.androidsdk.utils.Preferences.USING_FCM
+import com.enkod.androidsdk.utils.Variables
 import com.enkod.androidsdk.utils.Variables.body
 import com.enkod.androidsdk.utils.Variables.ledColor
 import com.enkod.androidsdk.utils.Variables.ledOffMs
@@ -60,14 +67,6 @@ import com.enkod.androidsdk.utils.Variables.personId
 import com.enkod.androidsdk.utils.Variables.soundOn
 import com.enkod.androidsdk.utils.Variables.title
 import com.enkod.androidsdk.utils.Variables.vibrationOn
-import com.enkod.androidsdk.data.Api
-import com.enkod.androidsdk.data.model.PageUrl
-import com.enkod.androidsdk.data.model.PushClickBody
-import com.enkod.androidsdk.data.model.SessionIdResponse
-import com.enkod.androidsdk.data.model.SubscribeBody
-import com.enkod.androidsdk.data.model.UpdateTokenResponse
-import com.enkod.androidsdk.huawei.TokenUpdater
-import com.enkod.androidsdk.utils.Variables
 import com.enkod.androidsdk.utils.addActions
 import com.enkod.androidsdk.utils.setIcon
 import com.enkod.androidsdk.utils.setLights
@@ -79,7 +78,6 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.reactivex.rxjava3.core.Single
-import kotlinx.coroutines.flow.collectLatest
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -1444,6 +1442,32 @@ object EnKodSDK {
             mContext.startActivity(i)
         }
     }
+
+    fun sendCustomEvent(
+        event: String,
+        phone: String,
+        email: String,
+        params: Map<String, Any>
+    ): Boolean {
+        return try {
+            val map = mapOf(
+                "event" to event,
+                "phone" to phone,
+                "email" to email,
+                "params" to params
+            )
+
+            val response = retrofit.sendCustomEvent(
+                getSession(),
+                getClientName(),
+                map
+            ).execute()
+            response.isSuccessful
+        } catch (e: Exception) {
+            false
+        }
+    }
+
 }
 
 
@@ -1506,9 +1530,3 @@ class LoadImageWorker(context: Context, workerParameters: WorkerParameters) :
         }
     }
 }
-
-
-
-
-
-
