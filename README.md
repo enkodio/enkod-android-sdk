@@ -25,10 +25,20 @@
     > Если подключение push-уведомлений не требуется, пункт 4 следует пропустить.
 
    - подключить сервис Firebase Cloud Messaging к проекту
-   - указать значение `true` для параметра `"_usingFcm"` в конструкторе класса EnkodConnect
-     - По умолчанию `usingFcm` = false
+   - подключить сервис PushKit к проекту
+   - перед подключением библиотеки проверять, доступны ли google сервисы с помощью метода:
+
+   >private fun googleEnabled(context: Context): Boolean {
+   val availability = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context)
+   return availability == com.google.android.gms.common.ConnectionResult.SUCCESS
+   }
+
+   - указать значение `true` для параметра `"_usingFcm", если метод возвращает true в конструкторе класса EnkodConnect
+   - указать значение `true` для параметра `"_usingHuawei", если метод возвращает false в конструкторе класса EnkodConnect
+     - По умолчанию `usingFcm` = `usingHuawei` = false
      - Параметр `"_usingFcm"` указывается следующим после параметра `"_account"`
-   - для работы с Firebase Cloud Messaging выполните `EnkodConnect(_account: "account", _usingFcm: true).start(this)`
+     - Параметр `"_usingHuawei"` указывается следующим после параметра `"_usingFcm"`
+   - для работы с Firebase Cloud Messaging / Huawei PushKit выполните `EnkodConnect(_account: "account", _usingFcm: ..., _usingHuawei: ...).start(this)`
   
 5. Для регистрации контакта в сервисе enKod воспользуйтесь методом: 
    ```kotlin
@@ -99,3 +109,32 @@
     - `price: String?` - стоимость данной позиции в формате String
   - Опционально: для передачи дополнительных параметров для конкретной позиции можно передать в качестве параметра `params:`
   коллекцию `Map <String, Any>?` содержащую необходимые ключи и значения.
+
+## Custom events
+  - `
+    fun sendCustomEvent(
+    event: String,
+    phone: String,
+    email: String,
+    params: Map<String, Any>
+    ): Boolean
+`
+Данный метод предназначен для отправки кастомных событий. Он содержит следующие поля:
+  - event (строка) - название события
+  - phone (строка) - номер телефона, к которому привязано событие
+  - email (строка) - адрес электронной почты, к которой привязано событие
+  - params (таблица <ключ (строка),значение (любой тип данных)>) - параметры события
+
+Пример использования:
+`sendCustomEvent(
+event = "testEvent",
+phone = "",
+email = "testemail@en.ru"
+params = mapOf(
+"par1" to "str",
+"par2" to 1
+    )
+)`
+
+В метод передается название события testEvent, почта testemail@en.ru и 2 параметра -
+par1 и par2 со значениями str (строка) и 1 (целое число) соотвественно.

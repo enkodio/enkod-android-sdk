@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("maven-publish")
+    id ("com.huawei.agconnect")
 }
 
 android {
@@ -28,7 +29,6 @@ android {
 }
 
 dependencies {
-
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -55,8 +55,7 @@ dependencies {
     implementation ("io.reactivex.rxjava3:rxjava:3.1.7")
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.1")
     implementation ("androidx.appcompat:appcompat:1.6.1")
-
-
+    implementation ("com.huawei.hms:push:6.13.0.300")
 }
 
 publishing {
@@ -64,7 +63,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.github.enkodio"
             artifactId = "androidsdk"
-            version = "1.0.0"
+            version = "2.0.0"
 
             afterEvaluate {
                 from(components["release"])
@@ -72,5 +71,3 @@ publishing {
         }
     }
 }
-
-
