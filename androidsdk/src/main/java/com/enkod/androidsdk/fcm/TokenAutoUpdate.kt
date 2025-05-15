@@ -1,16 +1,18 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.fcm
 
 
 import android.content.Context
 
-import com.enkod.androidsdk.EnKodSDK.initPreferences
-import com.enkod.androidsdk.EnKodSDK.initRetrofit
-import com.enkod.androidsdk.EnKodSDK.logInfo
-import com.enkod.androidsdk.EnKodSDK.startTokenAutoUpdateObserver
-import com.enkod.androidsdk.Preferences.TAG
-import com.enkod.androidsdk.Variables.defaultTimeAutoUpdateToken
-import com.enkod.androidsdk.Variables.millisInHours
-import com.enkod.androidsdk.VerificationOfTokenCompliance.startVerificationTokenUsingWorkManager
+import com.enkod.androidsdk.common.EnKodSDK.initPreferences
+import com.enkod.androidsdk.common.EnKodSDK.initRetrofit
+import com.enkod.androidsdk.common.EnKodSDK.logInfo
+import com.enkod.androidsdk.common.EnKodSDK.startTokenAutoUpdateObserver
+import com.enkod.androidsdk.utils.Preferences.TAG
+import com.enkod.androidsdk.utils.Variables.defaultTimeAutoUpdateToken
+import com.enkod.androidsdk.utils.Variables.millisInHours
+import com.enkod.androidsdk.fcm.VerificationOfTokenCompliance.startVerificationTokenUsingWorkManager
+import com.enkod.androidsdk.common.EnKodSDK
+import com.enkod.androidsdk.utils.Preferences
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 

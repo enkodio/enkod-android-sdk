@@ -1,4 +1,4 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.common
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -39,32 +39,47 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.enkod.androidsdk.EnKodSDK.logInfo
-import com.enkod.androidsdk.Preferences.ACCOUNT_TAG
-import com.enkod.androidsdk.Preferences.DEV_TAG
-import com.enkod.androidsdk.Preferences.MESSAGEID_TAG
-import com.enkod.androidsdk.Preferences.SESSION_ID_TAG
-import com.enkod.androidsdk.Preferences.START_AUTO_UPDATE_TAG
-import com.enkod.androidsdk.Preferences.TAG
-import com.enkod.androidsdk.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
-import com.enkod.androidsdk.Preferences.TIME_TOKEN_AUTO_UPDATE_TAG
-import com.enkod.androidsdk.Preferences.TOKEN_TAG
-import com.enkod.androidsdk.Preferences.USING_FCM
-import com.enkod.androidsdk.Variables.body
-import com.enkod.androidsdk.Variables.ledColor
-import com.enkod.androidsdk.Variables.ledOffMs
-import com.enkod.androidsdk.Variables.ledOnMs
-import com.enkod.androidsdk.Variables.messageId
-import com.enkod.androidsdk.Variables.personId
-import com.enkod.androidsdk.Variables.soundOn
-import com.enkod.androidsdk.Variables.title
-import com.enkod.androidsdk.Variables.vibrationOn
+import com.enkod.androidsdk.R
+import com.enkod.androidsdk.common.EnKodSDK.logInfo
+import com.enkod.androidsdk.utils.Preferences.ACCOUNT_TAG
+import com.enkod.androidsdk.utils.Preferences.DEV_TAG
+import com.enkod.androidsdk.utils.Preferences.MESSAGEID_TAG
+import com.enkod.androidsdk.utils.Preferences.SESSION_ID_TAG
+import com.enkod.androidsdk.utils.Preferences.START_AUTO_UPDATE_TAG
+import com.enkod.androidsdk.utils.Preferences.TAG
+import com.enkod.androidsdk.utils.Preferences.TIME_LAST_TOKEN_UPDATE_TAG
+import com.enkod.androidsdk.utils.Preferences.TIME_TOKEN_AUTO_UPDATE_TAG
+import com.enkod.androidsdk.utils.Preferences.TOKEN_TAG
+import com.enkod.androidsdk.utils.Preferences.USING_FCM
+import com.enkod.androidsdk.utils.Variables.body
+import com.enkod.androidsdk.utils.Variables.ledColor
+import com.enkod.androidsdk.utils.Variables.ledOffMs
+import com.enkod.androidsdk.utils.Variables.ledOnMs
+import com.enkod.androidsdk.utils.Variables.messageId
+import com.enkod.androidsdk.utils.Variables.personId
+import com.enkod.androidsdk.utils.Variables.soundOn
+import com.enkod.androidsdk.utils.Variables.title
+import com.enkod.androidsdk.utils.Variables.vibrationOn
+import com.enkod.androidsdk.data.Api
+import com.enkod.androidsdk.data.model.PageUrl
+import com.enkod.androidsdk.data.model.PushClickBody
+import com.enkod.androidsdk.data.model.SessionIdResponse
+import com.enkod.androidsdk.data.model.SubscribeBody
+import com.enkod.androidsdk.data.model.UpdateTokenResponse
+import com.enkod.androidsdk.huawei.TokenUpdater
+import com.enkod.androidsdk.utils.Variables
+import com.enkod.androidsdk.utils.addActions
+import com.enkod.androidsdk.utils.setIcon
+import com.enkod.androidsdk.utils.setLights
+import com.enkod.androidsdk.utils.setSound
+import com.enkod.androidsdk.utils.setVibrate
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.collectLatest
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -75,6 +90,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import rx.subjects.BehaviorSubject
+import java.lang.ref.WeakReference
 import java.lang.reflect.Type
 import java.util.Random
 import java.util.concurrent.TimeUnit
@@ -97,7 +113,7 @@ object EnKodSDK {
     private var firstName = ""
     private var lastName = ""
     private var contactParams: Map<String, Any>? = null
-    private var contactGroup: List<String>?  = null
+    private var contactGroup: List<String>? = null
 
     private var addContactRequest = false
 
@@ -122,47 +138,91 @@ object EnKodSDK {
 
     internal lateinit var retrofit: Api
     private lateinit var client: OkHttpClient
-
+    private lateinit var tokenType: String
+    private var contextRef: WeakReference<Context>? = null
     // функция init - предназначена для инициализации библиотеки
 
-    internal fun init(context: Context, account: String, token: String? = null) {
+    internal fun init(
+        context: Context,
+        account: String,
+        fcmToken: String? = null,
+        huaweiToken: String? = null
+    ) {
 
         initRetrofit(context)
         setClientName(context, account)
         initPreferences(context)
 
-
-        when (token) {
+        when (fcmToken) {
 
             null -> {
 
-                if (sessionId.isNullOrEmpty()) getSessionIdFromApi(context)
-                if (!sessionId.isNullOrEmpty()) startSession()
+                when (huaweiToken) {
 
+                    null -> {
+                        tokenType = "none"
+                        if (sessionId.isNullOrEmpty()) getSessionIdFromApi(context)
+                        if (!sessionId.isNullOrEmpty()) startSession(tokenType)
+                    }
+
+                    else -> {
+                        tokenType = "huawei"
+
+                        if (token == huaweiToken && !sessionId.isNullOrEmpty()) {
+                            startSession(tokenType)
+                        }
+
+                        if (token != huaweiToken) {
+
+                            val preferences =
+                                context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+                            preferences.edit()
+                                .putString(TOKEN_TAG, huaweiToken)
+                                .apply()
+
+
+                            token = huaweiToken
+
+                            logInfo("huawei token updated in library")
+
+                            if (!sessionId.isNullOrEmpty()) {
+
+                                updateTokenHuawei(context, sessionId, huaweiToken)
+                            }
+                        }
+
+                        if (sessionId.isNullOrEmpty()) {
+
+                            getSessionIdFromApi(context)
+
+                        }
+                    }
+                }
             }
 
             else -> {
+                tokenType = "fcm"
 
-                if (this.token == token && !sessionId.isNullOrEmpty()) {
+                if (token == fcmToken && !sessionId.isNullOrEmpty()) {
 
-                    startSession()
+                    startSession(tokenType)
                 }
 
-                if (this.token != token) {
+                if (token != fcmToken) {
 
                     val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
                     preferences.edit()
-                        .putString(TOKEN_TAG, token)
+                        .putString(TOKEN_TAG, fcmToken)
                         .apply()
 
 
-                    this.token = token
+                    token = fcmToken
 
                     logInfo("token updated in library")
 
                     if (!sessionId.isNullOrEmpty()) {
 
-                        updateToken(context, sessionId, token)
+                        updateTokenFcm(context, sessionId, fcmToken)
                     }
                 }
 
@@ -186,7 +246,8 @@ object EnKodSDK {
             .putString(ACCOUNT_TAG, acc)
             .apply()
 
-        this.account = acc
+        account = acc
+        contextRef = WeakReference(context.applicationContext) // Сохраняем безопасный context
     }
 
     // функция initPreferences предназначена для извлечения значений имя пользователя, сессии, токена из
@@ -201,9 +262,9 @@ object EnKodSDK {
         val preferencesToken = preferences.getString(TOKEN_TAG, null)
 
 
-        this.sessionId = preferencesSessionId
-        this.token = preferencesToken
-        this.account = preferencesAcc
+        sessionId = preferencesSessionId
+        token = preferencesToken
+        account = preferencesAcc
 
     }
 
@@ -327,17 +388,16 @@ object EnKodSDK {
             .putString(SESSION_ID_TAG, session)
             .apply()
 
-        this.sessionId = session
+        sessionId = session
 
 
         if (newPreferencesToken.isNullOrEmpty()) {
-            startSession()
-        } else updateToken(context, session, newPreferencesToken)
+            startSession(tokenType)
+        } else updateTokenFcm(context, session, newPreferencesToken)
     }
 
     // функция updateToken предназначена для обновления токена на сервере
-
-    private fun updateToken(context: Context, session: String?, token: String?) {
+    private fun updateTokenHuawei(context: Context, session: String?, token: String?) {
 
         val session = session ?: ""
         val token = token ?: ""
@@ -347,7 +407,41 @@ object EnKodSDK {
             getSession(),
             SubscribeBody(
                 sessionId = session,
-                token = token
+                token = token,
+                tokenType = tokenType
+            )
+        ).enqueue(object : Callback<UpdateTokenResponse> {
+            override fun onResponse(
+                call: Call<UpdateTokenResponse>,
+                response: Response<UpdateTokenResponse>
+
+            ) {
+
+                logInfo("token updated in service code: ${response.code()}")
+                newTokenCallback(token)
+
+                startSession(tokenType)
+            }
+
+            override fun onFailure(call: Call<UpdateTokenResponse>, t: Throwable) {
+
+                logInfo("token update failure")
+            }
+        })
+    }
+
+    private fun updateTokenFcm(context: Context, session: String?, token: String?) {
+
+        val session = session ?: ""
+        val token = token ?: ""
+
+        retrofit.updateToken(
+            getClientName(),
+            getSession(),
+            SubscribeBody(
+                sessionId = session,
+                token = token,
+                tokenType = tokenType
             )
         ).enqueue(object : Callback<UpdateTokenResponse> {
             override fun onResponse(
@@ -365,7 +459,7 @@ object EnKodSDK {
                     .putLong(TIME_LAST_TOKEN_UPDATE_TAG, System.currentTimeMillis())
                     .apply()
 
-                startSession()
+                startSession(tokenType)
 
             }
 
@@ -380,7 +474,7 @@ object EnKodSDK {
 
     // функция startSession - активирует сессию
 
-    private fun startSession() {
+    private fun startSession(tokenType: String) {
 
         retrofit.startSession(getSession(), getClientName())
             .enqueue(object : Callback<SessionIdResponse> {
@@ -390,7 +484,7 @@ object EnKodSDK {
                 ) {
                     logInfo("session started ${response.body()?.session_id}")
 
-                    subscribeToPush(getClientName(), getSession(), getToken())
+                    subscribeToPush(getClientName(), getSession(), getToken(), tokenType)
                 }
 
                 override fun onFailure(call: Call<SessionIdResponse>, t: Throwable) {
@@ -404,7 +498,7 @@ object EnKodSDK {
     // функция subscribePush создает пустые персоны при наличии канала связи,
     // реализует возможность добавления мобильного токена к персоне/.
 
-    private fun subscribeToPush(client: String, session: String, token: String) {
+    private fun subscribeToPush(client: String, session: String, token: String, tokenType: String) {
 
         retrofit.subscribeToPushToken(
             client,
@@ -412,7 +506,8 @@ object EnKodSDK {
             SubscribeBody(
                 sessionId = session,
                 token = token,
-                os = "android"
+                os = "android",
+                tokenType = tokenType
             )
         ).enqueue(object : Callback<UpdateTokenResponse> {
             override fun onResponse(
@@ -423,7 +518,7 @@ object EnKodSDK {
 
                 initLibObserver.value = true
 
-                if (addContactRequest == true) {
+                if (addContactRequest) {
 
                     addContact(email, phone, firstName, lastName, contactParams, contactGroup)
 
@@ -458,16 +553,16 @@ object EnKodSDK {
         var initLib = false
 
 
-        initLibObserver.observable.subscribe {init ->
+        initLibObserver.observable.subscribe { init ->
 
             initLib = init
 
         }
 
-        this.email = email
-        this.phone = phone
-        this.firstName = firstName
-        this.lastName = lastName
+        EnKodSDK.email = email
+        EnKodSDK.phone = phone
+        EnKodSDK.firstName = firstName
+        EnKodSDK.lastName = lastName
         contactParams = extraFields
         contactGroup = groups
 
@@ -665,22 +760,30 @@ object EnKodSDK {
 
     internal fun getClientName(): String {
 
-        return if (!this.account.isNullOrEmpty()) {
-            this.account ?: ""
+        return if (!account.isNullOrEmpty()) {
+            account ?: ""
         } else ""
     }
 
     internal fun getSession(): String {
 
-        return if (!this.sessionId.isNullOrEmpty()) {
-            this.sessionId ?: ""
+        return if (!sessionId.isNullOrEmpty()) {
+            sessionId ?: ""
         } else ""
     }
 
     internal fun getToken(): String {
-        return if (!this.token.isNullOrEmpty()) {
-            this.token ?: ""
+        return if (!token.isNullOrEmpty()) {
+            token ?: ""
         } else ""
+    }
+
+    internal fun getContext(): Context? {
+        return contextRef?.get()
+    }
+
+    internal fun getAccount(): String? {
+        return account
     }
 
     // функции getSessionFromLibrary и getTokenFromLibrary возвращают значения сессии и токена
@@ -769,6 +872,22 @@ object EnKodSDK {
 
             if (!message.data[key].isNullOrEmpty()) {
                 dataBuilder.putString(key, message.data[key])
+            }
+        }
+
+        val inputData = dataBuilder.build()
+
+        return inputData
+    }
+
+    internal fun createInputDataFromHuaweiMessage(message: com.huawei.hms.push.RemoteMessage): Data {
+
+        val dataBuilder = Data.Builder()
+
+        for (key in message.dataOfMap.keys) {
+
+            if (!message.dataOfMap[key].isNullOrEmpty()) {
+                dataBuilder.putString(key, message.dataOfMap[key])
             }
         }
 
@@ -1091,7 +1210,7 @@ object EnKodSDK {
                     bundleOf(
                         intentName to OpenIntent.DYNAMIC_LINK.get(),
                         OpenIntent.OPEN_APP.name to true,
-                        this.url to URL
+                        url to URL
                     )
                 )
             }
@@ -1118,7 +1237,7 @@ object EnKodSDK {
                     bundleOf(
                         intentName to OpenIntent.OPEN_URL.get(),
                         OpenIntent.OPEN_APP.name to true,
-                        this.url to URL
+                        url to URL
                     )
                 )
             }
@@ -1197,7 +1316,7 @@ object EnKodSDK {
                         )
                         initRetrofit(context)
                         initPreferences(context)
-                        startSession()
+                        startSession(tokenType)
                     } catch (e: Exception) {
                         logInfo("error opening deep link")
                         context.startActivity(getPackageLauncherIntent(context))
@@ -1224,9 +1343,9 @@ object EnKodSDK {
         val preferencesToken = preferences.getString(TOKEN_TAG, null)
         val preferencesMessageId = preferences.getString(MESSAGEID_TAG, null)
 
-        this.sessionId = preferencesSessionId ?: ""
-        this.token = preferencesToken ?: ""
-        this.account = preferencesAcc ?: ""
+        sessionId = preferencesSessionId ?: ""
+        token = preferencesToken ?: ""
+        account = preferencesAcc ?: ""
 
 
         val personID = extras.getString(personId, "0").toInt()
@@ -1387,8 +1506,6 @@ class LoadImageWorker(context: Context, workerParameters: WorkerParameters) :
         }
     }
 }
-
-
 
 
 

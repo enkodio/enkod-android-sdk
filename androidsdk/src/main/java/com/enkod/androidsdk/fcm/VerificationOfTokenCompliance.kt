@@ -1,4 +1,4 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.fcm
 
 import android.content.Context
 import android.os.Build
@@ -10,7 +10,10 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.enkod.androidsdk.Variables.defaultTimeVerificationToken
+import com.enkod.androidsdk.common.EnKodSDK
+import com.enkod.androidsdk.data.model.GetTokenResponse
+import com.enkod.androidsdk.utils.Variables.defaultTimeVerificationToken
+import com.enkod.androidsdk.utils.Preferences
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
@@ -181,5 +184,3 @@ internal object VerificationOfTokenCompliance {
         })
     }
 }
-
-

@@ -1,4 +1,4 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.common
 
 import android.app.Service
 import android.content.Intent
@@ -6,9 +6,9 @@ import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
-import com.enkod.androidsdk.EnKodSDK.createdNotificationForService
-import com.enkod.androidsdk.EnKodSDK.logInfo
-import com.enkod.androidsdk.Variables.defaultImageLoadTimeout
+import com.enkod.androidsdk.common.EnKodSDK.createdNotificationForService
+import com.enkod.androidsdk.common.EnKodSDK.logInfo
+import com.enkod.androidsdk.utils.Variables.defaultImageLoadTimeout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

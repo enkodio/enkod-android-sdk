@@ -1,4 +1,4 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.data.model
 
 //класс Tracker содержит data классы необходимые для работы библиотеки.
 
@@ -52,5 +52,6 @@ data class PushClickBody(
 data class SubscribeBody(
     val sessionId: String,
     val token: String,
+    val tokenType: String,
     val os: String? = null
 )

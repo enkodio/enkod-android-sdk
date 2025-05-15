@@ -1,5 +1,11 @@
-package com.enkod.androidsdk
+package com.enkod.androidsdk.data
 
+import com.enkod.androidsdk.data.model.GetTokenResponse
+import com.enkod.androidsdk.data.model.PageUrl
+import com.enkod.androidsdk.data.model.PushClickBody
+import com.enkod.androidsdk.data.model.SessionIdResponse
+import com.enkod.androidsdk.data.model.SubscribeBody
+import com.enkod.androidsdk.data.model.UpdateTokenResponse
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.*
@@ -73,7 +79,8 @@ interface Api {
     @POST("/mobile/page/open")
     fun pageOpen(@Header("X-Account")client:String,
                        @Header("X-Session-Id")session:String,
-                       @Body body:PageUrl)
+                       @Body body: PageUrl
+    )
     : Call<Unit>
 
     @POST("/mobile/product/open")

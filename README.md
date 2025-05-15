@@ -25,10 +25,20 @@
     > Если подключение push-уведомлений не требуется, пункт 4 следует пропустить.
 
    - подключить сервис Firebase Cloud Messaging к проекту
-   - указать значение `true` для параметра `"_usingFcm"` в конструкторе класса EnkodConnect
-     - По умолчанию `usingFcm` = false
+   - подключить сервис PushKit к проекту
+   - перед подключением библиотеки проверять, доступны ли google сервисы с помощью метода:
+
+   >private fun googleEnabled(context: Context): Boolean {
+   val availability = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context)
+   return availability == com.google.android.gms.common.ConnectionResult.SUCCESS
+   }
+
+   - указать значение `true` для параметра `"_usingFcm", если метод возвращает true в конструкторе класса EnkodConnect
+   - указать значение `true` для параметра `"_usingHuawei", если метод возвращает false в конструкторе класса EnkodConnect
+     - По умолчанию `usingFcm` = `usingHuawei` = false
      - Параметр `"_usingFcm"` указывается следующим после параметра `"_account"`
-   - для работы с Firebase Cloud Messaging выполните `EnkodConnect(_account: "account", _usingFcm: true).start(this)`
+     - Параметр `"_usingHuawei"` указывается следующим после параметра `"_usingFcm"`
+   - для работы с Firebase Cloud Messaging / Huawei PushKit выполните `EnkodConnect(_account: "account", _usingFcm: ..., _usingHuawei: ...).start(this)`
   
 5. Для регистрации контакта в сервисе enKod воспользуйтесь методом: 
    ```kotlin
