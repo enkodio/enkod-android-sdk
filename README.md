@@ -1,11 +1,12 @@
 ﻿# Инструкция подключения библиотеки enKod Android SDK
 
- > Последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.3
+ > Последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.6
 
 Перед добавлением и использованием библиотеки **enkodio:androidsdk** рекомендуем ознакомиться:
 
 - с [README Firebase Cloud Messaging](<README%20Firebase%20Cloud%20Messaging.md>)
 - с [Additional SDK](<Additional%20SDK.md>)
+- с [README Huawei Messaging](<README%20Huawei%20Messaging.md>)
 
 ## Инициализация библиотеки и добавления контакта
 
