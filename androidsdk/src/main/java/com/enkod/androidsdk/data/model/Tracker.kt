@@ -52,6 +52,5 @@ data class PushClickBody(
 data class SubscribeBody(
     val sessionId: String,
     val token: String,
-    val tokenType: String,
     val os: String? = null
 )

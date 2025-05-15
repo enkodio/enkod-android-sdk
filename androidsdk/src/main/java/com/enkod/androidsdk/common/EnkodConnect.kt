@@ -76,7 +76,7 @@ class EnkodConnect(
 
     fun start(context: Context) {
 
-        logInfo("user settings: account: $account, fcm: $usingFcm, tokenMU: $tokenManualUpdate, tokenAU: $tokenAutoUpdate, timeMU: $timeTokenManualUpdate, timeAU: $timeTokenAutoUpdate")
+        logInfo("user settings: account: $account, fcm: $usingFcm, huawei: $usingHuawei, tokenMU: $tokenManualUpdate, tokenAU: $tokenAutoUpdate, timeMU: $timeTokenManualUpdate, timeAU: $timeTokenAutoUpdate")
 
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
 
