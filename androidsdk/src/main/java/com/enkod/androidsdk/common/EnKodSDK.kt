@@ -1437,13 +1437,13 @@ object EnKodSDK {
         }
     }
 
-    fun sendCustomEvent(
+    suspend fun sendCustomEvent(
         event: String,
         phone: String,
         email: String,
         params: Map<String, Any>
-    ): Boolean {
-        return try {
+    ): Boolean = withContext(Dispatchers.IO) {
+        try {
             val map = mapOf(
                 "event" to event,
                 "phone" to phone,
@@ -1456,6 +1456,7 @@ object EnKodSDK {
                 getClientName(),
                 map
             ).execute()
+
             response.isSuccessful
         } catch (e: Exception) {
             false
