@@ -1,6 +1,6 @@
 ﻿# Инструкция подключения библиотеки enKod Android SDK
 
- > Последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.6
+ > Последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.7
 
 Перед добавлением и использованием библиотеки **enkodio:androidsdk** рекомендуем ознакомиться:
 
@@ -46,6 +46,7 @@
    EnKodSDK.addContact(
               email:String = "",
               phone: String = "", 
+              id: String = "",
               firstName: String = "", 
               lastName: String = "", 
               extraFields: Map<String, Any>? = null,
