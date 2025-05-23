@@ -108,6 +108,7 @@ object EnKodSDK {
 
     private var email = ""
     private var phone = ""
+    private var id = ""
     private var firstName = ""
     private var lastName = ""
     private var contactParams: Map<String, Any>? = null
@@ -517,7 +518,7 @@ object EnKodSDK {
 
                 if (addContactRequest) {
 
-                    addContact(email, phone, firstName, lastName, contactParams, contactGroup)
+                    addContact(email, phone, id, firstName, lastName, contactParams, contactGroup)
 
                     addContactRequest = false
 
@@ -539,6 +540,7 @@ object EnKodSDK {
 
         email: String = "",
         phone: String = "",
+        id: String = "",
         firstName: String = "",
         lastName: String = "",
         extraFields: Map<String, Any>? = null,
@@ -557,6 +559,7 @@ object EnKodSDK {
 
         EnKodSDK.email = email
         EnKodSDK.phone = phone
+        EnKodSDK.id = id
         EnKodSDK.firstName = firstName
         EnKodSDK.lastName = lastName
         contactParams = extraFields
@@ -568,7 +571,9 @@ object EnKodSDK {
 
                 val req = JsonObject()
 
-                if (email.isNotEmpty() && phone.isNotEmpty()) {
+                if (id.isNotEmpty()){
+                    req.add("mainChannel", Gson().toJsonTree("id"))
+                }else if (email.isNotEmpty() && phone.isNotEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("email"))
                 } else if (email.isNotEmpty() && phone.isEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("email"))
@@ -613,6 +618,10 @@ object EnKodSDK {
 
                 if (phone.isNotEmpty()) {
                     fields.addProperty("phone", phone)
+                }
+
+                if (id.isNotEmpty()) {
+                    fields.addProperty("id", id)
                 }
 
                 if (firstName.isNotEmpty()) {
