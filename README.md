@@ -1,6 +1,6 @@
 ﻿# Инструкция подключения библиотеки enKod Android SDK
 
- > Последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.7
+ > Последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.9
 
 Перед добавлением и использованием библиотеки **enkodio:androidsdk** рекомендуем ознакомиться:
 
@@ -12,7 +12,7 @@
 
 1. В файл **settings.gradle.kts** (Project Setting) в блок dependencyResolutionManagement необходимо добавить строку кода  -  `maven ("https://jitpack.io")`
 
-2. В файл **build.gradle.kts** (Module:app) в блок dependencies необходимо добавить зависимость `com.github.enkodio:enkod-android-sdk:v1.0.5` и выполнить синхронизацию gradle
+2. В файл **build.gradle.kts** (Module:app) в блок dependencies необходимо добавить зависимость `com.github.enkodio:enkod-android-sdk:v1.0.9` и выполнить синхронизацию gradle
 
 3. Для инициализации библиотеки в основном **Activity** проекта выполните метод `EnkodConnect(_account:"account").start(this)`, где:
 
