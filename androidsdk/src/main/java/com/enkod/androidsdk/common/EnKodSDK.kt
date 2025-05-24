@@ -125,6 +125,7 @@ object EnKodSDK {
 
     private var email = ""
     private var phone = ""
+    private var id = ""
     private var firstName = ""
     private var lastName = ""
     private var contactParams: Map<String, Any>? = null
@@ -596,7 +597,7 @@ object EnKodSDK {
 
                 if (addContactRequest) {
 
-                    addContact(email, phone, firstName, lastName, contactParams, contactGroup)
+                    addContact(email, phone, id, firstName, lastName, contactParams, contactGroup)
 
                     addContactRequest = false
 
@@ -618,6 +619,7 @@ object EnKodSDK {
 
         email: String = "",
         phone: String = "",
+        id: String = "",
         firstName: String = "",
         lastName: String = "",
         extraFields: Map<String, Any>? = null,
@@ -636,6 +638,7 @@ object EnKodSDK {
 
         EnKodSDK.email = email
         EnKodSDK.phone = phone
+        EnKodSDK.id = id
         EnKodSDK.firstName = firstName
         EnKodSDK.lastName = lastName
         contactParams = extraFields
@@ -647,7 +650,9 @@ object EnKodSDK {
 
                 val req = JsonObject()
 
-                if (email.isNotEmpty() && phone.isNotEmpty()) {
+                if (id.isNotEmpty()){
+                    req.add("mainChannel", Gson().toJsonTree("id"))
+                }else if (email.isNotEmpty() && phone.isNotEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("email"))
                 } else if (email.isNotEmpty() && phone.isEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("email"))
@@ -692,6 +697,10 @@ object EnKodSDK {
 
                 if (phone.isNotEmpty()) {
                     fields.addProperty("phone", phone)
+                }
+
+                if (id.isNotEmpty()) {
+                    fields.addProperty("id", id)
                 }
 
                 if (firstName.isNotEmpty()) {
@@ -786,22 +795,24 @@ object EnKodSDK {
     // функция isOnline определяет наличие интернет соединения
 
     fun isOnline(context: Context): Boolean {
+        // Для Android 5.0 и выше используем getNetworkCapabilities
+
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        if (connectivityManager != null) {
+        // для sdk выше 23 версии
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val capabilities =
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             if (capabilities != null) {
-
-                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    return true
-                }
+                return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
             }
+        } else {
+            // Для более ранних версий используем getNetworkInfo
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
         }
         return false
     }
@@ -1177,7 +1188,7 @@ object EnKodSDK {
                                 .bigLargeIcon(image)
 
                         )
-                } catch (e: Exception) {
+                } catch (_: Exception) {
 
                     logInfo("error push img builder")
                 }
@@ -1448,19 +1459,10 @@ object EnKodSDK {
         val personID = extras.getString(personId, "0").toInt()
         val intent = extras.getString(intentName, "2").toInt()
         val url = extras.getString(url)
+        val messageID = preferencesMessageId?.toIntOrNull() ?: 0
+        val sessionID = preferencesSessionId ?: ""
 
         logInfo("push click: intent: $intent, url: $url")
-
-        val messageID = when (preferencesMessageId) {
-            null -> -1
-            else -> preferencesMessageId.toInt()
-        }
-
-        val sessionID = when (preferencesSessionId) {
-            null -> ""
-            else -> preferencesSessionId
-        }
-
 
         initRetrofit(context)
 
@@ -1527,7 +1529,8 @@ object EnKodSDK {
 
     // функция checkBatteryOptimization предназначена для показа запроса на снятие ограничений энергосбережения для приложения.
 
-    @SuppressLint("BatteryLife")
+    @RequiresApi(Build.VERSION_CODES.M)
+    @SuppressLint("BatteryLife", "LongLogTag")
     fun checkBatteryOptimization(mContext: Context) {
 
         val powerManager =

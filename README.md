@@ -1,17 +1,18 @@
 ﻿# Инструкция подключения библиотеки enKod Android SDK
 
- > Последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.3
+ > Последняя версия библиотеки com.github.enkodio:enkod-android-sdk:v1.0.9
 
 Перед добавлением и использованием библиотеки **enkodio:androidsdk** рекомендуем ознакомиться:
 
-- с [README Firebase Cloud Messaging](<README Firebase Cloud Messaging.md>)
-- с [Additional SDK](<Additional SDK.md>)
+- с [README Firebase Cloud Messaging](<README%20Firebase%20Cloud%20Messaging.md>)
+- с [Additional SDK](<Additional%20SDK.md>)
+- с [README Huawei Messaging](<README%20Huawei%20Messaging.md>)
 
 ## Инициализация библиотеки и добавления контакта
 
 1. В файл **settings.gradle.kts** (Project Setting) в блок dependencyResolutionManagement необходимо добавить строку кода  -  `maven ("https://jitpack.io")`
 
-2. В файл **build.gradle.kts** (Module:app) в блок dependencies необходимо добавить зависимость `com.github.enkodio:enkod-android-sdk:v1.0.4` и выполнить синхронизацию gradle
+2. В файл **build.gradle.kts** (Module:app) в блок dependencies необходимо добавить зависимость `com.github.enkodio:enkod-android-sdk:v1.0.9` и выполнить синхронизацию gradle
 
 3. Для инициализации библиотеки в основном **Activity** проекта выполните метод `EnkodConnect(_account:"account").start(this)`, где:
 
@@ -45,6 +46,7 @@
    EnKodSDK.addContact(
               email:String = "",
               phone: String = "", 
+              id: String = "",
               firstName: String = "", 
               lastName: String = "", 
               extraFields: Map<String, Any>? = null,
@@ -119,7 +121,7 @@
     params: Map<String, Any>
     ): Boolean
 `
-Данный метод предназначен для отправки кастомных событий. Он содержит следующие поля:
+Данный метод предназначен для отправки пользовательских событий. Он содержит следующие поля:
   - event (строка) - название события
   - phone (строка) - номер телефона, к которому привязано событие
   - email (строка) - адрес электронной почты, к которой привязано событие
