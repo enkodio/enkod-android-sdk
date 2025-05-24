@@ -42,7 +42,7 @@
         <service
             android:name="com.enkod.androidsdk.fcm.EnkodPushMessagingService"
             android:directBootAware="true"
-            android:enabled="true"
+            android:enabled="false"
             android:exported="false"
             android:usesCleartextTraffic="true">
             <intent-filter>

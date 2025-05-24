@@ -1,13 +1,18 @@
 package com.enkod.androidsdk.common
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import com.enkod.androidsdk.fcm.TokenManualUpdateService
+import androidx.core.content.edit
+import com.enkod.androidsdk.common.EnKodSDK.initSecondaryFirebaseApp
 import com.enkod.androidsdk.common.EnKodSDK.isAppInforegrounded
 import com.enkod.androidsdk.common.EnKodSDK.logInfo
 import com.enkod.androidsdk.common.EnKodSDK.startTokenManualUpdateObserver
+import com.enkod.androidsdk.fcm.EnkodPushMessagingService
+import com.enkod.androidsdk.fcm.TokenManualUpdateService
 import com.enkod.androidsdk.huawei.TokenUpdater
 import com.enkod.androidsdk.utils.Preferences.START_AUTO_UPDATE_TAG
 import com.enkod.androidsdk.utils.Preferences.TAG
@@ -30,7 +35,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 // класс EnkodConnect предназначен для активации библиотеки содержит конструктор,
- // в который входят поля для настройки библиотеки.
+// в который входят поля для настройки библиотеки.
 
 class EnkodConnect(
 
@@ -40,8 +45,9 @@ class EnkodConnect(
     _tokenManualUpdate: Boolean? = true,
     _tokenAutoUpdate: Boolean? = true,
     _timeTokenManualUpdate: Int? = null,
-    _timeTokenAutoUpdate: Int? = null
-
+    _timeTokenAutoUpdate: Int? = null,
+    _usingInternalNotificationsService: Boolean = false,
+    _secondFirebaseJsonName: String? = null,
 ) {
 
     private val account: String
@@ -51,6 +57,8 @@ class EnkodConnect(
     private val tokenAutoUpdate: Boolean
     private var timeTokenManualUpdate: Int
     private var timeTokenAutoUpdate: Int
+    private var usingInternalNotificationService: Boolean
+    private var secondFirebaseJsonName: String
 
 
     init {
@@ -60,6 +68,8 @@ class EnkodConnect(
         usingHuawei = _usingHuawei ?: false
         tokenManualUpdate = _tokenManualUpdate ?: true
         tokenAutoUpdate = _tokenAutoUpdate ?: true
+        usingInternalNotificationService = _usingInternalNotificationsService
+        secondFirebaseJsonName = _secondFirebaseJsonName ?: ""
 
         timeTokenManualUpdate =
 
@@ -70,15 +80,23 @@ class EnkodConnect(
 
             if (_timeTokenAutoUpdate != null && _timeTokenAutoUpdate > 0) _timeTokenAutoUpdate
             else defaultTimeAutoUpdateToken
-
     }
 
 
     fun start(context: Context) {
 
-        logInfo("user settings: account: $account, fcm: $usingFcm, huawei: $usingHuawei, tokenMU: $tokenManualUpdate, tokenAU: $tokenAutoUpdate, timeMU: $timeTokenManualUpdate, timeAU: $timeTokenAutoUpdate")
+        logInfo("user settings: account: $account, fcm: $usingFcm, huawei: $usingHuawei, tokenMU: $tokenManualUpdate, tokenAU: $tokenAutoUpdate, timeMU: $timeTokenManualUpdate, timeAU: $timeTokenAutoUpdate, usingInternalNotificationService: $usingInternalNotificationService")
 
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+
+        if (usingInternalNotificationService) {
+            val componentName = ComponentName(context, EnkodPushMessagingService::class.java)
+            context.packageManager.setComponentEnabledSetting(
+                componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP
+            )
+        }
 
         CoroutineScope(Dispatchers.IO).launch {
             TokenUpdater.tokenUpdateChannel.collectLatest { newToken ->
@@ -92,74 +110,74 @@ class EnkodConnect(
 
             true -> {
 
-                preferences.edit()
-
-                    .putBoolean(USING_FCM, true)
-                    .apply()
-
-                if (EnKodSDK.isOnline(context)) {
-
-                    EnKodSDK.isOnlineStatus(true)
-
-                    try {
-
-                        FirebaseMessaging.getInstance().token.addOnCompleteListener(
-
-                            OnCompleteListener { task ->
-
-                                if (!task.isSuccessful) {
-
-                                    return@OnCompleteListener
-                                }
-
-                                val token = task.result
-
-                                logInfo("current fcm token: $token")
-
-                                if (tokenAutoUpdate) {
-
-                                    preferences.edit()
-
-                                        .putBoolean(START_AUTO_UPDATE_TAG, true)
-                                        .apply()
-
-                                    preferences.edit()
-
-                                        .putInt(
-                                            TIME_TOKEN_AUTO_UPDATE_TAG,
-                                            timeTokenAutoUpdate
-                                        )
-                                        .apply()
-
-                                }
-
-                                if (tokenManualUpdate) {
-
-                                    startTokenManualUpdateObserver.value = false
-
-                                    tokenUpdate(context, timeTokenManualUpdate)
-
-                                }
-
-                                EnKodSDK.init(context, account, token)
-
-                                logInfo("start library with fcm")
-
-                            })
-
-                    } catch (e: Exception) {
-
-                        EnKodSDK.init(context, account)
-
-                        logInfo("the library started using fcm with an error")
-
+                if (usingInternalNotificationService) {
+                    preferences.edit() {
+                        putBoolean(USING_FCM, true)
                     }
 
-                } else {
+                    if (EnKodSDK.isOnline(context)) {
 
-                    EnKodSDK.isOnlineStatus(false)
+                        EnKodSDK.isOnlineStatus(true)
 
-                    logInfo("error internet")
+                        try {
+
+                            FirebaseMessaging.getInstance().token.addOnCompleteListener(
+
+                                OnCompleteListener { task ->
+
+                                    if (!task.isSuccessful) {
+
+                                        return@OnCompleteListener
+                                    }
+
+                                    val token = task.result
+
+                                    logInfo("current fcm token: $token")
+
+                                    if (tokenAutoUpdate) {
+
+                                        preferences.edit() {
+
+                                            putBoolean(START_AUTO_UPDATE_TAG, true)
+                                        }
+
+                                        preferences.edit() {
+
+                                            putInt(
+                                                TIME_TOKEN_AUTO_UPDATE_TAG,
+                                                timeTokenAutoUpdate
+                                            )
+                                        }
+
+                                    }
+
+                                    if (tokenManualUpdate) {
+
+                                        startTokenManualUpdateObserver.value = false
+
+                                        tokenUpdate(context, timeTokenManualUpdate)
+
+                                    }
+
+                                    EnKodSDK.init(context, account, token)
+
+                                    logInfo("start library with fcm")
+
+                                })
+
+                        } catch (e: Exception) {
+
+                            EnKodSDK.init(context, account)
+
+                            logInfo("the library started using fcm with an error")
+                        }
+
+                    } else {
+
+                        EnKodSDK.isOnlineStatus(false)
+
+                        logInfo("error internet")
+                    }
                 }
             }
 
@@ -195,7 +213,10 @@ class EnkodConnect(
                                             try {
                                                 //Получаем HMS пуш-токен по id, который достали ранее
                                                 val pushToken =
-                                                    getToken(appId, HmsMessaging.DEFAULT_TOKEN_SCOPE)
+                                                    getToken(
+                                                        appId,
+                                                        HmsMessaging.DEFAULT_TOKEN_SCOPE
+                                                    )
 
                                                 if (!pushToken.isNullOrBlank()) {
                                                     logInfo("current huawei token: $pushToken")

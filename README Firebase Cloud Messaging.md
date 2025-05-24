@@ -43,6 +43,49 @@
 
 9. Вставьте скопированный файл в папку app проекта
 
+10. Если в вашем проекте уже есть сервис, обрабатывающий push-уведомления из стороннего аккаунта Firebase,
+вам необходимо положить загруженный файл в папку app/assets (при неимении нужно создать эту папку) и ОБЯЗАТЕЛЬНО переименовать его.
+После этого в Application или в MainActivity необходимо вызвать метод **EnKodSDK.initSecondaryFirebaseApp(context: Context, jsonName: String)**,
+передав в него applicationContext и имя json файла из папки assets. Убедитесь, что json файл соответствует следующей структуре:
+
+>{
+   "project_info": {
+   "project_number": "...",
+   "project_id": "...",
+   "storage_bucket": "..."
+   },
+   "client": [
+      {
+         "client_info": {
+         "mobilesdk_app_id": "...",
+         "android_client_info": {
+         "package_name": "..."
+      }
+   },
+   "oauth_client": [],
+   "api_key": [
+      {
+      "current_key": "..."
+      }
+   ],
+         "services": {
+            "appinvite_service": {
+               "other_platform_oauth_client": []
+            }
+         }
+      }
+   ],
+   "configuration_version": "..."
+}
+
+11. Чтобы обработать сообщение через библиотеку, вызовите метод **EnKodSDK.manageFcmMessageWithEnKod(
+    message: RemoteMessage,
+    applicationContext: Context,
+    externalCall: Boolean = true,
+    )**
+
+12. Чтобы получить токен от второго аккаунта Firebase, вызовите метод **EnKodSDK.getFcmTokenFromCustomApp()**
+
 > Приложение готово к работе с Firebase Cloud Messaging
 
 ## Добавление service accout key в профиль enKod (настройки рассылки)

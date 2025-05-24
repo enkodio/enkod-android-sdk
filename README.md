@@ -41,6 +41,9 @@
      - Параметр `"_usingHuawei"` указывается следующим после параметра `"_usingFcm"`
    - для работы с Firebase Cloud Messaging / Huawei PushKit выполните `EnkodConnect(_account: "account", _usingFcm: ..., _usingHuawei: ...).start(this)`
   
+UPD: если в приложении уже есть аккаунт Firebase, работающий с push уведомлениями, а также существует
+Service : FirebaseMessagingService, прочитайте раздел "Подключение приложения к сервису Firebase Cloud Messaging" из README Firebase Cloud Messaging.md (п. 10 и далее)
+
 5. Для регистрации контакта в сервисе enKod воспользуйтесь методом: 
    ```kotlin
    EnKodSDK.addContact(
