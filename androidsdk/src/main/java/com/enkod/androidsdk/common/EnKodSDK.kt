@@ -29,9 +29,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.edit
 import androidx.core.os.bundleOf
+import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.Data
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.bumptech.glide.Glide
@@ -47,9 +52,11 @@ import com.enkod.androidsdk.data.model.PushClickBody
 import com.enkod.androidsdk.data.model.SessionIdResponse
 import com.enkod.androidsdk.data.model.SubscribeBody
 import com.enkod.androidsdk.data.model.UpdateTokenResponse
+import com.enkod.androidsdk.fcm.TokenAutoUpdate
 import com.enkod.androidsdk.utils.Preferences.ACCOUNT_TAG
 import com.enkod.androidsdk.utils.Preferences.DEV_TAG
 import com.enkod.androidsdk.utils.Preferences.MESSAGEID_TAG
+import com.enkod.androidsdk.utils.Preferences.SECOND_TOKEN_TAG
 import com.enkod.androidsdk.utils.Preferences.SESSION_ID_TAG
 import com.enkod.androidsdk.utils.Preferences.START_AUTO_UPDATE_TAG
 import com.enkod.androidsdk.utils.Preferences.TAG
@@ -72,15 +79,23 @@ import com.enkod.androidsdk.utils.setIcon
 import com.enkod.androidsdk.utils.setLights
 import com.enkod.androidsdk.utils.setSound
 import com.enkod.androidsdk.utils.setVibrate
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
+import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessaging.getInstance
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Converter
@@ -88,7 +103,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import rx.subjects.BehaviorSubject
+import java.io.InputStream
 import java.lang.ref.WeakReference
+import java.lang.reflect.Method
 import java.lang.reflect.Type
 import java.util.Random
 import java.util.concurrent.TimeUnit
@@ -144,7 +161,7 @@ object EnKodSDK {
         context: Context,
         account: String,
         fcmToken: String? = null,
-        huaweiToken: String? = null
+        huaweiToken: String? = null,
     ) {
 
         initRetrofit(context)
@@ -174,9 +191,9 @@ object EnKodSDK {
 
                             val preferences =
                                 context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
-                            preferences.edit()
-                                .putString(TOKEN_TAG, huaweiToken)
-                                .apply()
+                            preferences.edit() {
+                                putString(TOKEN_TAG, huaweiToken)
+                            }
 
 
                             token = huaweiToken
@@ -209,9 +226,9 @@ object EnKodSDK {
                 if (token != fcmToken) {
 
                     val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
-                    preferences.edit()
-                        .putString(TOKEN_TAG, fcmToken)
-                        .apply()
+                    preferences.edit() {
+                        putString(TOKEN_TAG, fcmToken)
+                    }
 
 
                     token = fcmToken
@@ -233,6 +250,47 @@ object EnKodSDK {
         }
     }
 
+    fun initSecondaryFirebaseApp(context: Context, jsonName: String): FirebaseApp {
+        val assetManager = context.assets
+        val inputStream: InputStream = assetManager.open(jsonName)
+        val json = inputStream.bufferedReader().use { it.readText() }
+        val jsonObject = JSONObject(json)
+
+        val projectInfo = jsonObject.getJSONObject("project_info")
+        val projectId = projectInfo.getString("project_id")
+        val storageBucket = projectInfo.optString("storage_bucket", null)
+        val databaseUrl = projectInfo.optString("firebase_url", null)
+        val projectNumber = projectInfo.optString("project_number", null)
+
+        val client = jsonObject.getJSONArray("client").getJSONObject(0)
+
+        val apiKey = client.getJSONArray("api_key")
+            .getJSONObject(0)
+            .getString("current_key")
+
+        val clientInfo = client.getJSONObject("client_info")
+        val appId = clientInfo.getString("mobilesdk_app_id")
+
+        val options = FirebaseOptions.Builder()
+            .setApplicationId(appId)
+            .setApiKey(apiKey)
+            .setProjectId(projectId)
+            .setStorageBucket(storageBucket)
+            .apply {
+                if (databaseUrl != null) {
+                    setDatabaseUrl(databaseUrl)
+                }
+                if (projectNumber != null) {
+                    setGcmSenderId(projectNumber)
+                }
+            }
+            .build()
+
+        val name = "second_firebase_app"
+        val existingApp = FirebaseApp.getApps(context).find { it.name == name }
+        return existingApp ?: FirebaseApp.initializeApp(context, options, name)
+    }
+
     // функция setClientName - предназначена для сохранения значения имени пользователя в preferences
     // устанавливает текущее имя пользователя для функций библиотеки
 
@@ -240,9 +298,9 @@ object EnKodSDK {
 
         val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
         preferences
-            .edit()
-            .putString(ACCOUNT_TAG, acc)
-            .apply()
+            .edit() {
+                putString(ACCOUNT_TAG, acc)
+            }
 
         account = acc
         contextRef = WeakReference(context.applicationContext) // Сохраняем безопасный context
@@ -382,9 +440,9 @@ object EnKodSDK {
 
         val newPreferencesToken = preferences.getString(TOKEN_TAG, null)
 
-        preferences.edit()
-            .putString(SESSION_ID_TAG, session)
-            .apply()
+        preferences.edit() {
+            putString(SESSION_ID_TAG, session)
+        }
 
         sessionId = session
 
@@ -426,6 +484,27 @@ object EnKodSDK {
                 logInfo("token update failure")
             }
         })
+    }
+
+
+    suspend fun getFcmTokenFromCustomApp(): String {
+        val customApp = FirebaseApp.getInstance("second_firebase_app")
+
+        return try {
+            // Доступ к приватному методу getInstance(FirebaseApp)
+            val method: Method = FirebaseMessaging::class.java.getDeclaredMethod(
+                "getInstance",
+                FirebaseApp::class.java
+            )
+            method.isAccessible = true
+            val messaging = method.invoke(null, customApp) as FirebaseMessaging
+
+            // Получаем токен
+            messaging.token.await()
+        } catch (e: Exception) {
+            Log.e("FCM_TOKEN", "Failed to get second app token", e)
+            ""
+        }
     }
 
     private fun updateTokenFcm(context: Context, session: String?, token: String?) {
@@ -801,6 +880,26 @@ object EnKodSDK {
         } else ""
     }
 
+    fun setTokenToLibrary(context: Context, token: String) {
+        val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+        preferences.edit { putString(TOKEN_TAG, token) }
+        Log.d("Token", "Main token updated in library")
+    }
+
+    fun setSecondTokenToLibrary(context: Context, token: String) {
+        val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+        preferences.edit { putString(SECOND_TOKEN_TAG, token) }
+        Log.d("Token", "Second token updated in library")
+    }
+
+    fun getSecondTokenFromLibrary(context: Context): String {
+        val preferences = context.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+        val preferencesToken = preferences.getString(SECOND_TOKEN_TAG, null)
+        return if (!preferencesToken.isNullOrEmpty()) {
+            preferencesToken
+        } else ""
+    }
+
 
     // функция logOut - производит очистку всех данных и настроек текущего пользователя.
     // в случаи повторной активации библиотеки после использовании функции logOut, создается новая сессия.
@@ -814,7 +913,7 @@ object EnKodSDK {
 
         if (preferencesUsingFcm == true) {
 
-            FirebaseMessaging.getInstance().deleteToken()
+            getInstance().deleteToken()
 
         }
 
@@ -1469,8 +1568,186 @@ object EnKodSDK {
         }
     }
 
-}
 
+    fun manageFcmMessageWithEnKod(
+        message: RemoteMessage,
+        applicationContext: Context,
+        externalCall: Boolean = true,
+    ) {
+        logInfo( "Уведомление получено библиотекой: $message")
+
+        val preferences = applicationContext.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+
+        val preferencesUsingFcm: Boolean = preferences.getBoolean(USING_FCM, false)
+
+
+        val preferencesTokenAutoUpdate: Boolean =
+            when (externalCall) {
+                true -> false
+                false -> preferences.getBoolean(START_AUTO_UPDATE_TAG, false)
+
+            }
+
+        if (preferencesUsingFcm) {
+
+            logInfo("message.priority ${message.priority}")
+
+            val dataFromPush =
+                creatureInputDataFromMessage(message).keyValueMap as Map<String, String>
+
+            val constraint =
+                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+
+            fun showPushWorkManager() {
+
+                if (Build.VERSION.SDK_INT >= 31) {
+
+                    logInfo("show push with expedition work manager api level >= 31")
+
+                    val workRequest = OneTimeWorkRequestBuilder<LoadImageWorker>()
+
+                        .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                        .setInputData(creatureInputDataFromMessage(message))
+                        .build()
+
+                    WorkManager
+
+                        .getInstance(applicationContext)
+                        .enqueue(workRequest)
+
+                } else if (Build.VERSION.SDK_INT < 31) {
+
+                    logInfo("show push with work manager api level < 31")
+
+                    val workRequest = OneTimeWorkRequestBuilder<LoadImageWorker>()
+
+                        .setConstraints(constraint)
+                        .setInputData(creatureInputDataFromMessage(message))
+                        .build()
+
+                    WorkManager
+
+                        .getInstance(applicationContext)
+                        .enqueue(workRequest)
+
+                }
+            }
+
+            fun choosingNotificationProcessTopApi() {
+                when (message.priority) {
+
+                    1 -> {
+
+                        managingTheNotificationCreationProcess(
+                            applicationContext,
+                            dataFromPush
+                        )
+
+                        if (preferencesTokenAutoUpdate == true) {
+                            TokenAutoUpdate.tokenUpdate(applicationContext)
+                        }
+
+
+                    }
+
+                    2 -> showPushWorkManager()
+                    else -> showPushWorkManager()
+
+                }
+            }
+
+
+            if (!isAppInforegrounded()) {
+
+                if (!message.data["image"].isNullOrEmpty()) {
+
+                    if (Build.VERSION.SDK_INT < 31) {
+
+                        val service = Intent(applicationContext, InternetService::class.java)
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                            applicationContext.startForegroundService(service)
+
+                            choosingNotificationProcessTopApi()
+
+                        } else {
+
+                            when (message.priority) {
+
+                                1 -> {
+
+                                    managingTheNotificationCreationProcess(
+                                        applicationContext,
+                                        dataFromPush
+                                    )
+
+                                    if (preferencesTokenAutoUpdate) {
+                                        TokenAutoUpdate.tokenUpdate(applicationContext)
+                                    }
+
+                                }
+
+                                2 -> {
+
+                                    applicationContext.startService(service)
+
+                                    managingTheNotificationCreationProcess(
+                                        applicationContext,
+                                        dataFromPush
+                                    )
+
+                                    if (preferencesTokenAutoUpdate) {
+                                        TokenAutoUpdate.tokenUpdate(applicationContext)
+                                    }
+
+                                }
+
+                                else -> {
+
+                                    applicationContext.startService(service)
+
+                                    managingTheNotificationCreationProcess(
+                                        applicationContext,
+                                        dataFromPush
+                                    )
+
+                                    if (preferencesTokenAutoUpdate) {
+                                        TokenAutoUpdate.tokenUpdate(applicationContext)
+                                    }
+                                }
+                            }
+                        }
+
+                    } else if (Build.VERSION.SDK_INT >= 31) {
+
+                        choosingNotificationProcessTopApi()
+
+                    }
+
+                } else {
+                    managingTheNotificationCreationProcess(applicationContext, dataFromPush)
+                }
+
+            } else {
+                managingTheNotificationCreationProcess(applicationContext, dataFromPush)
+
+                if (preferencesTokenAutoUpdate) {
+                    TokenAutoUpdate.tokenUpdate(applicationContext)
+                }
+            }
+
+
+            preferences.edit()
+                .remove(MESSAGEID_TAG).apply()
+
+            preferences.edit() {
+                putString(MESSAGEID_TAG, "${dataFromPush[messageId]}")
+            }
+
+        } else return
+    }
+}
 
 class InitLibObserver<T>(private val defaultValue: T) {
     var value: T = defaultValue
