@@ -32,9 +32,7 @@ class HuaweiPushService : HmsMessageService() {
         super.onNewToken(token)
         logInfo("new token is $token")
 
-        TokenUpdater.setNewToken(token).let {
-            logInfo("\"token updating status is $it\"")
-        }
+        logInfo("\"token updating status is ${TokenUpdater.setNewToken(token)}\"")
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
