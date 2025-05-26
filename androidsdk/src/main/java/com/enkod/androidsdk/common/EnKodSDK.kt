@@ -253,6 +253,7 @@ object EnKodSDK {
 
     suspend fun initSecondaryFirebaseApp(context: Context, jsonName: String): FirebaseApp {
         val parsedOptions = withContext(Dispatchers.IO) {
+
             val assetManager = context.assets
             val inputStream: InputStream = assetManager.open(jsonName)
             val json = inputStream.bufferedReader().use { it.readText() }
