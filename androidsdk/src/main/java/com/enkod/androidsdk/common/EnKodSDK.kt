@@ -81,7 +81,6 @@ import com.enkod.androidsdk.utils.setSound
 import com.enkod.androidsdk.utils.setVibrate
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
-import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessaging.getInstance
 import com.google.firebase.messaging.RemoteMessage
@@ -251,51 +250,52 @@ object EnKodSDK {
         }
     }
 
-    suspend fun initSecondaryFirebaseApp(context: Context, jsonName: String): FirebaseApp {
-        val parsedOptions = withContext(Dispatchers.IO) {
+    suspend fun initSecondaryFirebaseApp(context: Context, jsonName: String): Result<FirebaseApp> =
+        runCatching {
+            val parsedOptions = withContext(Dispatchers.IO) {
 
-            val assetManager = context.assets
-            val inputStream: InputStream = assetManager.open(jsonName)
-            val json = inputStream.bufferedReader().use { it.readText() }
-            val jsonObject = JSONObject(json)
+                val assetManager = context.assets
+                val inputStream: InputStream = assetManager.open(jsonName)
+                val json = inputStream.bufferedReader().use { it.readText() }
+                val jsonObject = JSONObject(json)
 
-            val projectInfo = jsonObject.getJSONObject("project_info")
-            val projectId = projectInfo.getString("project_id")
-            val storageBucket = projectInfo.optString("storage_bucket", null)
-            val databaseUrl = projectInfo.optString("firebase_url", null)
-            val projectNumber = projectInfo.optString("project_number", null)
+                val projectInfo = jsonObject.getJSONObject("project_info")
+                val projectId = projectInfo.getString("project_id")
+                val storageBucket = projectInfo.optString("storage_bucket", null)
+                val databaseUrl = projectInfo.optString("firebase_url", null)
+                val projectNumber = projectInfo.optString("project_number", null)
 
-            val client = jsonObject.getJSONArray("client").getJSONObject(0)
+                val client = jsonObject.getJSONArray("client").getJSONObject(0)
 
-            val apiKey = client.getJSONArray("api_key")
-                .getJSONObject(0)
-                .getString("current_key")
+                val apiKey = client.getJSONArray("api_key")
+                    .getJSONObject(0)
+                    .getString("current_key")
 
-            val clientInfo = client.getJSONObject("client_info")
-            val appId = clientInfo.getString("mobilesdk_app_id")
+                val clientInfo = client.getJSONObject("client_info")
+                val appId = clientInfo.getString("mobilesdk_app_id")
 
-            FirebaseOptions.Builder()
-                .setApplicationId(appId)
-                .setApiKey(apiKey)
-                .setProjectId(projectId)
-                .setStorageBucket(storageBucket)
-                .apply {
-                    if (databaseUrl != null) {
-                        setDatabaseUrl(databaseUrl)
+                FirebaseOptions.Builder()
+                    .setApplicationId(appId)
+                    .setApiKey(apiKey)
+                    .setProjectId(projectId)
+                    .setStorageBucket(storageBucket)
+                    .apply {
+                        if (databaseUrl != null) {
+                            setDatabaseUrl(databaseUrl)
+                        }
+                        if (projectNumber != null) {
+                            setGcmSenderId(projectNumber)
+                        }
                     }
-                    if (projectNumber != null) {
-                        setGcmSenderId(projectNumber)
-                    }
-                }
-                .build()
-        }
+                    .build()
+            }
 
-        return withContext(Dispatchers.Main) {
-            val name = "second_firebase_app"
-            val existingApp = FirebaseApp.getApps(context).find { it.name == name }
-            existingApp ?: FirebaseApp.initializeApp(context, parsedOptions, name)
+            withContext(Dispatchers.Main) {
+                val name = "second_firebase_app"
+                val existingApp = FirebaseApp.getApps(context).find { it.name == name }
+                existingApp ?: FirebaseApp.initializeApp(context, parsedOptions, name)
+            }
         }
-    }
 
     // функция setClientName - предназначена для сохранения значения имени пользователя в preferences
     // устанавливает текущее имя пользователя для функций библиотеки
@@ -655,9 +655,9 @@ object EnKodSDK {
 
                 val req = JsonObject()
 
-                if (id.isNotEmpty()){
+                if (id.isNotEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("id"))
-                }else if (email.isNotEmpty() && phone.isNotEmpty()) {
+                } else if (email.isNotEmpty() && phone.isNotEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("email"))
                 } else if (email.isNotEmpty() && phone.isEmpty()) {
                     req.add("mainChannel", Gson().toJsonTree("email"))
@@ -1582,7 +1582,7 @@ object EnKodSDK {
         applicationContext: Context,
         externalCall: Boolean = true,
     ) {
-        logInfo( "Уведомление получено библиотекой: $message")
+        logInfo("Уведомление получено библиотекой: $message")
 
         val preferences = applicationContext.getSharedPreferences(TAG, Context.MODE_PRIVATE)
 
