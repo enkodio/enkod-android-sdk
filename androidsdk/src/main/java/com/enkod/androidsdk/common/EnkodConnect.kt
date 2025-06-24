@@ -13,6 +13,7 @@ import com.enkod.androidsdk.common.EnKodSDK.logInfo
 import com.enkod.androidsdk.common.EnKodSDK.startTokenManualUpdateObserver
 import com.enkod.androidsdk.fcm.EnkodPushMessagingService
 import com.enkod.androidsdk.fcm.TokenManualUpdateService
+import com.enkod.androidsdk.huawei.HuaweiPushService
 import com.enkod.androidsdk.huawei.TokenUpdater
 import com.enkod.androidsdk.utils.Preferences.START_AUTO_UPDATE_TAG
 import com.enkod.androidsdk.utils.Preferences.TAG
@@ -47,6 +48,7 @@ class EnkodConnect(
     _timeTokenManualUpdate: Int? = null,
     _timeTokenAutoUpdate: Int? = null,
     _usingInternalNotificationsService: Boolean = false,
+    _usingInternalHuaweiNotificationsService: Boolean = false,
     _secondFirebaseJsonName: String? = null,
 ) {
 
@@ -58,6 +60,7 @@ class EnkodConnect(
     private var timeTokenManualUpdate: Int
     private var timeTokenAutoUpdate: Int
     private var usingInternalNotificationService: Boolean
+    private var usingInternalHuaweiNotificationService: Boolean
     private var secondFirebaseJsonName: String
 
 
@@ -69,6 +72,7 @@ class EnkodConnect(
         tokenManualUpdate = _tokenManualUpdate ?: true
         tokenAutoUpdate = _tokenAutoUpdate ?: true
         usingInternalNotificationService = _usingInternalNotificationsService
+        usingInternalHuaweiNotificationService = _usingInternalHuaweiNotificationsService
         secondFirebaseJsonName = _secondFirebaseJsonName ?: ""
 
         timeTokenManualUpdate =
@@ -91,6 +95,15 @@ class EnkodConnect(
 
         if (usingInternalNotificationService) {
             val componentName = ComponentName(context, EnkodPushMessagingService::class.java)
+            context.packageManager.setComponentEnabledSetting(
+                componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP
+            )
+        }
+
+        if (usingInternalHuaweiNotificationService) {
+            val componentName = ComponentName(context, HuaweiPushService::class.java)
             context.packageManager.setComponentEnabledSetting(
                 componentName,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,

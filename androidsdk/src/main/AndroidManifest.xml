@@ -52,7 +52,7 @@
         <service
             android:name=".huawei.HuaweiPushService"
             android:directBootAware="true"
-            android:enabled="true"
+            android:enabled="false"
             android:exported="false"
             android:usesCleartextTraffic="true">
             <intent-filter>

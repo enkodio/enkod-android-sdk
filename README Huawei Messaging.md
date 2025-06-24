@@ -59,3 +59,12 @@ repositories {
 ...
 implementation ("com.huawei.hms:push:6.13.0.300")
 }
+
+# Обработка уведомлений с помощью библиотеки
+
+Для того, чтобы обработать полученное уведомление с помощью библиотеки, необходимо вызвать метод 
+> processHuaweiMessageWithSdk(
+message,
+applicationContext)
+
+*message* - уведомление, полученное сервисом (com.huawei.hms.push.RemoteMessage)

@@ -43,7 +43,7 @@
   
 UPD: если в приложении уже есть аккаунт Firebase, работающий с push уведомлениями, а также существует
 Service : FirebaseMessagingService, прочитайте раздел "Подключение приложения к сервису Firebase Cloud Messaging" из README Firebase Cloud Messaging.md (п. 10 и далее)
-
+UPD: если в приложении уже есть Service : HmsMessageService и вы хотите обрабатывать уведомление с помощью библиотеки, прочитайте раздел "Обработка уведомлений с помощью библиотеки" из README Huawei Messaging (п. 10 и далее)
 5. Для регистрации контакта в сервисе enKod воспользуйтесь методом: 
    ```kotlin
    EnKodSDK.addContact(
