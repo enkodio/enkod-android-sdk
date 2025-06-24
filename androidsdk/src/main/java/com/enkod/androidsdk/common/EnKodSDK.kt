@@ -1774,6 +1774,146 @@ object EnKodSDK {
 
         } else return
     }
+
+    fun processHuaweiMessageWithSdk(
+        message: com.huawei.hms.push.RemoteMessage,
+        applicationContext: Context,
+    ) {
+
+        logInfo("Уведомление получено библиотекой: $message")
+        logInfo("message.priority ${message.dataOfMap["priority"]}")
+
+        val preferences = applicationContext.getSharedPreferences(TAG, Context.MODE_PRIVATE)
+
+        val dataFromPush =
+            createInputDataFromHuaweiMessage(message).keyValueMap as Map<String, String>
+
+        val constraint =
+            Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+
+        fun showPushWorkManager() {
+
+            if (Build.VERSION.SDK_INT >= 31) {
+
+                logInfo("show push with expedition work manager api level >= 31")
+
+                val workRequest = OneTimeWorkRequestBuilder<LoadImageWorker>()
+
+                    .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                    .setInputData(createInputDataFromHuaweiMessage(message))
+                    .build()
+
+                WorkManager
+
+                    .getInstance(applicationContext)
+                    .enqueue(workRequest)
+
+            } else if (Build.VERSION.SDK_INT < 31) {
+
+                logInfo("show push with work manager api level < 31")
+
+                val workRequest = OneTimeWorkRequestBuilder<LoadImageWorker>()
+
+                    .setConstraints(constraint)
+                    .setInputData(createInputDataFromHuaweiMessage(message))
+                    .build()
+
+                WorkManager
+
+                    .getInstance(applicationContext)
+                    .enqueue(workRequest)
+
+            }
+        }
+
+        fun choosingNotificationProcessTopApi() {
+            when ((message.dataOfMap["priority"] as String).toInt()) {
+
+                1 -> {
+
+                    managingTheNotificationCreationProcess(
+                        applicationContext,
+                        dataFromPush
+                    )
+                }
+
+                2 -> showPushWorkManager()
+                else -> showPushWorkManager()
+
+            }
+        }
+
+
+        if (!isAppInforegrounded()) {
+
+            if (!message.dataOfMap["image"].isNullOrEmpty()) {
+
+                if (Build.VERSION.SDK_INT < 31) {
+
+                    val service = Intent(applicationContext, InternetService::class.java)
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                        applicationContext.startForegroundService(service)
+
+                        choosingNotificationProcessTopApi()
+
+                    } else {
+
+                        when ((message.dataOfMap["priority"] as String).toInt()) {
+
+                            1 -> {
+
+                                managingTheNotificationCreationProcess(
+                                    applicationContext,
+                                    dataFromPush
+                                )
+                            }
+
+                            2 -> {
+
+                                applicationContext.startService(service)
+
+                                managingTheNotificationCreationProcess(
+                                    applicationContext,
+                                    dataFromPush
+                                )
+                            }
+
+                            else -> {
+
+                                applicationContext.startService(service)
+
+                                managingTheNotificationCreationProcess(
+                                    applicationContext,
+                                    dataFromPush
+                                )
+                            }
+                        }
+                    }
+
+                } else if (Build.VERSION.SDK_INT >= 31) {
+
+                    choosingNotificationProcessTopApi()
+
+                }
+
+            } else {
+                managingTheNotificationCreationProcess(applicationContext, dataFromPush)
+            }
+
+        } else {
+            managingTheNotificationCreationProcess(applicationContext, dataFromPush)
+        }
+
+        preferences.edit {
+            remove(MESSAGEID_TAG)
+        }
+
+        preferences.edit {
+            putString(MESSAGEID_TAG, "${dataFromPush[messageId]}")
+        }
+    }
 }
 
 class InitLibObserver<T>(private val defaultValue: T) {
