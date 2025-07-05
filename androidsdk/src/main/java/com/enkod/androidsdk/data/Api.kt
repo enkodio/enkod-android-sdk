@@ -43,6 +43,13 @@ interface Api {
         @Query("session") session: String,
     ): Call<GetTokenResponse>
 
+    // check token validation
+    @GET("mobile/token")
+    fun checkToken(
+        @Header("X-Account") client: String,
+        @Query("token") token: String,
+    ): Call<Boolean>
+
     @POST("mobile/subscribe")
     @Headers("Content-Type: application/json")
     fun subscribeToPushToken(

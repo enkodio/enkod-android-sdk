@@ -98,13 +98,13 @@ class EnkodConnect(
             )
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            TokenUpdater.tokenUpdateChannel.collectLatest { newToken ->
-                logInfo("Received new token: $newToken")
-
-                EnKodSDK.init(context, EnKodSDK.getAccount()!!, null, newToken)
-            }
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            TokenUpdater.tokenUpdateChannel.collectLatest { newToken ->
+//                logInfo("Received new token: $newToken")
+//
+//                EnKodSDK.init(context, EnKodSDK.getAccount()!!, null, newToken)
+//            }
+//        }
 
         when (usingFcm) {
 
@@ -121,53 +121,53 @@ class EnkodConnect(
 
                         try {
 
-                            FirebaseMessaging.getInstance().token.addOnCompleteListener(
-
-                                OnCompleteListener { task ->
-
-                                    if (!task.isSuccessful) {
-
-                                        return@OnCompleteListener
-                                    }
-
-                                    val token = task.result
-
-                                    logInfo("current fcm token: $token")
-
-                                    if (tokenAutoUpdate) {
-
-                                        preferences.edit() {
-
-                                            putBoolean(START_AUTO_UPDATE_TAG, true)
-                                        }
-
-                                        preferences.edit() {
-
-                                            putInt(
-                                                TIME_TOKEN_AUTO_UPDATE_TAG,
-                                                timeTokenAutoUpdate
-                                            )
-                                        }
-
-                                    }
-
-                                    if (tokenManualUpdate) {
-
-                                        startTokenManualUpdateObserver.value = false
-
-                                        tokenUpdate(context, timeTokenManualUpdate)
-
-                                    }
-
-                                    EnKodSDK.init(context, account, token)
-
-                                    logInfo("start library with fcm")
-
-                                })
+//                            FirebaseMessaging.getInstance().token.addOnCompleteListener(
+//
+//                                OnCompleteListener { task ->
+//
+//                                    if (!task.isSuccessful) {
+//
+//                                        return@OnCompleteListener
+//                                    }
+//
+//                                    val token = task.result
+//
+//                                    logInfo("current fcm token: $token")
+//
+//                                    if (tokenAutoUpdate) {
+//
+//                                        preferences.edit() {
+//
+//                                            putBoolean(START_AUTO_UPDATE_TAG, true)
+//                                        }
+//
+//                                        preferences.edit() {
+//
+//                                            putInt(
+//                                                TIME_TOKEN_AUTO_UPDATE_TAG,
+//                                                timeTokenAutoUpdate
+//                                            )
+//                                        }
+//
+//                                    }
+//
+//                                    if (tokenManualUpdate) {
+//
+//                                        startTokenManualUpdateObserver.value = false
+//
+//                                        tokenUpdate(context, timeTokenManualUpdate)
+//
+//                                    }
+//
+//                                    EnKodSDK.init(context, account, token)
+//
+//                                    logInfo("start library with fcm")
+//
+//                                })
 
                         } catch (e: Exception) {
 
-                            EnKodSDK.init(context, account)
+                            //EnKodSDK.init(context, account)
 
                             logInfo("the library started using fcm with an error")
                         }
