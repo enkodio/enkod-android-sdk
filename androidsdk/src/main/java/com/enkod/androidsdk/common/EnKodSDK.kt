@@ -1677,8 +1677,8 @@ object EnKodSDK {
 
                     }
 
-                    2 -> showPushWorkManager()
-                    else -> showPushWorkManager()
+                    //2 -> showPushWorkManager()
+                    //else -> showPushWorkManager()
 
                 }
             }
