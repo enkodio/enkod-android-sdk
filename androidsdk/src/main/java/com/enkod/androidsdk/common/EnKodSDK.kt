@@ -1606,34 +1606,33 @@ object EnKodSDK {
         val preferences = applicationContext.getSharedPreferences(TAG, Context.MODE_PRIVATE)
 
         val preferencesUsingFcm: Boolean = preferences.getBoolean(USING_FCM, false)
-
+        if (!preferencesUsingFcm) {
+            return
+        }
 
         val preferencesTokenAutoUpdate: Boolean =
             when (externalCall) {
                 true -> false
                 false -> preferences.getBoolean(START_AUTO_UPDATE_TAG, false)
-
             }
 
-        if (preferencesUsingFcm) {
+        logInfo("message.priority ${message.priority}")
 
-            logInfo("message.priority ${message.priority}")
+        val dataFromPush =
+            creatureInputDataFromMessage(message).keyValueMap as Map<String, String>
 
-            val dataFromPush =
-                creatureInputDataFromMessage(message).keyValueMap as Map<String, String>
+        managingTheNotificationCreationProcess(applicationContext, dataFromPush)
 
-            managingTheNotificationCreationProcess(applicationContext, dataFromPush)
+        if (preferencesTokenAutoUpdate) {
+            TokenAutoUpdate.tokenUpdate(applicationContext)
+        }
+        preferences.edit() {
+            remove(MESSAGEID_TAG)
+        }
+        preferences.edit() {
+            putString(MESSAGEID_TAG, "${dataFromPush[messageId]}")
+        }
 
-            if (preferencesTokenAutoUpdate) {
-                TokenAutoUpdate.tokenUpdate(applicationContext)
-            }
-            preferences.edit()
-                .remove(MESSAGEID_TAG).apply()
-            preferences.edit() {
-                putString(MESSAGEID_TAG, "${dataFromPush[messageId]}")
-            }
-
-        } else return
     }
 }
 
